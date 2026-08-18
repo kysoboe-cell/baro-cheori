@@ -1,7 +1,9 @@
 import type { Company } from "../types";
 import {
   makeShoppingDeliveryNotReceivedSteps,
+  makeShoppingReturnPickupDelaySteps,
   shoppingDeliveryNotReceivedTips,
+  shoppingReturnPickupDelayTips,
 } from "../shoppingCommon";
 
 export const coupang: Company = {
@@ -178,6 +180,42 @@ export const coupang: Company = {
         "https://mc.coupang.com/ssr/desktop/order/list",
 
       officialActionLabel: "마이쿠팡 배송조회 열기",
+
+      lastChecked: "2026-08-18",
+    },
+
+    {
+      slug: "return-pickup-delay",
+      title: "반품 회수 안 됨",
+
+      keywords: [
+        "쿠팡 반품 회수 안됨",
+        "쿠팡 반품 수거 안옴",
+        "쿠팡 반품 기사 안옴",
+        "쿠팡 반품 수거 지연",
+        "쿠팡 반품 문앞에 뒀는데 안가져감",
+        "쿠팡 반품 언제 가져가요",
+      ],
+
+      quickSummary: [
+        "마이쿠팡 주문목록에서 반품 상품을 열고 회수 예정일과 수거지를 먼저 확인하세요.",
+        "예정일이 지났다면 같은 주문의 반품 상세나 고객센터에 '반품 회수 지연'으로 다시 접수하세요.",
+      ],
+
+      steps: makeShoppingReturnPickupDelaySteps(
+        "마이쿠팡 주문목록/배송조회",
+        "반품 상세의 회수 예정일과 수거지",
+        "같은 주문의 반품 상세 또는 쿠팡 고객센터"
+      ),
+
+      tips: [
+        ...shoppingReturnPickupDelayTips,
+        "문 앞에 오래 두기 어렵다면 상품을 실내에 보관하고, 다시 내놓을 날짜를 안내받으세요.",
+      ],
+
+      officialUrl: "https://mc.coupang.com/ssr/desktop/order/list",
+
+      officialActionLabel: "마이쿠팡 반품내역 열기",
 
       lastChecked: "2026-08-18",
     },

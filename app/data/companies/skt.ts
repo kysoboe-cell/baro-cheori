@@ -1,4 +1,5 @@
 import type { Company } from "../types";
+import { makeSlowInternetSteps, slowInternetTips } from "../telecomCommon";
 
 export const skt: Company = {
   slug: "skt",
@@ -184,6 +185,46 @@ export const skt: Company = {
         "한 기기만 안 된다면 통신망보다 그 기기의 Wi-Fi 설정 문제일 가능성이 커요.",
         "지역 장애라면 장비를 여러 번 재부팅해도 해결되지 않으니 106에서 장애 여부를 확인하세요.",
       ],
+
+      officialUrl:
+        "https://www.bworld.co.kr/customer/center/service.do?menu_id=C02000000",
+
+      officialActionLabel: "B world 고장 간편진단 열기",
+
+      lastChecked: "2026-08-18",
+    },
+
+    {
+      slug: "slow-internet",
+      title: "인터넷 느림·자주 끊김",
+
+      keywords: [
+        "SK 인터넷 느림",
+        "SK브로드밴드 인터넷 느려요",
+        "SK 인터넷 자주 끊김",
+        "SKB 와이파이 느림",
+        "B tv 인터넷 속도 느림",
+        "SK 인터넷 핑 튐",
+      ],
+
+      quickSummary: [
+        "공유기 가까이에서도 느린지 먼저 확인하고, 가능하면 인터넷 선으로 연결한 PC와 비교하세요.",
+        "유선도 느리거나 반복해서 끊기면 B world 고장 간편진단 후 106으로 접수하세요.",
+      ],
+
+      phone: {
+        number: "106",
+        feeNote: "SK브로드밴드 고객센터 무료",
+      },
+
+      hours: "고장문의 365일 · 24시간",
+
+      steps: makeSlowInternetSteps(
+        "B world [AS 간편진단/조치]",
+        "106 → 고장문의"
+      ),
+
+      tips: slowInternetTips,
 
       officialUrl:
         "https://www.bworld.co.kr/customer/center/service.do?menu_id=C02000000",

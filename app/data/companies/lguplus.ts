@@ -1,4 +1,5 @@
 import type { Company } from "../types";
+import { makeSlowInternetSteps, slowInternetTips } from "../telecomCommon";
 
 export const lguplus: Company = {
   slug: "lguplus",
@@ -180,6 +181,46 @@ export const lguplus: Company = {
         "한 기기만 안 된다면 통신망보다 그 기기의 Wi-Fi 설정 문제일 가능성이 커요.",
         "간편진단은 로그인이 필요하며, 지역 장애 여부도 고객지원의 서비스 장애 안내에서 확인할 수 있어요.",
       ],
+
+      officialUrl:
+        "https://www.lguplus.com/support/self-troubleshoot/home-device",
+
+      officialActionLabel: "U+ 인터넷/IPTV 간편진단 열기",
+
+      lastChecked: "2026-08-18",
+    },
+
+    {
+      slug: "slow-internet",
+      title: "인터넷 느림·자주 끊김",
+
+      keywords: [
+        "LG유플러스 인터넷 느림",
+        "LG U+ 인터넷 느려요",
+        "유플러스 인터넷 자주 끊김",
+        "LG 와이파이 느림",
+        "유플러스 인터넷 속도 느림",
+        "LG 인터넷 핑 튐",
+      ],
+
+      quickSummary: [
+        "공유기 가까이에서도 느린지 먼저 확인하고, 가능하면 인터넷 선으로 연결한 PC와 비교하세요.",
+        "유선도 느리거나 반복해서 끊기면 U+ 인터넷/IPTV 간편진단 후 101로 접수하세요.",
+      ],
+
+      phone: {
+        number: "101",
+        feeNote: "인터넷·IPTV·전화 고객센터 무료",
+      },
+
+      hours: "장애상담 365일 · 24시간",
+
+      steps: makeSlowInternetSteps(
+        "U+ [인터넷/IPTV 간편진단]",
+        "101 또는 화면의 AS 신청"
+      ),
+
+      tips: slowInternetTips,
 
       officialUrl:
         "https://www.lguplus.com/support/self-troubleshoot/home-device",

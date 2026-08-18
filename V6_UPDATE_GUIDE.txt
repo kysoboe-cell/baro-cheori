@@ -1,0 +1,51 @@
+바로처리 V6 적용 안내
+=====================
+
+이번 ZIP은 프로젝트 전체가 아니라 변경된 파일만 들어 있습니다.
+기존 D:\Projects\baro-cheori 폴더에 덮어쓰면 됩니다.
+
+1. 받은 ZIP 파일 이름을 확인합니다.
+   baro-cheori-content-v6-20260818.zip
+
+2. ZIP 파일을 D:\Projects\baro-cheori 폴더 안으로 옮깁니다.
+
+3. VS Code 터미널에서 아래 명령을 위에서부터 한 줄씩 실행합니다.
+
+cd D:\Projects\baro-cheori
+Expand-Archive -LiteralPath ".\baro-cheori-content-v6-20260818.zip" -DestinationPath "." -Force
+Remove-Item -LiteralPath ".\baro-cheori-content-v6-20260818.zip"
+npm run lint
+npm run build
+
+4. build 중 `Generating static pages ... (59/59)`가 보이고 오류 없이 끝나면 아래 명령을 실행합니다.
+
+git add .
+git commit -m "add pickup delay and slow internet guides"
+git push
+
+5. Netlify는 GitHub main 브랜치의 새 커밋을 자동으로 배포합니다.
+   수동 Trigger deploy는 누르지 않아도 됩니다.
+
+배포 뒤 눈으로 확인할 주소
+
+https://baro-cheori.netlify.app/
+https://baro-cheori.netlify.app/company/coupang/return-pickup-delay
+https://baro-cheori.netlify.app/company/naver-smartstore/return-pickup-delay
+https://baro-cheori.netlify.app/company/kt/slow-internet
+https://baro-cheori.netlify.app/company/lguplus/slow-internet
+https://baro-cheori.netlify.app/sitemap.xml
+
+정상적으로 바뀐 화면
+
+- 홈 안내 수가 `7개 업체의 42개 업무`로 표시됩니다.
+- 홈 자주 찾는 업무에 네이버 스마트스토어 `반품 회수 안 됨`이 표시됩니다.
+- 홈 자주 찾는 업무에 LG U+ `인터넷 느림·자주 끊김`이 표시됩니다.
+- 쇼핑몰 4곳의 업체 페이지에 `반품 회수 안 됨`이 하나씩 추가됩니다.
+- 통신사 3곳의 업체 페이지에 `인터넷 느림·자주 끊김`이 하나씩 추가됩니다.
+- 사이트맵 URL 수는 46개에서 53개로 늘어납니다.
+
+문제가 생겼을 때
+
+- `nothing to commit`이 나오면 ZIP이 프로젝트 폴더에 덮어써졌는지 확인합니다.
+- build가 59개 정적 페이지를 생성하고 끝나면 정상입니다.
+- 기존에 제출한 Google·Naver sitemap.xml은 다시 등록하지 않아도 됩니다.

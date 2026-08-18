@@ -2,9 +2,11 @@ import type { Company } from "../types";
 
 import {
   makeShoppingDeliveryNotReceivedSteps,
+  makeShoppingReturnPickupDelaySteps,
   makeShoppingReturnSteps,
   shoppingDeliveryNotReceivedTips,
   shoppingReturnCommonTips,
+  shoppingReturnPickupDelayTips,
 } from "../shoppingCommon";
 
 export const naverSmartstore: Company = {
@@ -146,6 +148,41 @@ export const naverSmartstore: Company = {
         "https://help.pay.naver.com/faq/content.help?faqId=11338",
 
       officialActionLabel: "Npay 배송 문제 도움말 열기",
+
+      lastChecked: "2026-08-18",
+    },
+
+    {
+      slug: "return-pickup-delay",
+      title: "반품 회수 안 됨",
+
+      keywords: [
+        "네이버 스마트스토어 반품 수거 안옴",
+        "네이버페이 반품 회수 안됨",
+        "스마트스토어 반품 기사 안옴",
+        "네이버쇼핑 반품 수거 지연",
+        "네이버 반품 문앞에 뒀는데 안가져감",
+      ],
+
+      quickSummary: [
+        "Npay 결제내역에서 반품 주문을 열고 수거방법과 진행 상태를 먼저 확인하세요.",
+        "방문수거 예정일이 지났다면 주문 상세의 [판매자 문의]에 '반품 회수 지연'으로 다시 요청하세요.",
+      ],
+
+      steps: makeShoppingReturnPickupDelaySteps(
+        "Npay 결제내역",
+        "반품 진행 상태와 수거방법",
+        "주문 상세의 [판매자 문의]"
+      ),
+
+      tips: [
+        ...shoppingReturnPickupDelayTips,
+        "판매자와 연락되지 않거나 재수거가 잡히지 않으면 Npay 고객센터 1588-3819로 주문번호와 문의 기록을 알려주세요.",
+      ],
+
+      officialUrl: "https://help.pay.naver.com/faq/content.help?faqId=11724",
+
+      officialActionLabel: "Npay 반품 도움말 열기",
 
       lastChecked: "2026-08-18",
     },

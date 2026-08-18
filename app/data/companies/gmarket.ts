@@ -2,9 +2,11 @@ import type { Company } from "../types";
 
 import {
   makeShoppingDeliveryNotReceivedSteps,
+  makeShoppingReturnPickupDelaySteps,
   makeShoppingReturnSteps,
   shoppingDeliveryNotReceivedTips,
   shoppingReturnCommonTips,
+  shoppingReturnPickupDelayTips,
 } from "../shoppingCommon";
 
 export const gmarket: Company = {
@@ -156,6 +158,41 @@ export const gmarket: Company = {
         "https://help.gmarket.co.kr/Tcs/Faq/FaqCategorizationTypeSub?code=C10407",
 
       officialActionLabel: "G마켓 배송 문의 방법 열기",
+
+      lastChecked: "2026-08-18",
+    },
+
+    {
+      slug: "return-pickup-delay",
+      title: "반품 회수 안 됨",
+
+      keywords: [
+        "G마켓 반품 수거 안옴",
+        "지마켓 반품 회수 안됨",
+        "G마켓 반품 기사 안옴",
+        "지마켓 반품 수거 지연",
+        "G마켓 반품 문앞에 뒀는데 안가져감",
+      ],
+
+      quickSummary: [
+        "나의 G마켓 주문내역에서 반품 신청 상태와 회수방법부터 확인하세요.",
+        "방문수거 예정일이 지났다면 주문 상세 [문의하기]에 '반품 회수 지연'으로 재수거를 요청하세요.",
+      ],
+
+      steps: makeShoppingReturnPickupDelaySteps(
+        "나의 G마켓 주문내역",
+        "반품 신청 상태와 회수방법",
+        "주문 상세의 [문의하기]"
+      ),
+
+      tips: [
+        ...shoppingReturnPickupDelayTips,
+        "판매자 답변이 없거나 재수거가 잡히지 않으면 G마켓 고객센터 1566-5701의 반품·교환 메뉴로 문의하세요.",
+      ],
+
+      officialUrl: "https://help.gmarket.co.kr/Tcs/Faq/FaqCategorizationType?code=C105",
+
+      officialActionLabel: "G마켓 반품 도움말 열기",
 
       lastChecked: "2026-08-18",
     },

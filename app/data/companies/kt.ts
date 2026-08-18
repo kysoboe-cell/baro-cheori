@@ -1,4 +1,5 @@
 import type { Company } from "../types";
+import { makeSlowInternetSteps, slowInternetTips } from "../telecomCommon";
 
 export const kt: Company = {
   slug: "kt",
@@ -176,6 +177,45 @@ export const kt: Company = {
         "한 기기만 안 된다면 통신망보다 그 기기의 Wi-Fi 설정 문제일 가능성이 커요.",
         "온라인 고장진단은 KT 로그인이 필요할 수 있고, 기사 방문은 접수 시간에 따라 다음 업무시간에 진행될 수 있어요.",
       ],
+
+      officialUrl: "https://kt.com/selfcare",
+
+      officialActionLabel: "KT 인터넷/TV 고장진단 열기",
+
+      lastChecked: "2026-08-18",
+    },
+
+    {
+      slug: "slow-internet",
+      title: "인터넷 느림·자주 끊김",
+
+      keywords: [
+        "KT 인터넷 느림",
+        "케이티 인터넷 느려요",
+        "KT 인터넷 자주 끊김",
+        "KT 와이파이 느림",
+        "KT 인터넷 속도 느림",
+        "KT 인터넷 핑 튐",
+      ],
+
+      quickSummary: [
+        "공유기 가까이에서도 느린지 먼저 확인하고, 가능하면 인터넷 선으로 연결한 PC와 비교하세요.",
+        "유선도 느리거나 반복해서 끊기면 KT 인터넷/TV 고장진단 후 100으로 접수하세요.",
+      ],
+
+      phone: {
+        number: "100",
+        feeNote: "KT 인터넷·TV·전화 고객센터",
+      },
+
+      hours: "고장신고·통화품질 상담 365일 · 24시간",
+
+      steps: makeSlowInternetSteps(
+        "KT [인터넷/TV 고장진단]",
+        "국번 없이 100"
+      ),
+
+      tips: slowInternetTips,
 
       officialUrl: "https://kt.com/selfcare",
 

@@ -2,9 +2,11 @@ import type { Company } from "../types";
 
 import {
   makeShoppingDeliveryNotReceivedSteps,
+  makeShoppingReturnPickupDelaySteps,
   makeShoppingReturnSteps,
   shoppingDeliveryNotReceivedTips,
   shoppingReturnCommonTips,
+  shoppingReturnPickupDelayTips,
 } from "../shoppingCommon";
 
 export const elevenst: Company = {
@@ -154,6 +156,41 @@ export const elevenst: Company = {
         "https://www.11st.co.kr/OrderDelvInfo.page",
 
       officialActionLabel: "11번가 주문/배송조회 열기",
+
+      lastChecked: "2026-08-18",
+    },
+
+    {
+      slug: "return-pickup-delay",
+      title: "반품 회수 안 됨",
+
+      keywords: [
+        "11번가 반품 수거 안옴",
+        "십일번가 반품 회수 안됨",
+        "11번가 반품 기사 안옴",
+        "11번가 반품 수거 지연",
+        "11번가 반품 문앞에 뒀는데 안가져감",
+      ],
+
+      quickSummary: [
+        "나의11번가 주문/배송조회에서 반품 신청의 수거방법과 진행 상태부터 확인하세요.",
+        "방문수거 예정일이 지났다면 주문 상세의 판매자 문의에 '반품 회수 지연'으로 재수거를 요청하세요.",
+      ],
+
+      steps: makeShoppingReturnPickupDelaySteps(
+        "나의11번가 주문/배송조회",
+        "반품 신청의 수거방법과 진행 상태",
+        "주문 상세의 판매자 문의"
+      ),
+
+      tips: [
+        ...shoppingReturnPickupDelayTips,
+        "판매자와 해결되지 않으면 11번가 고객센터 1599-0110에 주문번호와 기존 문의 내용을 알려주세요.",
+      ],
+
+      officialUrl: "https://www.11st.co.kr/OrderDelvInfo.page",
+
+      officialActionLabel: "11번가 반품내역 열기",
 
       lastChecked: "2026-08-18",
     },

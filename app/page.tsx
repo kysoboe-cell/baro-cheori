@@ -11,9 +11,9 @@ export const metadata: Metadata = {
 
 const popularTasks = [
   ["coupang", "delivery-not-received"],
-  ["naver-smartstore", "return-refund"],
+  ["naver-smartstore", "return-pickup-delay"],
   ["kt", "lost-phone"],
-  ["lguplus", "internet-trouble"],
+  ["lguplus", "slow-internet"],
 ].map(([companySlug, serviceSlug]) => getService(companySlug, serviceSlug));
 
 export default function Home() {
@@ -55,7 +55,7 @@ export default function Home() {
 
           <HomeSearch />
           <p className="mt-3 text-sm text-gray-500">
-            현재 쇼핑몰 4곳과 통신사 3곳의 주요 업무를 안내합니다.
+            현재 7개 업체의 42개 업무를 안내합니다.
           </p>
         </div>
       </section>
