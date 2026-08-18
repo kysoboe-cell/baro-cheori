@@ -21,10 +21,10 @@ export default function CategoryFinder() {
   return (
     <section
       id="services"
-      className="relative z-30 scroll-mt-20 border-b border-gray-200 bg-white"
+      className="relative z-30 scroll-mt-20 border-b border-slate-200 bg-white"
     >
       <div className="relative mx-auto flex max-w-7xl items-center gap-3 px-4 py-3 sm:px-6">
-        <p className="mr-2 hidden shrink-0 text-sm font-bold text-gray-700 sm:block">
+        <p className="mr-2 hidden shrink-0 text-sm font-bold text-slate-700 sm:block">
           업체로 바로 찾기
         </p>
 
@@ -43,8 +43,8 @@ export default function CategoryFinder() {
                 onClick={() => setActiveCategory(category.id)}
                 className={`flex min-w-0 flex-1 items-center justify-center gap-1 rounded-xl border px-1.5 py-2.5 text-left text-[13px] font-bold transition sm:min-w-40 sm:justify-between sm:gap-4 sm:px-4 sm:text-sm ${
                   isActive
-                    ? "border-black bg-black text-white shadow-sm"
-                    : "border-gray-200 bg-white hover:border-gray-500"
+                    ? "border-blue-700 bg-blue-700 text-white shadow-sm"
+                    : "border-slate-200 bg-white text-slate-700 hover:border-blue-300 hover:bg-blue-50"
                 }`}
               >
                 <span className="flex min-w-0 items-center gap-2">
@@ -59,14 +59,14 @@ export default function CategoryFinder() {
           })}
         </div>
 
-        <p className="ml-auto hidden text-xs text-gray-500 lg:block">
-          마우스를 올리거나 눌러서 선택하세요
+        <p className="ml-auto hidden text-xs text-slate-500 lg:block">
+          업체를 고르면 업무가 바로 보입니다
         </p>
 
         {activeData && (
           <div
             id="company-list"
-            className="absolute left-4 right-4 top-full z-50 mt-2 max-w-2xl rounded-2xl border border-gray-200 bg-white p-4 shadow-2xl sm:left-6 sm:right-auto sm:w-[40rem]"
+            className="absolute left-4 right-4 top-full z-50 mt-2 max-w-2xl rounded-2xl border border-slate-200 bg-white p-4 shadow-2xl sm:left-6 sm:right-auto sm:w-[40rem]"
           >
             <div className="flex items-center justify-between gap-4">
               <h2 className="font-bold">
@@ -75,7 +75,7 @@ export default function CategoryFinder() {
               <button
                 type="button"
                 onClick={() => setActiveCategory(null)}
-                className="rounded-lg px-2 py-1 text-sm text-gray-500 hover:bg-gray-100 hover:text-black"
+                className="rounded-lg px-2 py-1 text-sm text-slate-500 hover:bg-slate-100 hover:text-black"
               >
                 닫기
               </button>
@@ -86,10 +86,10 @@ export default function CategoryFinder() {
                 <Link
                   key={company.slug}
                   href={companyPath(company.slug)}
-                  className="flex min-h-14 items-center justify-between gap-2 rounded-xl border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm font-bold transition hover:border-black hover:bg-white"
+                  className="flex min-h-14 items-center justify-between gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm font-bold transition hover:border-blue-400 hover:bg-white"
                 >
                   <span className="break-keep">{company.name}</span>
-                  <span aria-hidden="true" className="shrink-0 text-gray-400">
+                  <span aria-hidden="true" className="shrink-0 text-blue-600">
                     →
                   </span>
                 </Link>

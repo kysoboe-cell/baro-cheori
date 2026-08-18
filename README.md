@@ -5,6 +5,7 @@
 - 공개 주소: https://baro-cheori.netlify.app
 - 기술: Next.js 16.3.1, TypeScript, Tailwind CSS 4
 - 현재 범위: 쇼핑몰 4곳, 통신사 3곳, 택배사 3곳, 카드사 3곳, 주요 업무 66개
+- UX·사업 벤치마크: [PRODUCT_HUNT_BENCHMARK_20260818.md](./PRODUCT_HUNT_BENCHMARK_20260818.md)
 
 ## 로컬 실행
 

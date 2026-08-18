@@ -99,7 +99,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
   };
 
   return (
-    <main className="bg-gray-50">
+    <main className="bg-slate-50">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -123,8 +123,8 @@ export default async function ServicePage({ params }: ServicePageProps) {
           <span>{service.title}</span>
         </nav>
 
-        <header className="mt-4 border-b border-gray-200 pb-5">
-          <p className="text-sm font-bold text-blue-700">
+        <header className="mt-4 border-b border-slate-200 pb-5">
+          <p className="inline-flex rounded-full bg-blue-100 px-3 py-1 text-sm font-bold text-blue-800">
             {company.name} 업무 안내
           </p>
           <h1 className="mt-1 break-keep text-3xl font-black tracking-tight sm:text-4xl">
@@ -135,7 +135,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
               {pageLead}
             </p>
             {service.lastChecked && (
-              <p className="shrink-0 text-sm text-gray-500">
+              <p className="shrink-0 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-500">
                 정보 확인일 {service.lastChecked}
               </p>
             )}
@@ -145,9 +145,9 @@ export default async function ServicePage({ params }: ServicePageProps) {
         <div className="mt-5 grid gap-4 xl:grid-cols-[minmax(0,1.45fr)_minmax(19rem,0.8fr)_19rem]">
           <div className="space-y-4">
             {service.quickSummary && service.quickSummary.length > 0 && (
-              <section className="rounded-2xl border border-blue-200 bg-blue-50 p-4">
-                <h2 className="font-bold text-blue-900">
-                  지금 바로 이렇게 하세요
+              <section className="rounded-2xl border border-blue-200 bg-blue-50 p-4 sm:p-5">
+                <h2 className="font-black text-blue-950">
+                  먼저 1분 안에 해보세요
                 </h2>
                 <ul className="mt-2 space-y-2">
                   {service.quickSummary.map((summary, index) => (
@@ -232,7 +232,12 @@ export default async function ServicePage({ params }: ServicePageProps) {
           <aside className="order-first xl:order-none xl:sticky xl:top-24 xl:self-start">
             {(phone || hours || service.officialUrl) && (
               <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-                <h2 className="text-lg font-bold">바로 해결하기</h2>
+                <div className="flex items-center justify-between gap-3">
+                  <h2 className="text-lg font-black">가장 빠른 해결</h2>
+                  <span className="rounded-full bg-blue-50 px-2.5 py-1 text-xs font-bold text-blue-700">
+                    공식 경로
+                  </span>
+                </div>
 
                 {!isCustomerCenter && service.officialUrl && (
                   <div className="mt-4 border-t border-gray-100 pt-4">
@@ -245,10 +250,10 @@ export default async function ServicePage({ params }: ServicePageProps) {
                       rel="noopener noreferrer"
                       className="flex w-full justify-center rounded-xl bg-blue-700 px-4 py-3 text-center text-sm font-bold text-white hover:bg-blue-800"
                     >
-                      {officialActionLabel} ↗
+                      공식 · {officialActionLabel} ↗
                     </a>
                     <p className="mt-2 text-xs leading-5 text-gray-500">
-                      로그인이 필요하면 해당 주문이나 가입 상품을 선택해 진행하세요.
+                      로그인 후 해당 주문·카드·가입 상품을 선택하면 더 빠릅니다.
                     </p>
                   </div>
                 )}

@@ -92,11 +92,11 @@ export default function HomeSearch() {
   };
 
   return (
-    <div className="relative mx-auto mt-6 max-w-2xl text-left">
+    <div className="relative mt-6 max-w-2xl text-left">
       <label htmlFor="task-search" className="sr-only">
         회사명 또는 처리할 업무
       </label>
-      <div className="flex overflow-hidden rounded-2xl border border-gray-300 bg-white shadow-lg focus-within:border-black focus-within:ring-2 focus-within:ring-gray-300">
+      <div className="flex overflow-hidden rounded-2xl border border-slate-300 bg-white shadow-[0_14px_35px_-18px_rgba(15,23,42,0.45)] focus-within:border-blue-600 focus-within:ring-4 focus-within:ring-blue-100">
         <input
           id="task-search"
           type="search"
@@ -113,13 +113,13 @@ export default function HomeSearch() {
           }}
           onFocus={() => setIsOpen(true)}
           onKeyDown={handleKeyDown}
-          placeholder="예: 국민카드 분실, 쿠팡 반품"
-          className="min-w-0 flex-1 px-4 py-4 text-base outline-none sm:px-6"
+          placeholder="예: 카드 잃어버림, 배송완료인데 안 옴"
+          className="min-w-0 flex-1 px-4 py-4 text-base text-slate-950 outline-none placeholder:text-slate-400 sm:px-6"
         />
         <button
           type="button"
           onClick={runSearch}
-          className="shrink-0 bg-black px-5 font-semibold text-white hover:bg-gray-800 sm:px-8"
+          className="shrink-0 bg-blue-700 px-5 font-bold text-white transition hover:bg-blue-800 sm:px-8"
         >
           검색
         </button>

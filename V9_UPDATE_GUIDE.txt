@@ -1,0 +1,35 @@
+바로처리 V9 적용 방법
+====================
+
+1. baro-cheori-ux-v9-20260818.zip 파일을 아래 폴더 안으로 옮깁니다.
+
+D:\Projects\baro-cheori
+
+2. VS Code 터미널에서 아래 명령을 위에서부터 차례로 실행합니다.
+
+cd D:\Projects\baro-cheori
+Expand-Archive -Path ".\baro-cheori-ux-v9-20260818.zip" -DestinationPath "." -Force
+Remove-Item ".\baro-cheori-ux-v9-20260818.zip"
+
+npm run lint
+npm run build
+
+3. 빌드에서 89/89 페이지 생성이 끝나면 GitHub에 올립니다.
+
+git add .
+git commit -m "improve product UX and business direction"
+git push
+
+4. Netlify 자동 배포 후 확인합니다.
+
+- 첫 화면 왼쪽: 문제 중심 제목과 검색창
+- 첫 화면 오른쪽: 카드 분실·모르는 결제·미배송·휴대폰 분실
+- 아래쪽: 상황별 빠른 해결 6개
+- 상세 업무: 먼저 1분 안에 할 일, 공식 경로 버튼
+
+참고
+----
+
+- ZIP 경로는 프로젝트 폴더 안의 상대경로만 사용합니다.
+- Desktop이나 Downloads 경로를 입력할 필요가 없습니다.
+- npm run lint 또는 npm run build가 실패하면 git 명령을 실행하지 말고 오류 화면을 보내주세요.
