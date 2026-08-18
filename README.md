@@ -5,7 +5,9 @@
 - 공개 주소: https://baro-cheori.netlify.app
 - 기술: Next.js 16.3.1, TypeScript, Tailwind CSS 4
 - 현재 범위: 쇼핑몰 4곳, 통신사 3곳, 택배사 3곳, 카드사 3곳, 구독·앱결제 8곳, 전자·가전 2곳, 주요 업무 109개
+- 현재 단계: MVP 1.0 기능·콘텐츠 확장 동결, 8~12주 검색 수요 검증
 - 콘텐츠 원칙: 온라인 해결 우선, 긴급 상황 외 ARS는 마지막, 초등학생도 이해할 짧은 문장
+- 최종 품질검사: [MVP_1_0_QA.md](./MVP_1_0_QA.md)
 - UX·사업 벤치마크: [PRODUCT_HUNT_BENCHMARK_20260818.md](./PRODUCT_HUNT_BENCHMARK_20260818.md)
 
 ## 로컬 실행
@@ -28,7 +30,7 @@ npm run build
 
 ```powershell
 git add .
-git commit -m "SEO foundation and service pages"
+git commit -m "MVP 1.0 final QA"
 git push
 ```
 

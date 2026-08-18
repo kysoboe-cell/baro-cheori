@@ -13,6 +13,7 @@ export type ServiceSearchResult = {
 type IntentAlias = {
   phrases: string[];
   searchAs: string[];
+  preferredServiceSlugs?: string[];
 };
 
 // 사용자가 실제로 입력하는 생활 말투를 사이트 안의 업무 이름으로 연결합니다.
@@ -21,14 +22,18 @@ const intentAliases: IntentAlias[] = [
   {
     phrases: ["잃어버렸", "잃어버림", "잃어버린", "카드없어", "카드없음"],
     searchAs: ["분실", "분실신고"],
+    preferredServiceSlugs: ["lost-card", "lost-phone"],
   },
   {
     phrases: ["내가안한결제", "모르는결제", "이상한결제", "결제한적없"],
     searchAs: ["모르는 결제", "부정사용", "이의신청"],
+    preferredServiceSlugs: ["unrecognized-charge", "unknown-charge"],
   },
   {
     phrases: [
       "applecombill",
+      "애플닷컴빌",
+      "애플컴빌",
       "애플결제뭐",
       "아이폰결제",
       "앱스토어결제",
@@ -38,6 +43,7 @@ const intentAliases: IntentAlias[] = [
       "Apple APPLE.COM/BILL 모르는 결제",
       "Apple 구입 내역",
     ],
+    preferredServiceSlugs: ["unknown-charge"],
   },
   {
     phrases: [
@@ -52,6 +58,7 @@ const intentAliases: IntentAlias[] = [
       "Google Play 모르는 결제",
       "Google Play 주문 내역",
     ],
+    preferredServiceSlugs: ["unknown-charge"],
   },
   {
     phrases: [
@@ -62,26 +69,37 @@ const intentAliases: IntentAlias[] = [
       "물건못받",
     ],
     searchAs: ["배송완료 미수령", "배송 안 옴"],
+    preferredServiceSlugs: ["delivery-not-received", "parcel-not-received"],
   },
   {
     phrases: ["택배안와", "택배안옴", "배송안와", "배송안옴", "배송늦"],
     searchAs: ["배송조회", "택배 위치", "배송 지연"],
+    preferredServiceSlugs: ["delivery-not-received", "delivery-tracking"],
   },
   {
     phrases: ["택배멈", "배송멈", "위치안바뀜", "며칠째그대로"],
     searchAs: ["배송조회", "배송 상태 멈춤"],
+    preferredServiceSlugs: ["delivery-tracking", "delivery-not-received"],
   },
   {
     phrases: ["반품안가져", "회수안와", "수거안와", "기사안와"],
     searchAs: ["반품 회수 지연", "반품 수거 안 옴"],
+    preferredServiceSlugs: ["return-pickup-delay"],
   },
   {
     phrases: ["돈안들어옴", "환불안됨", "환불안돼", "환불늦"],
     searchAs: ["반품 환불", "환불 지연"],
+    preferredServiceSlugs: ["return-refund", "refund-request"],
+  },
+  {
+    phrases: ["주문어디", "주문한거어디", "주문내역", "주문조회"],
+    searchAs: ["주문내역 확인", "주문 조회"],
+    preferredServiceSlugs: ["order-check"],
   },
   {
     phrases: ["인터넷옮", "인터넷이사", "와이파이옮"],
     searchAs: ["인터넷 이전설치", "이사 인터넷"],
+    preferredServiceSlugs: ["internet-moving"],
   },
   {
     phrases: [
@@ -93,6 +111,7 @@ const intentAliases: IntentAlias[] = [
       "통신사바꾸",
     ],
     searchAs: ["인터넷 해지", "인터넷 해지 장비 반납"],
+    preferredServiceSlugs: ["internet-cancel"],
   },
   {
     phrases: [
@@ -103,6 +122,7 @@ const intentAliases: IntentAlias[] = [
       "약정얼마남",
     ],
     searchAs: ["해지 예상금액 위약금", "인터넷 약정 확인"],
+    preferredServiceSlugs: ["termination-fee"],
   },
   {
     phrases: [
@@ -113,14 +133,17 @@ const intentAliases: IntentAlias[] = [
       "가족명의",
     ],
     searchAs: ["인터넷 명의변경", "인터넷 명의 이전"],
+    preferredServiceSlugs: ["account-transfer"],
   },
   {
     phrases: ["인터넷안돼", "인터넷안됨", "와이파이안돼", "와이파이끊"],
     searchAs: ["인터넷 고장", "인터넷 연결 안 됨"],
+    preferredServiceSlugs: ["internet-trouble"],
   },
   {
     phrases: ["인터넷느려", "와이파이느려", "속도느림"],
     searchAs: ["인터넷 속도 느림", "느린 인터넷"],
+    preferredServiceSlugs: ["slow-internet"],
   },
   {
     phrases: [
@@ -135,6 +158,7 @@ const intentAliases: IntentAlias[] = [
       "오류코드",
     ],
     searchAs: ["제품 고장 자가진단", "가전 오류 해결"],
+    preferredServiceSlugs: ["self-check"],
   },
   {
     phrases: [
@@ -146,6 +170,7 @@ const intentAliases: IntentAlias[] = [
       "수리접수",
     ],
     searchAs: ["출장수리 예약", "가전 기사 방문 예약"],
+    preferredServiceSlugs: ["home-service"],
   },
   {
     phrases: [
@@ -156,10 +181,12 @@ const intentAliases: IntentAlias[] = [
       "센터예약",
     ],
     searchAs: ["서비스센터 찾기 방문예약", "수리센터"],
+    preferredServiceSlugs: ["service-center"],
   },
   {
     phrases: ["수리비", "as비용", "무상수리", "보증기간", "출장비"],
     searchAs: ["수리비 보증기간", "무상수리 출장비"],
+    preferredServiceSlugs: ["repair-cost-warranty"],
   },
   {
     phrases: [
@@ -172,6 +199,11 @@ const intentAliases: IntentAlias[] = [
       "앱삭제했는데",
     ],
     searchAs: ["멤버십 해지", "다음 결제 막기", "정기결제 해지"],
+    preferredServiceSlugs: [
+      "membership-cancel",
+      "recurring-payment-cancel",
+      "wow-membership-cancel",
+    ],
   },
   {
     phrases: [
@@ -181,6 +213,7 @@ const intentAliases: IntentAlias[] = [
       "취소했는데돈",
     ],
     searchAs: ["해지했는데 결제됨", "자동결제 됨"],
+    preferredServiceSlugs: ["charged-after-cancel"],
   },
   {
     phrases: [
@@ -193,6 +226,11 @@ const intentAliases: IntentAlias[] = [
       "돈돌려받",
     ],
     searchAs: ["결제 취소 환불", "이미 결제된 금액 환불"],
+    preferredServiceSlugs: [
+      "refund-request",
+      "immediate-cancel-refund",
+      "wow-membership-refund",
+    ],
   },
 ];
 
@@ -241,21 +279,42 @@ function similarity(query: string, target: string) {
   return (2 * matches * 70) / (queryBigrams.length + targetBigrams.length);
 }
 
-function getSearchQueries(query: string) {
+function getMatchedIntentAliases(query: string) {
   const normalizedQuery = normalizeSearchText(query);
+  return intentAliases.filter((alias) =>
+    alias.phrases.some((phrase) =>
+      normalizedQuery.includes(normalizeSearchText(phrase))
+    )
+  );
+}
+
+function getSearchQueries(query: string, matchedAliases: IntentAlias[]) {
   const variants = new Set([query]);
 
-  for (const alias of intentAliases) {
-    const hasMatchingPhrase = alias.phrases.some((phrase) =>
-      normalizedQuery.includes(normalizeSearchText(phrase))
-    );
-
-    if (hasMatchingPhrase) {
-      alias.searchAs.forEach((item) => variants.add(item));
-    }
+  for (const alias of matchedAliases) {
+    alias.searchAs.forEach((item) => variants.add(item));
   }
 
   return [...variants];
+}
+
+function queryIncludesCompanyName(query: string, name: string) {
+  const normalizedQuery = normalizeSearchText(query);
+  const normalizedName = normalizeSearchText(name);
+
+  if (!normalizedName) return false;
+
+  // KT처럼 두 글자인 이름은 SKT 안에도 들어갑니다. 짧은 이름은
+  // 문장의 맨 앞이나 맨 뒤에 직접 적혔을 때만 업체명으로 봅니다.
+  if (normalizedName.length <= 2) {
+    return (
+      normalizedQuery === normalizedName ||
+      normalizedQuery.startsWith(normalizedName) ||
+      normalizedQuery.endsWith(normalizedName)
+    );
+  }
+
+  return normalizedQuery.includes(normalizedName);
 }
 
 export function findExactCompany(query: string) {
@@ -273,7 +332,7 @@ export function findMentionedCompanies(query: string) {
 
   const matchedCompanies = companies.filter((company) =>
     [company.name, ...company.aliases].some((name) =>
-      normalizedQuery.includes(normalizeSearchText(name))
+      queryIncludesCompanyName(query, name)
     )
   );
 
@@ -288,7 +347,12 @@ export function findMentionedCompanies(query: string) {
     "에러코드",
     "오류코드",
     "출장수리",
+    "출장as",
+    "as접수",
+    "기사방문",
+    "수리기사",
     "서비스센터",
+    "as센터",
     "수리센터",
     "수리비",
     "무상수리",
@@ -318,7 +382,11 @@ export function findServiceMatches(query: string, limit = 12) {
   const mentionedCompanies = findMentionedCompanies(query);
   const companiesToSearch =
     mentionedCompanies.length > 0 ? mentionedCompanies : companies;
-  const searchQueries = getSearchQueries(query);
+  const matchedAliases = getMatchedIntentAliases(query);
+  const searchQueries = getSearchQueries(query, matchedAliases);
+  const preferredServiceSlugs = new Set(
+    matchedAliases.flatMap((alias) => alias.preferredServiceSlugs ?? [])
+  );
   const results: ServiceSearchResult[] = [];
 
   for (const company of companiesToSearch) {
@@ -336,6 +404,7 @@ export function findServiceMatches(query: string, limit = 12) {
       );
 
       if (mentionedCompanies.includes(company)) score += 10;
+      if (preferredServiceSlugs.has(service.slug)) score += 14;
       if (score >= 52) results.push({ company, service, score });
     }
   }

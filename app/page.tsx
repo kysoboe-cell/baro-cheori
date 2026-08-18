@@ -187,7 +187,7 @@ export default function Home() {
               내 상황과 같은 문장부터 누르세요
             </h2>
           </div>
-          <p className="text-sm text-slate-500">긴 메뉴얼 대신 필요한 행동부터 보여드립니다.</p>
+          <p className="text-sm text-slate-500">긴 설명 대신 필요한 행동부터 보여드립니다.</p>
         </div>
 
         <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">

@@ -1,4 +1,4 @@
-import type { ServiceTask } from "../data/services";
+import type { CategoryId, ServiceTask } from "../data/services";
 
 const preparationsBySlug: Record<string, string[]> = {
   cancel: ["취소할 상품의 주문번호", "현재 배송 상태"],
@@ -187,4 +187,17 @@ export function getOfficialActionLabel(service: ServiceTask) {
     actionLabelBySlug[service.slug] ??
     "공식 처리 방법 열기"
   );
+}
+
+const officialNextStepByCategory: Record<CategoryId, string> = {
+  shopping: "새 창에서 로그인한 뒤 문제가 생긴 주문을 고르세요.",
+  telecom: "새 창에서 본인인증한 뒤 이용 중인 휴대폰·인터넷 상품을 고르세요.",
+  delivery: "새 창에서 운송장 번호를 입력하거나 반품예약 메뉴를 여세요.",
+  card: "새 창에서 본인인증한 뒤 문제가 생긴 카드나 결제내역을 고르세요.",
+  subscription: "새 창에서 실제로 결제한 계정으로 로그인하세요. 다른 계정으로 들어가면 구독이나 결제가 보이지 않을 수 있어요.",
+  electronics: "새 창에서 제품 종류와 모델명을 고른 뒤 증상 확인이나 예약을 시작하세요.",
+};
+
+export function getOfficialNextStep(categoryId: CategoryId) {
+  return officialNextStepByCategory[categoryId];
 }

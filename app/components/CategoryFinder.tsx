@@ -28,7 +28,7 @@ export default function CategoryFinder() {
           업체로 바로 찾기
         </p>
 
-        <div className="grid min-w-0 flex-1 grid-cols-6 gap-1 sm:gap-2">
+        <div className="grid min-w-0 flex-1 grid-cols-3 gap-1.5 sm:grid-cols-6 sm:gap-2">
           {categories.map((category) => {
             const isActive = activeCategory === category.id;
 
@@ -41,14 +41,14 @@ export default function CategoryFinder() {
                 onMouseEnter={() => setActiveCategory(category.id)}
                 onFocus={() => setActiveCategory(category.id)}
                 onClick={() => setActiveCategory(category.id)}
-                className={`flex min-w-0 items-center justify-center gap-1 rounded-xl border px-0.5 py-2.5 text-left text-[10px] font-bold transition min-[390px]:text-[11px] sm:justify-between sm:gap-2 sm:px-3 sm:text-sm ${
+                className={`flex min-w-0 items-center justify-center gap-1 rounded-xl border px-2 py-2.5 text-left text-xs font-bold transition sm:justify-between sm:gap-2 sm:px-3 sm:text-sm ${
                   isActive
                     ? "border-blue-700 bg-blue-700 text-white shadow-sm"
                     : "border-slate-200 bg-white text-slate-700 hover:border-blue-300 hover:bg-blue-50"
                 }`}
               >
                 <span className="flex min-w-0 items-center gap-1 sm:gap-2">
-                  <span aria-hidden="true" className="hidden min-[390px]:inline">{category.icon}</span>
+                  <span aria-hidden="true">{category.icon}</span>
                   <span className="truncate">{category.name}</span>
                 </span>
                 <span aria-hidden="true" className="hidden shrink-0 text-xs sm:inline">

@@ -6,6 +6,7 @@ import { allServices, getService } from "../../../data/services";
 import {
   getCustomerCenterFallback,
   getOfficialActionLabel,
+  getOfficialNextStep,
   getPreparations,
 } from "../../../lib/service-content";
 import {
@@ -70,6 +71,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
     "lost-phone",
   ].includes(service.slug);
   const officialActionLabel = getOfficialActionLabel(service);
+  const officialNextStep = getOfficialNextStep(company.categoryId);
   const pageLead = isCustomerCenter
     ? "전화해야 할 때 필요한 번호와 준비할 말만 짧게 모았어요."
     : "긴 설명은 건너뛰세요. 아래에 나온 1번부터 그대로 하면 됩니다.";
@@ -260,7 +262,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
                       공식 · {officialActionLabel} ↗
                     </a>
                     <p className="mt-2 text-xs leading-5 text-gray-500">
-                      새 창에서 공식 사이트가 열립니다. 로그인한 뒤 해당 결제·주문·가입 상품을 고르세요.
+                      {officialNextStep}
                     </p>
                   </div>
                 )}

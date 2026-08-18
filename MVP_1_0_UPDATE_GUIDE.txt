@@ -1,0 +1,16 @@
+바로처리 MVP 1.0 최종 QA 적용 방법
+
+1. 받은 ZIP 파일을 D:\Projects\baro-cheori 폴더 안에 넣습니다.
+2. VS Code 터미널에서 아래 명령을 위에서부터 한 줄씩 실행합니다.
+
+cd D:\Projects\baro-cheori
+Expand-Archive -Path ".\baro-cheori-mvp-1.0-final-qa-20260819.zip" -DestinationPath "." -Force
+Remove-Item ".\baro-cheori-mvp-1.0-final-qa-20260819.zip"
+npm run lint
+npm run build
+git add .
+git commit -m "MVP 1.0 final QA"
+git push
+
+이번 파일은 신규 업체를 추가하지 않습니다.
+검색 오연결, 모바일 카테고리 가독성, 공식 버튼 다음 행동 문구와 운영 문서만 수정합니다.
