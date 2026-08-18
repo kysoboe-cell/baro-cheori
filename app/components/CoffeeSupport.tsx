@@ -21,15 +21,20 @@ export default function CoffeeSupport() {
   };
 
   return (
-    <div className="fixed bottom-4 right-4 z-50 max-w-[calc(100vw-2rem)] text-black sm:bottom-6 sm:right-6">
+    <div className="coffee-support fixed z-50 max-w-[calc(100vw-2rem)] text-black">
       <button
         type="button"
         aria-expanded={isOpen}
         aria-controls="coffee-support-panel"
         onClick={() => setIsOpen((current) => !current)}
-        className="flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-3 text-sm font-semibold shadow-lg transition hover:-translate-y-0.5"
+        className="flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-3 text-sm font-bold shadow-[0_12px_32px_-12px_rgba(15,23,42,0.35)] transition hover:-translate-y-0.5 hover:border-blue-300 hover:text-blue-700"
       >
-        <span aria-hidden="true" className="text-lg">☕</span>
+        <span
+          aria-hidden="true"
+          className="flex h-7 w-7 items-center justify-center rounded-full bg-violet-50 text-base"
+        >
+          ☕
+        </span>
         <span className="hidden sm:inline">도움이 되셨다면 커피 한잔</span>
         <span className="sm:hidden">커피 후원</span>
       </button>
@@ -37,7 +42,7 @@ export default function CoffeeSupport() {
       {isOpen && (
         <div
           id="coffee-support-panel"
-          className="absolute bottom-full right-0 mb-3 w-80 max-w-[calc(100vw-2rem)] rounded-2xl border border-gray-200 bg-white p-5 shadow-2xl"
+          className="coffee-support-panel absolute right-0 w-80 max-w-[calc(100vw-2rem)] rounded-2xl border border-gray-200 bg-white p-5 shadow-2xl"
         >
           <p className="font-bold">개발자에게 커피 한잔 ☕</p>
           <p className="mt-2 text-sm leading-6 text-gray-600">

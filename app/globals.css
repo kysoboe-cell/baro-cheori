@@ -42,3 +42,51 @@ input {
   outline: 3px solid #60a5fa;
   outline-offset: 3px;
 }
+
+/*
+ * 작은 화면에서는 콘텐츠를 가리지 않는 익숙한 오른쪽 아래 위치를 씁니다.
+ * 1900px 이상 넓은 화면에서는 홈·상세 페이지의 빈 오른쪽 여백으로 올려
+ * 도움을 받은 직후 후원 버튼을 발견할 수 있게 합니다.
+ */
+.coffee-support {
+  right: 1rem;
+  bottom: 1rem;
+}
+
+.coffee-support-panel {
+  right: 0;
+  bottom: calc(100% + 0.75rem);
+}
+
+@media (min-width: 640px) {
+  .coffee-support {
+    right: 1.5rem;
+    bottom: 1.5rem;
+  }
+}
+
+@media (min-width: 1900px) {
+  .coffee-support {
+    top: 18.5rem;
+    right: 2rem;
+    bottom: auto;
+  }
+
+  .coffee-support-panel {
+    top: calc(100% + 0.75rem);
+    bottom: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

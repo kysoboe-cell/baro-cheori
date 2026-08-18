@@ -44,7 +44,11 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
         </Link>
 
         <h1 className="mt-6 break-words text-3xl font-black text-slate-950 sm:text-4xl">
-          {query ? `“${query}” 검색 결과` : "검색어를 입력해주세요"}
+          {query ? (
+            <><span className="text-blue-700">“{query}”</span> 검색 결과</>
+          ) : (
+            "검색어를 입력해주세요"
+          )}
         </h1>
         {results.length > 0 ? (
           <>
@@ -91,7 +95,8 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                 이 문장과 똑같은 안내는 아직 없어요
               </p>
               <p className="mt-2 break-keep leading-7 text-slate-700">
-                전화부터 하지 마세요. 회사 이름을 붙여 다시 검색하거나, 아래에서 가장 비슷한 상황을 먼저 눌러보세요.
+                전화부터 하지 마세요. <strong className="font-black text-blue-700">회사 이름을 붙여 다시 검색</strong>하거나,
+                아래에서 가장 비슷한 상황을 먼저 눌러보세요.
               </p>
               <p className="mt-3 text-sm font-bold text-slate-600">
                 예: 삼성 세탁기 고장 · LG 출장수리 · 국민카드 잃어버림

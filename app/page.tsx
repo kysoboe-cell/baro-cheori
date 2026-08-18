@@ -116,11 +116,17 @@ export default function Home() {
             </p>
             <h1 className="mt-4 max-w-3xl break-keep text-4xl font-black leading-[1.13] tracking-tight text-slate-950 sm:text-5xl lg:text-[3.45rem]">
               카드 분실·배송 안 옴·가전 고장,
-              <br className="hidden sm:block" /> 지금 할 일만 바로
+              <br className="hidden sm:block" />
+              <span className="text-blue-700 underline decoration-blue-200 decoration-[0.16em] underline-offset-[0.12em]">
+                지금 할 일만 바로
+              </span>
             </h1>
             <p className="mt-4 max-w-2xl break-keep text-base leading-7 text-slate-600 sm:text-lg">
-              긴 고객센터 설명을 뒤지지 마세요. 문제를 검색하면 공식 처리 메뉴,
-              현실적인 순서, 꼭 필요할 때만 연락처까지 한 화면에 정리해 드립니다.
+              긴 고객센터 설명을 뒤지지 마세요. 문제를 검색하면
+              <strong className="font-black text-slate-900"> 공식 처리 메뉴</strong>,
+              <strong className="font-black text-slate-900"> 현실적인 순서</strong>,
+              <strong className="font-black text-blue-700"> 꼭 필요할 때만 연락처</strong>까지
+              한 화면에 정리해 드립니다.
             </p>
 
             <HomeSearch />
@@ -184,7 +190,7 @@ export default function Home() {
           <div>
             <p className="text-sm font-bold text-blue-700">상황별 빠른 해결</p>
             <h2 className="mt-1 break-keep text-2xl font-black text-slate-950 sm:text-3xl">
-              내 상황과 같은 문장부터 누르세요
+              내 상황과 <span className="text-blue-700">같은 문장부터</span> 누르세요
             </h2>
           </div>
           <p className="text-sm text-slate-500">긴 설명 대신 필요한 행동부터 보여드립니다.</p>

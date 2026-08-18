@@ -72,9 +72,6 @@ export default async function ServicePage({ params }: ServicePageProps) {
   ].includes(service.slug);
   const officialActionLabel = getOfficialActionLabel(service);
   const officialNextStep = getOfficialNextStep(company.categoryId);
-  const pageLead = isCustomerCenter
-    ? "전화해야 할 때 필요한 번호와 준비할 말만 짧게 모았어요."
-    : "긴 설명은 건너뛰세요. 아래에 나온 1번부터 그대로 하면 됩니다.";
   const path = servicePath(company.slug, service.slug);
   const relatedCompanyServices = company.services
     .filter((item) => item.slug !== service.slug)
@@ -135,11 +132,15 @@ export default async function ServicePage({ params }: ServicePageProps) {
             {company.name} 업무 안내
           </p>
           <h1 className="mt-1 break-keep text-3xl font-black tracking-tight sm:text-4xl">
-            {company.name} {service.title} 처리 방법
+            {company.name} <span className="text-blue-700">{service.title}</span> 처리 방법
           </h1>
           <div className="mt-3 flex flex-col gap-2 text-gray-600 sm:flex-row sm:items-center sm:justify-between">
             <p className="break-keep leading-7">
-              {pageLead}
+              {isCustomerCenter ? (
+                <>전화해야 할 때 필요한 <strong className="font-black text-slate-900">번호와 준비할 말</strong>만 짧게 모았어요.</>
+              ) : (
+                <>긴 설명은 건너뛰세요. 아래에 나온 <strong className="font-black text-blue-700">1번부터 그대로</strong> 하면 됩니다.</>
+              )}
             </p>
             {service.lastChecked && (
               <p className="shrink-0 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-500">
@@ -152,27 +153,39 @@ export default async function ServicePage({ params }: ServicePageProps) {
         <div className="mt-5 grid gap-4 xl:grid-cols-[minmax(0,1.45fr)_minmax(19rem,0.8fr)_19rem]">
           <div className="space-y-4">
             {service.quickSummary && service.quickSummary.length > 0 && (
-              <section className="rounded-2xl border border-blue-200 bg-blue-50 p-4 sm:p-5">
-                <h2 className="font-black text-blue-950">
+              <section className="rounded-2xl border border-blue-200 border-l-4 border-l-blue-700 bg-blue-50 p-4 sm:p-5">
+                <h2 className="text-lg font-black text-blue-950">
                   지금 이것부터 하세요
                 </h2>
                 <ul className="mt-2 space-y-2">
                   {service.quickSummary.map((summary, index) => (
                     <li
                       key={summary}
-                      className={`flex gap-2 leading-6 text-gray-900 ${
+                      className={`flex items-start gap-2.5 rounded-xl leading-6 text-gray-900 ${
                         index === 0
-                          ? "text-base font-bold"
-                          : "text-sm sm:text-base"
+                          ? "bg-white/80 px-3 py-3 text-base font-black text-blue-950 shadow-sm"
+                          : "px-1 py-1 text-sm sm:text-base"
                       }`}
                     >
                       <span
                         aria-hidden="true"
-                        className="font-bold text-blue-700"
+                        className={`mt-0.5 flex shrink-0 items-center justify-center font-black ${
+                          index === 0
+                            ? "h-6 rounded-full bg-blue-700 px-2 text-[11px] text-white"
+                            : "h-5 w-5 text-blue-700"
+                        }`}
                       >
-                        {index === 0 ? "→" : "✓"}
+                        {index === 0 ? "먼저" : "✓"}
                       </span>
-                      <span>{summary}</span>
+                      <span
+                        className={
+                          index === 0
+                            ? "underline decoration-blue-300 decoration-4 underline-offset-4"
+                            : undefined
+                        }
+                      >
+                        {summary}
+                      </span>
                     </li>
                   ))}
                 </ul>
@@ -194,13 +207,31 @@ export default async function ServicePage({ params }: ServicePageProps) {
                 </div>
                 <ol className="mt-4 space-y-3">
                   {service.steps.map((step, index) => (
-                    <li key={step} className="flex items-start gap-3">
-                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-black text-sm font-bold text-white">
+                    <li
+                      key={step}
+                      className={`flex items-start gap-3 rounded-xl p-3 ${
+                        index === 0
+                          ? "border border-blue-200 bg-blue-50"
+                          : "border border-transparent"
+                      }`}
+                    >
+                      <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-black text-white ${
+                        index === 0 ? "bg-blue-700" : "bg-slate-950"
+                      }`}>
                         {index + 1}
                       </span>
-                      <p className="pt-0.5 text-sm leading-7 text-gray-800 sm:text-base">
-                        {step}
-                      </p>
+                      <div className="min-w-0 flex-1">
+                        {index === 0 && (
+                          <p className="mb-0.5 text-xs font-black text-blue-700">가장 먼저</p>
+                        )}
+                        <p className={`text-sm leading-7 sm:text-base ${
+                          index === 0
+                            ? "font-black text-slate-950"
+                            : "text-gray-800"
+                        }`}>
+                          {step}
+                        </p>
+                      </div>
                     </li>
                   ))}
                 </ol>
@@ -216,9 +247,10 @@ export default async function ServicePage({ params }: ServicePageProps) {
                 {preparations.map((preparation) => (
                   <li
                     key={preparation}
-                    className="rounded-xl bg-gray-50 px-3 py-2 text-sm font-semibold leading-6"
+                    className="flex items-start gap-2 rounded-xl bg-gray-50 px-3 py-2.5 text-sm font-bold leading-6 text-slate-800"
                   >
-                    □ {preparation}
+                    <span aria-hidden="true" className="font-black text-blue-700">✓</span>
+                    <span>{preparation}</span>
                   </li>
                 ))}
               </ul>
@@ -227,9 +259,14 @@ export default async function ServicePage({ params }: ServicePageProps) {
             {service.tips && service.tips.length > 0 && (
               <section className="rounded-2xl border border-amber-200 bg-amber-50 p-5">
                 <h2 className="font-bold">💡 이것만 주의하세요</h2>
-                <ul className="mt-3 space-y-2 text-sm leading-6 text-gray-700">
-                  {service.tips.map((tip) => (
-                    <li key={tip}>• {tip}</li>
+                <ul className="mt-3 space-y-2.5 text-sm leading-6 text-gray-700">
+                  {service.tips.map((tip, index) => (
+                    <li key={tip} className="flex items-start gap-2">
+                      <span aria-hidden="true" className="font-black text-amber-700">!</span>
+                      <span className={index === 0 ? "font-bold text-amber-950" : undefined}>
+                        {tip}
+                      </span>
+                    </li>
                   ))}
                 </ul>
               </section>
@@ -251,7 +288,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
                 {!isCustomerCenter && service.officialUrl && (
                   <div className="mt-4 border-t border-gray-100 pt-4">
                     <p className="mb-3 text-sm font-semibold text-gray-500">
-                      ARS 없이 먼저 처리
+                      <strong className="font-black text-blue-700">ARS 없이</strong> 먼저 처리
                     </p>
                     <a
                       href={service.officialUrl}

@@ -120,7 +120,8 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
           {company.name}
         </h1>
         <p className="mt-4 leading-7 text-gray-600">
-          처리하려는 업무를 선택하면 지금 누를 메뉴, 짧은 해결 순서, 안 될 때 연락처를 보여드려요.
+          처리하려는 업무를 선택하면 <strong className="font-black text-slate-900">지금 누를 메뉴</strong>,
+          <strong className="font-black text-blue-700"> 1번부터 따라 할 순서</strong>, 안 될 때 연락처를 보여드려요.
         </p>
 
         <div className="mt-10 grid gap-4 sm:grid-cols-2">
