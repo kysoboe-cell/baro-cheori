@@ -23,7 +23,7 @@ export type ServiceTask = {
   lastChecked?: string;
 };
 
-export type CategoryId = "shopping" | "telecom";
+export type CategoryId = "shopping" | "telecom" | "delivery";
 
 export type Company = {
   slug: string;

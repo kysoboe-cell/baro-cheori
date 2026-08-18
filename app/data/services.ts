@@ -8,6 +8,9 @@ import { elevenst } from "./companies/elevenst";
 import { skt } from "./companies/skt";
 import { kt } from "./companies/kt";
 import { lguplus } from "./companies/lguplus";
+import { cjLogistics } from "./companies/cjLogistics";
+import { hanjin } from "./companies/hanjin";
+import { lotteDelivery } from "./companies/lotteDelivery";
 
 export type { CategoryId, Company, ServiceTask } from "./types";
 
@@ -23,6 +26,12 @@ export const categories = [
     name: "통신사",
     icon: "📱",
   },
+
+  {
+    id: "delivery" as const,
+    name: "택배",
+    icon: "📦",
+  },
 ];
 
 export const companies: Company[] = [
@@ -36,6 +45,11 @@ export const companies: Company[] = [
   skt,
   kt,
   lguplus,
+
+  // 택배
+  cjLogistics,
+  hanjin,
+  lotteDelivery,
 ];
 
 export const allServices = companies.flatMap((company) =>

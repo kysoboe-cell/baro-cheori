@@ -1,0 +1,34 @@
+바로처리 V7 택배사 업데이트 적용 방법
+======================================
+
+화면에서 확인되는 변화
+- 상단 업체 카테고리에 '택배' 추가
+- CJ대한통운, 한진택배, 롯데택배 추가
+- 택배사별 배송조회, 배송완료 미수령, 반품수거 예약, 고객센터 안내 추가
+- 홈 제공량이 '10개 업체 · 54개 업무'로 변경
+
+1. 이 ZIP 파일을 바탕화면에 저장합니다.
+   파일명: baro-cheori-delivery-v7-20260818.zip
+
+2. VS Code에서 D:\Projects\baro-cheori 폴더를 엽니다.
+
+3. VS Code 터미널에 아래 명령을 한 줄씩 붙여넣습니다.
+
+cd D:\Projects\baro-cheori
+Expand-Archive -Path "$env:USERPROFILE\Desktop\baro-cheori-delivery-v7-20260818.zip" -DestinationPath "D:\Projects\baro-cheori" -Force
+npm run lint
+npm run build
+
+4. lint와 build가 끝나면 아래 명령을 한 줄씩 실행합니다.
+
+git add .
+git commit -m "add delivery companies and practical guides"
+git push
+
+5. Netlify는 GitHub의 새 커밋을 감지해 자동 배포합니다.
+   배포 뒤 https://baro-cheori.netlify.app 을 새로고침하고 상단의 '택배'를 확인하세요.
+
+문제가 생겼을 때
+- ZIP이 바탕화면에 없다면 먼저 다운로드한 위치를 확인하세요.
+- PowerShell 명령은 반드시 D:\Projects\baro-cheori 터미널에서 실행하세요.
+- build가 실패하면 빨간 글씨의 마지막 부분이 보이도록 캡처해 보내주세요.

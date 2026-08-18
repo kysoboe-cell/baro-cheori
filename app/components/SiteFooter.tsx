@@ -21,7 +21,7 @@ export default function SiteFooter() {
         </div>
         <nav
           aria-label="전체 업체"
-          className="mt-7 grid gap-4 border-t border-gray-800 pt-6 sm:grid-cols-2"
+          className="mt-7 grid gap-4 border-t border-gray-800 pt-6 sm:grid-cols-3"
         >
           {categories.map((category) => (
             <div key={category.id} className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">

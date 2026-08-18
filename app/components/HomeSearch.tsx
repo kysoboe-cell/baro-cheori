@@ -113,7 +113,7 @@ export default function HomeSearch() {
           }}
           onFocus={() => setIsOpen(true)}
           onKeyDown={handleKeyDown}
-          placeholder="예: 쿠팡 반품, KT 휴대폰 분실"
+          placeholder="예: 쿠팡 반품, CJ대한통운 배송조회"
           className="min-w-0 flex-1 px-4 py-4 text-base outline-none sm:px-6"
         />
         <button
