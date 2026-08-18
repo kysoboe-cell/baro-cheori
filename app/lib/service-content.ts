@@ -26,6 +26,21 @@ const preparationsBySlug: Record<string, string[]> = {
     "구매처의 반품 승인 내용",
     "상품을 안전하게 담을 박스",
   ],
+  "lost-card": [
+    "본인인증이 가능한 휴대폰",
+    "분실한 카드의 종류",
+    "마지막으로 카드를 사용한 때와 장소",
+  ],
+  "card-reissue": [
+    "본인인증이 가능한 휴대폰",
+    "새 카드를 받을 주소",
+    "분실한 경우 분실신고 완료 여부",
+  ],
+  "unrecognized-charge": [
+    "모르는 결제의 금액과 시간",
+    "결제 문자·앱 이용내역 화면",
+    "본인인증이 가능한 휴대폰",
+  ],
   "lost-phone": ["본인인증 수단", "분실한 휴대폰 번호", "분실한 때와 장소"],
   "internet-moving": ["이사할 새 주소", "설치 희망일", "공유기·셋톱박스 등 기존 장비"],
   "internet-trouble": [
@@ -40,7 +55,7 @@ const preparationsBySlug: Record<string, string[]> = {
   ],
   billing: ["본인인증 수단", "납부할 결제수단"],
   "customer-center": [
-    "주문번호 또는 가입한 휴대폰 번호",
+    "카드·주문번호 또는 가입한 휴대폰 번호",
     "문제 상황을 한 문장으로 정리한 메모",
   ],
 };
@@ -66,6 +81,9 @@ const actionLabelBySlug: Record<string, string> = {
   "delivery-tracking": "공식 배송조회 열기",
   "parcel-not-received": "공식 배송조회 열기",
   "return-reservation": "공식 반품예약 열기",
+  "lost-card": "공식 분실신고 안내 열기",
+  "card-reissue": "공식 재발급 안내 열기",
+  "unrecognized-charge": "공식 부정사용 신고 안내 열기",
   "lost-phone": "분실신고 바로가기",
   "internet-moving": "이전설치 신청 방법 열기",
   "internet-trouble": "인터넷 고장진단 열기",

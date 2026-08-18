@@ -10,10 +10,10 @@ export const metadata: Metadata = {
 };
 
 const popularTasks = [
+  ["kb-card", "lost-card"],
   ["coupang", "delivery-not-received"],
   ["cj-logistics", "delivery-tracking"],
   ["kt", "lost-phone"],
-  ["naver-smartstore", "return-pickup-delay"],
 ].map(([companySlug, serviceSlug]) => getService(companySlug, serviceSlug));
 
 export default function Home() {
@@ -24,7 +24,7 @@ export default function Home() {
     alternateName: "바로처리 생활업무 안내",
     url: SITE_URL,
     description:
-      "쇼핑몰 배송·반품, 통신사 분실·인터넷, 택배 조회·반품 문제를 바로 처리할 공식 메뉴와 해결 순서로 안내합니다.",
+      "카드 분실·모르는 결제, 쇼핑몰 배송·반품, 통신사 분실·인터넷, 택배 조회 문제를 바로 처리할 공식 메뉴와 해결 순서로 안내합니다.",
     inLanguage: "ko-KR",
   };
 
@@ -55,7 +55,7 @@ export default function Home() {
 
           <HomeSearch />
           <p className="mt-3 text-sm text-gray-500">
-            현재 10개 업체의 54개 업무를 안내합니다.
+            현재 13개 업체의 66개 업무를 안내합니다.
           </p>
         </div>
       </section>
@@ -89,7 +89,7 @@ export default function Home() {
           <h2 className="text-center text-3xl font-bold">이렇게 이용해요</h2>
           <div className="mt-10 grid gap-5 md:grid-cols-3">
             {[
-              ["01", "문제 그대로 검색", "예: 쿠팡 배송 안 옴, CJ대한통운 배송조회처럼 입력합니다."],
+              ["01", "문제 그대로 검색", "예: 국민카드 잃어버림, 쿠팡 배송 안 옴처럼 입력합니다."],
               ["02", "첫 버튼부터 처리", "긴 설명보다 주문내역·고장진단 같은 공식 메뉴를 먼저 엽니다."],
               ["03", "안 되면 바로 연결", "셀프로 해결되지 않을 때 맞는 고객센터 번호로 이어갑니다."],
             ].map(([number, title, description]) => (

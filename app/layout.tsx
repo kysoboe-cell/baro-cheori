@@ -12,11 +12,11 @@ const naverVerification = process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION;
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "바로처리 | 반품·택배·분실·인터넷 해결 순서",
+    default: "바로처리 | 카드분실·반품·택배·인터넷 해결 순서",
     template: `%s | ${SITE_NAME}`,
   },
   description:
-    "쇼핑몰 배송·반품, 통신사 휴대폰 분실·인터넷, 택배 조회·반품 문제를 해결할 공식 메뉴와 연락처를 확인하세요.",
+    "카드 분실·모르는 결제, 쇼핑몰 배송·반품, 통신사 휴대폰 분실·인터넷, 택배 조회 문제를 해결할 공식 메뉴와 연락처를 확인하세요.",
   applicationName: SITE_NAME,
   alternates: { canonical: "/" },
   openGraph: {
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     locale: "ko_KR",
     siteName: SITE_NAME,
     url: "/",
-    title: "바로처리 | 반품·택배·분실·인터넷 해결 순서",
+    title: "바로처리 | 카드분실·반품·택배·인터넷 해결 순서",
     description:
       "헷갈리는 생활 문제를 지금 누를 공식 메뉴, 짧은 해결 순서, 안 될 때 연락처로 정리합니다.",
   },

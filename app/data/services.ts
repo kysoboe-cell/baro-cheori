@@ -11,6 +11,9 @@ import { lguplus } from "./companies/lguplus";
 import { cjLogistics } from "./companies/cjLogistics";
 import { hanjin } from "./companies/hanjin";
 import { lotteDelivery } from "./companies/lotteDelivery";
+import { kbCard } from "./companies/kbCard";
+import { shinhanCard } from "./companies/shinhanCard";
+import { samsungCard } from "./companies/samsungCard";
 
 export type { CategoryId, Company, ServiceTask } from "./types";
 
@@ -32,6 +35,12 @@ export const categories = [
     name: "택배",
     icon: "📦",
   },
+
+  {
+    id: "card" as const,
+    name: "카드",
+    icon: "💳",
+  },
 ];
 
 export const companies: Company[] = [
@@ -50,6 +59,11 @@ export const companies: Company[] = [
   cjLogistics,
   hanjin,
   lotteDelivery,
+
+  // 카드
+  kbCard,
+  shinhanCard,
+  samsungCard,
 ];
 
 export const allServices = companies.flatMap((company) =>

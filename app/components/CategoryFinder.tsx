@@ -41,7 +41,7 @@ export default function CategoryFinder() {
                 onMouseEnter={() => setActiveCategory(category.id)}
                 onFocus={() => setActiveCategory(category.id)}
                 onClick={() => setActiveCategory(category.id)}
-                className={`flex min-w-0 flex-1 items-center justify-center gap-1.5 rounded-xl border px-2 py-2.5 text-left text-sm font-bold transition sm:min-w-40 sm:justify-between sm:gap-4 sm:px-4 ${
+                className={`flex min-w-0 flex-1 items-center justify-center gap-1 rounded-xl border px-1.5 py-2.5 text-left text-[13px] font-bold transition sm:min-w-40 sm:justify-between sm:gap-4 sm:px-4 sm:text-sm ${
                   isActive
                     ? "border-black bg-black text-white shadow-sm"
                     : "border-gray-200 bg-white hover:border-gray-500"
