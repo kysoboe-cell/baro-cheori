@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { companies, getCompany } from "../../data/services";
-import { companyPath, servicePath } from "../../lib/site";
+import { absoluteUrl, companyPath, servicePath } from "../../lib/site";
 
 const servicePriority: Record<string, number> = {
   cancel: 1,
@@ -59,9 +59,30 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
     (a, b) =>
       (servicePriority[a.slug] ?? 50) - (servicePriority[b.slug] ?? 50)
   );
+  const path = companyPath(company.slug);
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "홈", item: absoluteUrl("/") },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: company.name,
+        item: absoluteUrl(path),
+      },
+    ],
+  };
 
   return (
     <main className="bg-gray-50">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbJsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
+
       <section className="mx-auto max-w-5xl px-4 py-12 sm:px-6 sm:py-16">
         <nav aria-label="현재 위치" className="text-sm text-gray-500">
           <Link href="/" className="hover:text-black">홈</Link>

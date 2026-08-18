@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { categories, companies } from "../data/services";
+import { companyPath } from "../lib/site";
 
 export default function SiteFooter() {
   return (
@@ -17,6 +19,29 @@ export default function SiteFooter() {
             <Link href="/privacy" className="hover:text-white">개인정보 안내</Link>
           </nav>
         </div>
+        <nav
+          aria-label="전체 업체"
+          className="mt-7 grid gap-4 border-t border-gray-800 pt-6 sm:grid-cols-2"
+        >
+          {categories.map((category) => (
+            <div key={category.id} className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
+              <p className="font-bold text-white">
+                {category.icon} {category.name}
+              </p>
+              {companies
+                .filter((company) => company.categoryId === category.id)
+                .map((company) => (
+                  <Link
+                    key={company.slug}
+                    href={companyPath(company.slug)}
+                    className="text-gray-400 hover:text-white"
+                  >
+                    {company.name}
+                  </Link>
+                ))}
+            </div>
+          ))}
+        </nav>
         <p className="mt-8 border-t border-gray-800 pt-6 text-xs leading-5 text-gray-500">
           바로처리는 각 업체의 공식 서비스가 아니며 제휴·대행 관계가 없습니다. 실제 신청 조건과 비용은 연결된 공식 페이지에서 마지막으로 확인하세요.
         </p>

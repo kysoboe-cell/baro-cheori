@@ -63,6 +63,15 @@ export default async function ServicePage({ params }: ServicePageProps) {
   const hours = service.hours ?? customerCenter?.hours;
   const usesCustomerCenterFallback = !service.phone && Boolean(phone);
   const path = servicePath(company.slug, service.slug);
+  const relatedCompanyServices = company.services
+    .filter((item) => item.slug !== service.slug)
+    .slice(0, 3);
+  const relatedSameTaskServices = allServices
+    .filter(
+      (item) =>
+        item.company.slug !== company.slug && item.service.slug === service.slug
+    )
+    .slice(0, 4);
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -259,6 +268,46 @@ export default async function ServicePage({ params }: ServicePageProps) {
             )}
           </aside>
         </div>
+
+        {(relatedCompanyServices.length > 0 ||
+          relatedSameTaskServices.length > 0) && (
+          <section className="mt-5 rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+            <p className="text-xs font-bold text-blue-700">관련 업무</p>
+            <h2 className="mt-1 text-xl font-bold">
+              이어서 필요한 안내도 확인하세요
+            </h2>
+            <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              {relatedCompanyServices.map((relatedService) => (
+                <Link
+                  key={`${company.slug}-${relatedService.slug}`}
+                  href={servicePath(company.slug, relatedService.slug)}
+                  className="rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 transition hover:border-gray-500 hover:bg-white"
+                >
+                  <span className="text-xs font-semibold text-gray-500">
+                    {company.name}
+                  </span>
+                  <span className="mt-1 block font-bold">
+                    {relatedService.title} 처리 방법 →
+                  </span>
+                </Link>
+              ))}
+              {relatedSameTaskServices.map((related) => (
+                <Link
+                  key={`${related.company.slug}-${related.service.slug}`}
+                  href={servicePath(related.company.slug, related.service.slug)}
+                  className="rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 transition hover:border-gray-500 hover:bg-white"
+                >
+                  <span className="text-xs font-semibold text-gray-500">
+                    다른 업체 비교
+                  </span>
+                  <span className="mt-1 block font-bold">
+                    {related.company.name} {related.service.title} →
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
 
         <section className="mt-5 rounded-2xl border border-gray-200 bg-white px-5 py-4 text-xs leading-5 text-gray-600">
           <p>

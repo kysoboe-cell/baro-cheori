@@ -3,7 +3,7 @@ import Link from "next/link";
 import CategoryFinder from "./components/CategoryFinder";
 import HomeSearch from "./components/HomeSearch";
 import { getService } from "./data/services";
-import { servicePath } from "./lib/site";
+import { SITE_NAME, SITE_URL, servicePath } from "./lib/site";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
@@ -17,8 +17,26 @@ const popularTasks = [
 ].map(([companySlug, serviceSlug]) => getService(companySlug, serviceSlug));
 
 export default function Home() {
+  const websiteJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: SITE_NAME,
+    alternateName: "바로처리 생활업무 안내",
+    url: SITE_URL,
+    description:
+      "쇼핑몰 반품·환불과 통신사 분실·이전설치 등 생활 업무의 준비물과 처리 순서를 안내합니다.",
+    inLanguage: "ko-KR",
+  };
+
   return (
     <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(websiteJsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
+
       <CategoryFinder />
 
       <section className="overflow-hidden bg-gradient-to-b from-blue-50 to-white">

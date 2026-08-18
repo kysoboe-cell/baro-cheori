@@ -1,0 +1,44 @@
+바로처리 콘텐츠·SEO 연결 보강 V3 적용 안내
+=========================================
+
+적용 전 조건
+- 현재 프로젝트 위치: D:\Projects\baro-cheori
+- 이전 화면 최적화 V2가 적용된 상태에서 사용합니다.
+
+1. 내려받은 ZIP 파일을 바탕화면에 놓습니다.
+
+2. VS Code 터미널에 아래 한 줄을 그대로 붙여넣고 Enter를 누릅니다.
+
+Expand-Archive -Path "$env:USERPROFILE\Desktop\baro-cheori-content-seo-v3-20260818.zip" -DestinationPath "D:\Projects\baro-cheori" -Force
+
+3. 이어서 아래 명령어를 한 줄씩 실행합니다.
+
+cd D:\Projects\baro-cheori
+npm run lint
+npm run build
+git add .
+git commit -m "improve content links and structured data"
+git push
+
+4. git push가 끝나면 Netlify가 자동 배포합니다.
+- Netlify에서 Trigger deploy를 따로 누르지 않아도 됩니다.
+- Deploys 화면의 최신 항목이 Published가 되면 적용 완료입니다.
+
+이번에 바뀌는 내용
+- 메인 페이지 WebSite 구조화 데이터 추가
+- 업체 페이지 BreadcrumbList 구조화 데이터 추가
+- 상세 업무 페이지에 같은 업체·같은 업무 관련 링크 추가
+- 푸터에 쇼핑몰·통신사 7개 업체 링크 추가
+- 쿠팡 반품 문 앞 수거 안내 문구 보완
+
+검색엔진 관련 주의
+- Netlify의 아래 환경변수 2개는 삭제하지 마세요.
+  NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+  NEXT_PUBLIC_NAVER_SITE_VERIFICATION
+- Google과 Naver 사이트맵은 이미 등록됐으므로 다시 제출할 필요가 없습니다.
+
+검증 완료
+- ESLint 오류 0개
+- TypeScript 오류 0개
+- Next.js 운영 빌드 성공
+- 정적 페이지 45개 생성 성공
