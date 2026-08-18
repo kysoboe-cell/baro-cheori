@@ -10,11 +10,6 @@ import {
 
 const supportUrl =
   "https://card.kbcard.com/SVC/DVIEW/HSEMCXCRSZZC0001";
-const lostArsUrl =
-  "https://card.kbcard.com/CMN/DVIEW/HSGMCXCRSCSC0030";
-const reissueArsUrl =
-  "https://card.kbcard.com/CMN/DVIEW/HSGMCXCRSCSC0031";
-
 export const kbCard: Company = {
   slug: "kb-card",
   name: "KB국민카드",
@@ -39,8 +34,6 @@ export const kbCard: Company = {
       hours: "도난·분실신고 및 해제 24시간 · 연중무휴",
       steps: makeLostCardSteps("KB국민카드", "1588-1788"),
       tips: lostCardTips,
-      officialUrl: lostArsUrl,
-      officialActionLabel: "KB국민카드 분실신고 안내 열기",
       lastChecked: "2026-08-18",
     },
     {
@@ -61,8 +54,6 @@ export const kbCard: Company = {
       hours: "카드 발급·훼손 재발급 상담 평일 09:00~18:00",
       steps: makeCardReissueSteps("KB Pay 또는 KB국민카드 홈페이지", "1899-0800"),
       tips: cardReissueTips,
-      officialUrl: reissueArsUrl,
-      officialActionLabel: "KB국민카드 재발급 ARS 안내 열기",
       lastChecked: "2026-08-18",
     },
     {

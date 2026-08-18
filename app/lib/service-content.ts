@@ -143,6 +143,62 @@ export function getCustomerCenterFallback(services: ServiceTask[]) {
   return services.find((service) => service.slug === "customer-center");
 }
 
+/**
+ * 같은 색을 무조건 1번에 칠하지 않고, 업무별로 실제 결과를 좌우하는
+ * 단계를 고릅니다. 개별 업무에 keyStepIndexes가 있으면 그 검수 결과가
+ * 항상 우선합니다.
+ */
+const keyStepIndexesBySlug: Record<string, number[]> = {
+  cancel: [1, 3],
+  "return-refund": [0, 3],
+  exchange: [0, 2, 3],
+  "order-check": [0, 2],
+  "delivery-not-received": [0, 2, 4],
+  "return-pickup-delay": [1, 3, 4],
+  "delivery-tracking": [0, 1],
+  "parcel-not-received": [0, 2, 4],
+  "return-reservation": [0, 2, 4],
+  "lost-card": [0, 1, 3],
+  "card-reissue": [0, 2, 4],
+  "unrecognized-charge": [0, 2, 3],
+  "lost-phone": [0, 1],
+  "internet-moving": [0, 2],
+  "termination-fee": [0, 3],
+  "internet-cancel": [0, 3, 5],
+  "account-transfer": [0, 2, 3],
+  billing: [0, 2],
+  "internet-trouble": [0, 2, 3],
+  "slow-internet": [0, 2, 3],
+  "self-check": [0, 3, 5],
+  "home-service": [0, 1, 3],
+  "service-center": [0, 1, 4],
+  "repair-cost-warranty": [0, 2, 4],
+  "membership-cancel": [0, 2, 3],
+  "charged-after-cancel": [0, 2, 3],
+  "payment-method": [0, 2],
+  "refund-request": [0, 2, 3],
+  "unknown-charge": [0, 2, 3],
+  "recurring-payment-cancel": [0, 2, 3],
+  "immediate-cancel-refund": [0, 2, 3],
+  "unexpected-membership-charge": [0, 2, 3],
+  "wow-membership-cancel": [0, 2, 4],
+  "wow-membership-refund": [0, 2, 3],
+  "customer-center": [0, 1],
+};
+
+export function getKeyStepIndexes(service: ServiceTask) {
+  const candidateIndexes =
+    service.keyStepIndexes ?? keyStepIndexesBySlug[service.slug] ?? [];
+  const stepCount = service.steps?.length ?? 0;
+
+  return candidateIndexes.filter(
+    (index, position) =>
+      index >= 0 &&
+      index < stepCount &&
+      candidateIndexes.indexOf(index) === position
+  );
+}
+
 const actionLabelBySlug: Record<string, string> = {
   cancel: "주문취소 안내 열기",
   "return-refund": "반품·환불 안내 열기",
@@ -187,6 +243,47 @@ export function getOfficialActionLabel(service: ServiceTask) {
     actionLabelBySlug[service.slug] ??
     "공식 처리 방법 열기"
   );
+}
+
+const blockedOfficialUrls = new Set([
+  "https://www.samsungcard.com/",
+  "https://www.shinhancard.com/",
+  "https://m.kt.com/",
+  "https://lotteglogis.com/",
+  "https://help.pay.naver.com/",
+  "https://help.gmarket.co.kr/",
+]);
+
+/**
+ * 홈페이지 첫 화면, ARS 설명처럼 바로처리의 설명보다 도움이 적은 링크는
+ * 버튼으로 노출하지 않습니다. 고객센터 페이지도 일반 홈페이지 버튼을
+ * 만들지 않습니다.
+ */
+export function getUsefulOfficialUrl(service: ServiceTask) {
+  if (!service.officialUrl || service.slug === "customer-center") return null;
+
+  const normalizedUrl = service.officialUrl.trim();
+  const lowerUrl = normalizedUrl.toLowerCase();
+
+  if (
+    blockedOfficialUrls.has(normalizedUrl) ||
+    lowerUrl.includes("ars")
+  ) {
+    return null;
+  }
+
+  return normalizedUrl;
+}
+
+export function getOfficialLinkHeading(service: ServiceTask) {
+  switch (service.officialLinkType) {
+    case "direct":
+      return "온라인에서 이어서 처리";
+    case "login":
+      return "로그인 후 이어서 처리";
+    default:
+      return "공식 화면을 열기 전에 확인";
+  }
 }
 
 const officialNextStepByCategory: Record<CategoryId, string> = {

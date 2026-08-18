@@ -8,10 +8,6 @@ import {
   unrecognizedChargeTips,
 } from "../cardCommon";
 
-const homeUrl = "https://www.samsungcard.com/";
-const arsUrl =
-  "https://www.samsungcard.com/personal/customer-service/ars/UHPPCC0221M0.jsp?click=cshub_ars";
-
 export const samsungCard: Company = {
   slug: "samsung-card",
   name: "삼성카드",
@@ -33,11 +29,13 @@ export const samsungCard: Company = {
         "최근 이용내역에 모르는 결제가 있으면 카드 재발급만 하지 말고 금융사고·부정사용도 함께 접수하세요.",
       ],
       phone: { number: "1588-8900", feeNote: "분실신고·한도승인 · 유료" },
+      phoneGuide: [
+        "1588-8900으로 전화해 1번(분실신고·분실해제)을 누르세요.",
+        "카드를 고른 뒤 이용정지 완료 안내가 나올 때까지 진행하세요.",
+      ],
       steps: makeLostCardSteps("삼성카드", "1588-8900"),
       tips: lostCardTips,
-      officialUrl: arsUrl,
-      officialActionLabel: "삼성카드 분실신고 ARS 안내 열기",
-      lastChecked: "2026-08-18",
+      lastChecked: "2026-08-19",
     },
     {
       slug: "card-reissue",
@@ -54,12 +52,14 @@ export const samsungCard: Company = {
         "삼성카드 앱에서 재발급 메뉴를 찾고, 메뉴가 없거나 가족·특수 카드라면 1588-8700에 문의하세요.",
       ],
       phone: { number: "1588-8700", feeNote: "삼성카드 대표전화 · 유료" },
+      phoneGuide: [
+        "분실했다면 먼저 1588-8900 → 1번으로 이용정지를 끝내세요.",
+        "1588-8700에 전화해 '분실신고는 했고 재발급하려고 합니다'라고 말하세요.",
+      ],
       hours: "전화상담 평일 09:00~18:00",
       steps: makeCardReissueSteps("삼성카드 앱", "1588-8700"),
       tips: cardReissueTips,
-      officialUrl: homeUrl,
-      officialActionLabel: "삼성카드 공식 홈페이지 열기",
-      lastChecked: "2026-08-18",
+      lastChecked: "2026-08-19",
     },
     {
       slug: "unrecognized-charge",
@@ -76,6 +76,10 @@ export const samsungCard: Company = {
         "모르는 결제거나 추가 승인이 걱정되면 1588-8900으로 카드부터 정지하고 1588-8700에 부정사용을 접수하세요.",
       ],
       phone: { number: "1588-8700", feeNote: "삼성카드 대표전화 · 유료" },
+      phoneGuide: [
+        "추가 결제가 걱정되면 1588-8900 → 1번으로 카드부터 정지하세요.",
+        "1588-8700에 전화해 '제가 하지 않은 결제라 이의신청을 접수하려고 합니다'라고 말하세요.",
+      ],
       hours: "전화상담 평일 09:00~18:00",
       steps: makeUnrecognizedChargeSteps(
         "삼성카드 앱",
@@ -83,9 +87,7 @@ export const samsungCard: Company = {
         "1588-8900"
       ),
       tips: unrecognizedChargeTips,
-      officialUrl: homeUrl,
-      officialActionLabel: "삼성카드 공식 홈페이지 열기",
-      lastChecked: "2026-08-18",
+      lastChecked: "2026-08-19",
     },
     {
       slug: "customer-center",
@@ -102,6 +104,11 @@ export const samsungCard: Company = {
         "분실 상황에서는 일반 상담을 기다리지 말고 분실신고 번호로 먼저 정지하세요.",
       ],
       phone: { number: "1588-8700", feeNote: "유료전화" },
+      phoneGuide: [
+        "카드 분실·도난이면 1588-8900 → 1번을 누르세요.",
+        "보이스피싱 등 금융사고 신고는 1588-8900 → 9번을 누르세요.",
+        "그 밖의 일반 문의만 1588-8700을 이용하세요.",
+      ],
       hours: "전화상담 평일 09:00~18:00",
       steps: [
         "분실·도난 또는 모르는 승인이라면 1588-8900으로 먼저 신고합니다.",
@@ -112,9 +119,7 @@ export const samsungCard: Company = {
         "전화 전에 문제가 있는 카드와 결제 금액·시간을 확인해두세요.",
         "해외 분실·부정사용은 공식 ARS 페이지의 해외 전용번호를 확인하세요.",
       ],
-      officialUrl: arsUrl,
-      officialActionLabel: "삼성카드 ARS 안내 열기",
-      lastChecked: "2026-08-18",
+      lastChecked: "2026-08-19",
     },
   ],
 };

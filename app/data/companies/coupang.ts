@@ -245,8 +245,11 @@ export const coupang: Company = {
         "앱 삭제나 로그아웃만으로는 와우 멤버십이 해지되지 않아요.",
         "와우에 묶인 별도 구독이 있다면 먼저 해지하라는 안내가 나올 수 있어요.",
       ],
-      officialUrl: "https://www.coupang.com/np/coupangwow",
-      officialActionLabel: "쿠팡 와우 멤버십 열기",
+      officialUrl: "https://news.coupang.com/archives/64216/",
+      officialActionLabel: "쿠팡 공식 와우 해지 방법 확인",
+      officialLinkType: "guide",
+      officialNextStep:
+        "이 페이지는 해지 방법과 환불 조건을 확인하는 설명입니다. 실제 해지는 쿠팡 앱의 마이쿠팡 → 와우 멤버십에서 하세요.",
       lastChecked: "2026-08-19",
     },
 

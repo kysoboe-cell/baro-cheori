@@ -66,14 +66,14 @@ export const samsungElectronics: Company = {
         "삼성 가전 기사 방문",
       ],
       quickSummary: [
-        "냉장고·세탁기·에어컨처럼 들고 가기 어려운 제품은 [출장서비스 예약]에서 기사 방문을 바로 신청하세요.",
+        "냉장고·세탁기·에어컨처럼 들고 가기 어려운 제품은 삼성 계정 로그인 후 [출장서비스 예약]에서 기사 방문을 신청하세요.",
         "휴대폰·노트북처럼 들고 갈 수 있는 제품은 먼저 센터 방문이 가능한지 보는 편이 빨라요.",
       ],
       phone: supportPhone,
       hours: "상담 평일 09:00~18:00 · 토요일 09:00~13:00",
       steps: [
         "고장 난 제품의 모델명과 오류 화면을 사진으로 찍습니다.",
-        "삼성전자서비스 [출장서비스 예약]을 열고 제품을 고릅니다.",
+        "삼성전자서비스 [출장서비스 예약]을 열고 삼성 계정으로 로그인한 뒤 제품을 고릅니다.",
         "고장 증상에는 언제부터 무엇이 안 되는지 짧게 적습니다.",
         "방문할 주소와 가능한 날짜를 고릅니다.",
         "예약을 끝낸 뒤 접수번호와 방문 예정일을 저장합니다.",
@@ -85,6 +85,9 @@ export const samsungElectronics: Company = {
       ],
       officialUrl: "https://www.samsungsvc.co.kr/reserve/reserveEngineer",
       officialActionLabel: "삼성 출장서비스 예약 열기",
+      officialLinkType: "login",
+      officialNextStep:
+        "삼성 계정 로그인이 필요합니다. 로그인한 뒤 제품·증상·방문 주소와 날짜를 선택하세요.",
       lastChecked: "2026-08-19",
     },
     {
@@ -100,7 +103,7 @@ export const samsungElectronics: Company = {
         "삼성 센터 방문 예약",
       ],
       quickSummary: [
-        "가까운 센터라고 모든 제품을 고치는 것은 아니에요. 먼저 센터의 [수리 가능 제품]을 확인하세요.",
+        "예약은 삼성 계정 로그인이 필요해요. 가까운 센터라고 모든 제품을 고치는 것은 아니므로 [수리 가능 제품]부터 확인하세요.",
         "휴대폰은 대기현황도 보고, 가능하면 방문 시간을 예약한 뒤 가세요.",
       ],
       phone: supportPhone,
@@ -119,6 +122,9 @@ export const samsungElectronics: Company = {
       ],
       officialUrl: "https://www.samsungsvc.co.kr/reserve/reserveCenter",
       officialActionLabel: "삼성 센터방문 예약 열기",
+      officialLinkType: "login",
+      officialNextStep:
+        "삼성 계정으로 로그인한 뒤 제품과 지역을 고르세요. 가까운 곳보다 수리 가능 제품을 먼저 확인하세요.",
       lastChecked: "2026-08-19",
     },
     {
