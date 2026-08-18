@@ -77,11 +77,11 @@ const situationTasks = [
     category: "구독",
   },
   {
-    companySlug: "apple-app-store",
-    serviceSlug: "unknown-charge",
-    label: "카드에 APPLE.COM/BILL이 찍혔을 때",
-    description: "어떤 앱 결제인지 금액으로 찾기",
-    category: "구독",
+    companySlug: "samsung-electronics",
+    serviceSlug: "self-check",
+    label: "가전제품이 갑자기 안 될 때",
+    description: "기사 부르기 전 오류 글자로 먼저 확인",
+    category: "전자·가전",
   },
 ];
 
@@ -93,7 +93,7 @@ export default function Home() {
     alternateName: "바로처리 생활업무 안내",
     url: SITE_URL,
     description:
-      "카드 분실·모르는 결제, 구독 해지·환불, 쇼핑몰 배송·반품, 통신사 분실·인터넷, 택배 조회 문제를 바로 처리할 공식 메뉴와 해결 순서로 안내합니다.",
+      "카드 분실·모르는 결제, 구독 해지·환불, 쇼핑몰 배송·반품, 통신사·택배 문제, 가전 고장을 바로 처리할 공식 메뉴와 해결 순서로 안내합니다.",
     inLanguage: "ko-KR",
   };
 
@@ -115,7 +115,7 @@ export default function Home() {
               전화 돌리기 전에, 지금 할 수 있는 것부터
             </p>
             <h1 className="mt-4 max-w-3xl break-keep text-4xl font-black leading-[1.13] tracking-tight text-slate-950 sm:text-5xl lg:text-[3.45rem]">
-              카드 분실·배송 안 옴·자동결제,
+              카드 분실·배송 안 옴·가전 고장,
               <br className="hidden sm:block" /> 지금 할 일만 바로
             </h1>
             <p className="mt-4 max-w-2xl break-keep text-base leading-7 text-slate-600 sm:text-lg">

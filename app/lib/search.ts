@@ -124,6 +124,45 @@ const intentAliases: IntentAlias[] = [
   },
   {
     phrases: [
+      "가전고장",
+      "제품고장",
+      "세탁기고장",
+      "냉장고고장",
+      "에어컨고장",
+      "티비안켜",
+      "tv안켜",
+      "에러코드",
+      "오류코드",
+    ],
+    searchAs: ["제품 고장 자가진단", "가전 오류 해결"],
+  },
+  {
+    phrases: [
+      "출장수리",
+      "출장as",
+      "기사방문",
+      "수리기사",
+      "as접수",
+      "수리접수",
+    ],
+    searchAs: ["출장수리 예약", "가전 기사 방문 예약"],
+  },
+  {
+    phrases: [
+      "서비스센터",
+      "as센터",
+      "수리센터",
+      "센터방문",
+      "센터예약",
+    ],
+    searchAs: ["서비스센터 찾기 방문예약", "수리센터"],
+  },
+  {
+    phrases: ["수리비", "as비용", "무상수리", "보증기간", "출장비"],
+    searchAs: ["수리비 보증기간", "무상수리 출장비"],
+  },
+  {
+    phrases: [
       "구독취소",
       "구독끊",
       "멤버십해지",
@@ -232,11 +271,47 @@ export function findExactCompany(query: string) {
 export function findMentionedCompanies(query: string) {
   const normalizedQuery = normalizeSearchText(query);
 
-  return companies.filter((company) =>
+  const matchedCompanies = companies.filter((company) =>
     [company.name, ...company.aliases].some((name) =>
       normalizedQuery.includes(normalizeSearchText(name))
     )
   );
+
+  const hasElectronicsContext = [
+    "가전",
+    "세탁기",
+    "냉장고",
+    "에어컨",
+    "tv",
+    "티비",
+    "제품고장",
+    "에러코드",
+    "오류코드",
+    "출장수리",
+    "서비스센터",
+    "수리센터",
+    "수리비",
+    "무상수리",
+    "보증기간",
+  ].some((phrase) => normalizedQuery.includes(normalizeSearchText(phrase)));
+
+  if (hasElectronicsContext) {
+    const contextualSlugs = [
+      normalizedQuery.includes("삼성") ? "samsung-electronics" : null,
+      normalizedQuery.includes("lg") || normalizedQuery.includes("엘지")
+        ? "lg-electronics"
+        : null,
+    ].filter(Boolean);
+
+    for (const slug of contextualSlugs) {
+      const company = companies.find((item) => item.slug === slug);
+      if (company && !matchedCompanies.includes(company)) {
+        matchedCompanies.push(company);
+      }
+    }
+  }
+
+  return matchedCompanies;
 }
 
 export function findServiceMatches(query: string, limit = 12) {

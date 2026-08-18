@@ -58,6 +58,26 @@ const preparationsBySlug: Record<string, string[]> = {
     "명의를 바꿀 인터넷·TV 상품",
     "새 명의자의 요금 납부 정보",
   ],
+  "self-check": [
+    "제품 모델명이 보이는 스티커 사진",
+    "오류 글자나 고장 화면 사진",
+    "언제부터 무엇이 안 됐는지 짧은 메모",
+  ],
+  "home-service": [
+    "제품 모델명이 보이는 스티커 사진",
+    "오류 글자나 고장 화면 사진",
+    "기사님이 방문할 주소와 가능한 날짜",
+  ],
+  "service-center": [
+    "수리할 제품과 필요한 충전기·부속품",
+    "제품 모델명과 고장 증상",
+    "휴대폰·PC라면 중요한 자료 백업",
+  ],
+  "repair-cost-warranty": [
+    "제품 모델명",
+    "구입 날짜가 보이는 영수증·주문내역",
+    "고장 부분과 오류 화면 사진",
+  ],
   "internet-trouble": [
     "공유기·모뎀 전원 상태",
     "장비 앞면의 불빛 상태",
@@ -141,6 +161,10 @@ const actionLabelBySlug: Record<string, string> = {
   "termination-fee": "해지 예상금액 확인하기",
   "internet-cancel": "인터넷 해지 신청 열기",
   "account-transfer": "인터넷 명의변경 열기",
+  "self-check": "제품 자가진단 열기",
+  "home-service": "출장수리 예약 열기",
+  "service-center": "서비스센터 방문예약 열기",
+  "repair-cost-warranty": "수리비·보증기간 안내 열기",
   "internet-trouble": "인터넷 고장진단 열기",
   "slow-internet": "인터넷 고장진단 열기",
   "membership-cancel": "멤버십 해지 화면 열기",

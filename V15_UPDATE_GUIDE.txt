@@ -1,0 +1,27 @@
+바로처리 V15 적용 방법
+
+이번 ZIP 파일을 D:\Projects\baro-cheori 폴더 안에 넣으세요.
+VS Code에서 바로처리 프로젝트를 연 뒤 PowerShell 터미널에 아래 명령을 위에서부터 한 줄씩 실행하세요.
+
+cd D:\Projects\baro-cheori
+Expand-Archive -Path ".\baro-cheori-electronics-v15-20260819.zip" -DestinationPath "." -Force
+npm run lint
+npm run build
+git add .
+git commit -m "add practical electronics repair guides"
+git push
+
+정상 확인 기준
+
+1. npm run lint가 오류 없이 끝납니다.
+2. npm run build에 Compiled successfully가 표시됩니다.
+3. 빌드 중 142개의 정적 페이지가 생성됩니다.
+4. 배포 뒤 홈 상단에 전자·가전 카테고리가 보입니다.
+5. 홈의 숫자가 23개 업체, 109개 실제 업무로 표시됩니다.
+6. 검색창에 "LG 출장수리"를 넣으면 LG전자 출장수리 예약으로 이동합니다.
+7. 검색창에 "삼성 세탁기 고장"을 넣으면 삼성전자서비스 제품 고장·자가진단으로 이동합니다.
+
+참고
+
+- ZIP 파일은 .gitignore에 포함되므로 프로젝트 폴더 안에 두어도 GitHub에 올라가지 않습니다.
+- 바로처리 로고는 이번 버전에서도 건드리지 않았습니다.

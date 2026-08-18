@@ -10,7 +10,7 @@ export default function SiteFooter() {
           <div>
             <p className="text-lg font-bold text-white">바로처리</p>
             <p className="mt-2 max-w-xl text-sm leading-6 text-gray-400">
-              흩어진 고객센터 정보와 처리 순서를 한 화면에서 이해하기 쉽게 정리하는 독립 안내 서비스입니다.
+              전화와 ARS를 돌기 전에 공식 화면에서 직접 해결할 순서를 쉽게 정리하는 독립 안내 서비스입니다.
             </p>
           </div>
           <nav aria-label="하단 메뉴" className="flex flex-wrap gap-x-5 gap-y-3 text-sm">
@@ -21,7 +21,7 @@ export default function SiteFooter() {
         </div>
         <nav
           aria-label="전체 업체"
-          className="mt-7 grid gap-4 border-t border-gray-800 pt-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5"
+          className="mt-7 grid gap-4 border-t border-gray-800 pt-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6"
         >
           {categories.map((category) => (
             <div key={category.id} className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">

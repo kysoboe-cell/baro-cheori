@@ -22,6 +22,8 @@ import { googlePlay } from "./companies/googlePlay";
 import { tving } from "./companies/tving";
 import { wavve } from "./companies/wavve";
 import { disneyPlus } from "./companies/disneyPlus";
+import { samsungElectronics } from "./companies/samsungElectronics";
+import { lgElectronics } from "./companies/lgElectronics";
 
 export type { CategoryId, Company, ServiceTask } from "./types";
 
@@ -53,6 +55,11 @@ export const categories = [
     id: "subscription" as const,
     name: "구독",
     icon: "▶️",
+  },
+  {
+    id: "electronics" as const,
+    name: "전자·가전",
+    icon: "🔧",
   },
 ];
 
@@ -87,6 +94,10 @@ export const companies: Company[] = [
   tving,
   wavve,
   disneyPlus,
+
+  // 전자제품·가전 수리
+  samsungElectronics,
+  lgElectronics,
 ];
 
 export function getCompaniesByCategory(categoryId: CategoryId) {

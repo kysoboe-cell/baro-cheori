@@ -110,7 +110,7 @@ export default function HomeSearch() {
           }}
           onFocus={() => setIsOpen(true)}
           onKeyDown={handleKeyDown}
-          placeholder="예: APPLE.COM/BILL 결제, 구독 끊고 싶음"
+          placeholder="예: 삼성 세탁기 고장, LG 출장수리"
           className="min-w-0 flex-1 px-4 py-4 text-base text-slate-950 outline-none placeholder:text-slate-400 sm:px-6"
         />
         <button

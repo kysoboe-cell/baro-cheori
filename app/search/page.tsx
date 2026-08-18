@@ -94,7 +94,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                 전화부터 하지 마세요. 회사 이름을 붙여 다시 검색하거나, 아래에서 가장 비슷한 상황을 먼저 눌러보세요.
               </p>
               <p className="mt-3 text-sm font-bold text-slate-600">
-                예: 국민카드 잃어버림 · 쿠팡 배송완료인데 안 옴
+                예: 삼성 세탁기 고장 · LG 출장수리 · 국민카드 잃어버림
               </p>
             </div>
 

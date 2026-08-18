@@ -28,7 +28,8 @@ export type CategoryId =
   | "telecom"
   | "delivery"
   | "card"
-  | "subscription";
+  | "subscription"
+  | "electronics";
 
 export type Company = {
   slug: string;
