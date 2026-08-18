@@ -9,16 +9,7 @@ import { skt } from "./companies/skt";
 import { kt } from "./companies/kt";
 import { lguplus } from "./companies/lguplus";
 
-export type { Company, ServiceTask } from "./types";
-
-export type CategoryId =
-  | "shopping"
-  | "telecom"
-  | "electronics"
-  | "hospital"
-  | "finance"
-  | "public"
-  | "delivery";
+export type { CategoryId, Company, ServiceTask } from "./types";
 
 export const categories = [
   {
@@ -46,3 +37,18 @@ export const companies: Company[] = [
   kt,
   lguplus,
 ];
+
+export const allServices = companies.flatMap((company) =>
+  company.services.map((service) => ({ company, service }))
+);
+
+export function getCompany(slug: string) {
+  return companies.find((company) => company.slug === slug);
+}
+
+export function getService(companySlug: string, serviceSlug: string) {
+  const company = getCompany(companySlug);
+  const service = company?.services.find((item) => item.slug === serviceSlug);
+
+  return company && service ? { company, service } : null;
+}

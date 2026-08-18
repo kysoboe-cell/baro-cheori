@@ -1,116 +1,102 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { companies } from "../../data/services";
+import { companies, getCompany } from "../../data/services";
+import { companyPath, servicePath } from "../../lib/site";
+
 const servicePriority: Record<string, number> = {
-  // 쇼핑몰
   cancel: 1,
   "return-refund": 2,
   exchange: 3,
-
-  // 통신사
+  "order-check": 4,
   "lost-phone": 1,
   "internet-moving": 2,
   billing: 3,
-
-  // 고객센터는 항상 뒤쪽
   "home-customer-center": 90,
   "mobile-customer-center": 91,
   "customer-center": 99,
 };
 
 type CompanyPageProps = {
-    params: Promise<{
-        slug: string;
-    }>;
+  params: Promise<{ slug: string }>;
 };
 
-export default async function CompanyPage({
-    params,
-}: CompanyPageProps) {
-    const { slug } = await params;
+export const dynamicParams = false;
 
-    const company = companies.find(
-        (item) => item.slug === slug
-    );
+export function generateStaticParams() {
+  return companies.map((company) => ({ slug: company.slug }));
+}
 
-    if (!company) {
-        notFound();
-    }
-    const orderedServices = [...company.services].sort(
-        (a, b) =>
-            (servicePriority[a.slug] ?? 99) -
-            (servicePriority[b.slug] ?? 99)
-    );
+export async function generateMetadata({
+  params,
+}: CompanyPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const company = getCompany(slug);
 
-    return (
-        <main className="min-h-screen bg-gray-50 text-black">
-            {/* 상단 */}
-            <header className="border-b border-gray-200 bg-white">
-                <div className="flex items-center justify-between px-4 py-5 sm:px-6 lg:px-10 xl:px-12">
-                    <Link href="/" className="text-2xl font-bold">
-                        바로처리
-                    </Link>
+  if (!company) return { title: "업체를 찾을 수 없습니다" };
 
-                    <Link
-                        href="/"
-                        className="text-sm text-gray-500 hover:text-black"
-                    >
-                        ← 메인으로
-                    </Link>
-                </div>
-            </header>
+  return {
+    title: `${company.name} 업무 처리 방법·고객센터`,
+    description: `${company.name}의 ${company.services
+      .map((service) => service.title)
+      .join(", ")} 처리 순서와 공식 고객센터 정보를 확인하세요.`,
+    alternates: { canonical: companyPath(company.slug) },
+    openGraph: {
+      title: `${company.name} 업무 처리 방법`,
+      description: `${company.name}의 주요 업무를 순서대로 쉽게 확인하세요.`,
+      url: companyPath(company.slug),
+    },
+  };
+}
 
-            {/* 업체 */}
-            <section className="mx-auto max-w-4xl px-6 py-16">
-                <p className="text-sm font-semibold text-gray-400">
-                    업체
-                </p>
+export default async function CompanyPage({ params }: CompanyPageProps) {
+  const { slug } = await params;
+  const company = getCompany(slug);
 
-                <h1 className="mt-2 text-4xl font-bold">
-                    {company.name}
-                </h1>
+  if (!company) notFound();
 
-                <p className="mt-4 text-gray-500">
-                    처리하려는 업무를 선택해주세요.
-                </p>
+  const orderedServices = [...company.services].sort(
+    (a, b) =>
+      (servicePriority[a.slug] ?? 50) - (servicePriority[b.slug] ?? 50)
+  );
 
-                {/* 업무 목록 */}
-                {orderedServices.length > 0 ? (
-                    <div className="mt-10 grid gap-4 sm:grid-cols-2">
-                        {orderedServices.map((service) => (
-                            <Link
-                                key={service.slug}
-                                href={`/search?q=${encodeURIComponent(
-                                    `${company.name} ${service.title}`
-                                )}`}
-                                className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-gray-400 hover:shadow-md"
-                            >
-                                <p className="text-xl font-bold">
-                                    {service.title}
-                                </p>
+  return (
+    <main className="bg-gray-50">
+      <section className="mx-auto max-w-5xl px-4 py-12 sm:px-6 sm:py-16">
+        <nav aria-label="현재 위치" className="text-sm text-gray-500">
+          <Link href="/" className="hover:text-black">홈</Link>
+          <span aria-hidden="true"> / </span>
+          <span>{company.name}</span>
+        </nav>
 
-                                <p className="mt-2 text-sm text-gray-500">
-                                    처리 방법과 필요한 정보를 확인하세요.
-                                </p>
+        <p className="mt-8 text-sm font-bold text-blue-700">업체별 업무 안내</p>
+        <h1 className="mt-2 text-4xl font-black tracking-tight sm:text-5xl">
+          {company.name}
+        </h1>
+        <p className="mt-4 leading-7 text-gray-600">
+          처리하려는 업무를 선택하면 준비물부터 공식 신청 경로까지 순서대로 보여드려요.
+        </p>
 
-                                <p className="mt-6 text-sm font-semibold">
-                                    바로 확인하기 →
-                                </p>
-                            </Link>
-                        ))}
-                    </div>
-                ) : (
-                    <div className="mt-10 rounded-2xl border border-gray-200 bg-white p-10 text-center shadow-sm">
-                        <p className="text-xl font-bold">
-                            아직 등록된 업무가 없어요.
-                        </p>
+        <div className="mt-10 grid gap-4 sm:grid-cols-2">
+          {orderedServices.map((service) => (
+            <Link
+              key={service.slug}
+              href={servicePath(company.slug, service.slug)}
+              className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-gray-400 hover:shadow-md"
+            >
+              <p className="text-xl font-bold">{service.title}</p>
+              <p className="mt-2 line-clamp-2 text-sm leading-6 text-gray-600">
+                {service.quickSummary?.[0] ?? "처리 방법과 필요한 정보를 확인하세요."}
+              </p>
+              <p className="mt-6 text-sm font-bold">순서대로 확인하기 →</p>
+            </Link>
+          ))}
+        </div>
 
-                        <p className="mt-3 text-gray-500">
-                            필요한 정보를 준비하고 있습니다.
-                        </p>
-                    </div>
-                )}
-            </section>
-        </main>
-    );
+        <div className="mt-10 rounded-2xl border border-blue-100 bg-blue-50 p-5 text-sm leading-6 text-gray-700">
+          바로처리는 {company.name}의 공식 서비스가 아닌 독립 안내 서비스입니다. 마지막 단계에서는 연결된 공식 페이지의 최신 조건을 확인하세요.
+        </div>
+      </section>
+    </main>
+  );
 }

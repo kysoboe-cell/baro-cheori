@@ -21,10 +21,12 @@ export type ServiceTask = {
   lastChecked?: string;
 };
 
+export type CategoryId = "shopping" | "telecom";
+
 export type Company = {
   slug: string;
   name: string;
-  categoryId: string;
+  categoryId: CategoryId;
   aliases: string[];
   services: ServiceTask[];
 };
