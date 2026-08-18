@@ -5,8 +5,18 @@ const preparationsBySlug: Record<string, string[]> = {
   "return-refund": ["반품할 상품과 주문번호", "상품을 다시 담을 포장재"],
   exchange: ["교환할 상품과 주문번호", "상품을 다시 담을 포장재"],
   "order-check": ["주문한 날짜", "상품명 또는 주문번호"],
+  "delivery-not-received": [
+    "주문번호",
+    "배송완료 문자·사진",
+    "받기로 한 주소",
+  ],
   "lost-phone": ["본인인증 수단", "분실한 휴대폰 번호", "분실한 때와 장소"],
   "internet-moving": ["이사할 새 주소", "설치 희망일", "공유기·셋톱박스 등 기존 장비"],
+  "internet-trouble": [
+    "공유기·모뎀 전원 상태",
+    "장비 앞면의 불빛 상태",
+    "가입자 본인인증 수단",
+  ],
   billing: ["본인인증 수단", "납부할 결제수단"],
   "customer-center": [
     "주문번호 또는 가입한 휴대폰 번호",
@@ -30,8 +40,10 @@ const actionLabelBySlug: Record<string, string> = {
   "return-refund": "반품·환불 안내 열기",
   exchange: "교환 안내 열기",
   "order-check": "주문내역 확인 방법 열기",
+  "delivery-not-received": "주문·배송내역 열기",
   "lost-phone": "분실신고 바로가기",
   "internet-moving": "이전설치 신청 방법 열기",
+  "internet-trouble": "인터넷 고장진단 열기",
   billing: "요금 조회·납부 방법 열기",
   "customer-center": "공식 고객센터 열기",
 };

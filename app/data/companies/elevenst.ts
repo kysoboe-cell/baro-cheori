@@ -1,7 +1,9 @@
 import type { Company } from "../types";
 
 import {
+  makeShoppingDeliveryNotReceivedSteps,
   makeShoppingReturnSteps,
+  shoppingDeliveryNotReceivedTips,
   shoppingReturnCommonTips,
 } from "../shoppingCommon";
 
@@ -110,6 +112,42 @@ export const elevenst: Company = {
 
       tips: [
         "배송정보가 오랫동안 바뀌지 않는다면 판매자 문의도 확인하세요.",
+      ],
+
+      officialUrl:
+        "https://www.11st.co.kr/OrderDelvInfo.page",
+
+      officialActionLabel: "11번가 주문/배송조회 열기",
+
+      lastChecked: "2026-08-18",
+    },
+
+    {
+      slug: "delivery-not-received",
+      title: "배송 지연·미도착",
+
+      keywords: [
+        "11번가 배송 안옴",
+        "십일번가 배송 안 와요",
+        "11번가 배송 지연",
+        "11번가 배송완료 상품 없음",
+        "11번가 배송완료인데 안옴",
+        "11번가 택배 못 받음",
+      ],
+
+      quickSummary: [
+        "나의11번가 주문/배송조회에서 운송장 위치와 판매자 문의부터 확인하세요.",
+        "배송완료인데 없다면 수령 장소와 배송 문자를 확인하고, 찾지 못하면 구매확정 전에 미수령으로 문의하세요.",
+      ],
+
+      steps: makeShoppingDeliveryNotReceivedSteps(
+        "나의11번가 주문/배송조회",
+        "주문 상세의 판매자 문의"
+      ),
+
+      tips: [
+        ...shoppingDeliveryNotReceivedTips,
+        "판매자와 해결되지 않으면 11번가 고객센터 1599-0110으로 문의하세요.",
       ],
 
       officialUrl:

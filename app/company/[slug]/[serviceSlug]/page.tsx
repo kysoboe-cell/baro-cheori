@@ -345,7 +345,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
         <section className="mt-5 rounded-2xl border border-gray-200 bg-white px-5 py-4 text-xs leading-5 text-gray-600">
           <p>
             <span className="font-bold text-gray-900">안내 범위 · </span>
-            바로처리는 {company.name}와 제휴·대행 관계가 없는 독립 안내 서비스입니다. 업체 정책이나 화면은 정보 확인일 이후 변경될 수 있습니다.
+            바로처리는 {company.name}의 공식 서비스가 아니며 제휴·대행 관계가 없습니다. 업체 정책이나 화면은 정보 확인일 이후 변경될 수 있습니다.
           </p>
         </section>
       </article>

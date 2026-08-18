@@ -1,4 +1,8 @@
 import type { Company } from "../types";
+import {
+  makeShoppingDeliveryNotReceivedSteps,
+  shoppingDeliveryNotReceivedTips,
+} from "../shoppingCommon";
 
 export const coupang: Company = {
   slug: "coupang",
@@ -140,6 +144,40 @@ export const coupang: Company = {
         "https://mc.coupang.com/ssr/desktop/order/list",
 
       officialActionLabel: "마이쿠팡 주문목록 열기",
+
+      lastChecked: "2026-08-18",
+    },
+
+    {
+      slug: "delivery-not-received",
+      title: "배송 지연·미도착",
+
+      keywords: [
+        "쿠팡 배송 안옴",
+        "쿠팡 배송 안 와요",
+        "쿠팡 배송 지연",
+        "쿠팡 배송완료 상품 없음",
+        "쿠팡 배송완료인데 안옴",
+        "쿠팡 택배 못 받음",
+        "쿠팡 물건 안옴",
+      ],
+
+      quickSummary: [
+        "마이쿠팡 주문목록에서 [배송조회]를 눌러 최근 위치부터 확인하세요.",
+        "배송완료인데 없다면 문 앞·경비실·무인택배함·배송사진을 확인한 뒤 바로 미수령으로 접수하세요.",
+      ],
+
+      steps: makeShoppingDeliveryNotReceivedSteps(
+        "마이쿠팡 주문목록/배송조회",
+        "쿠팡 고객센터"
+      ),
+
+      tips: shoppingDeliveryNotReceivedTips,
+
+      officialUrl:
+        "https://mc.coupang.com/ssr/desktop/order/list",
+
+      officialActionLabel: "마이쿠팡 배송조회 열기",
 
       lastChecked: "2026-08-18",
     },

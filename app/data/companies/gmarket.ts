@@ -1,7 +1,9 @@
 import type { Company } from "../types";
 
 import {
+  makeShoppingDeliveryNotReceivedSteps,
   makeShoppingReturnSteps,
+  shoppingDeliveryNotReceivedTips,
   shoppingReturnCommonTips,
 } from "../shoppingCommon";
 
@@ -118,6 +120,42 @@ export const gmarket: Company = {
         "https://help.gmarket.co.kr/",
 
       officialActionLabel: "G마켓 주문·배송 도움말 열기",
+
+      lastChecked: "2026-08-18",
+    },
+
+    {
+      slug: "delivery-not-received",
+      title: "배송 지연·미도착",
+
+      keywords: [
+        "G마켓 배송 안옴",
+        "지마켓 배송 안 와요",
+        "G마켓 배송 지연",
+        "G마켓 배송완료 상품 없음",
+        "지마켓 배송완료인데 안옴",
+        "G마켓 택배 못 받음",
+      ],
+
+      quickSummary: [
+        "나의 G마켓 주문내역에서 배송조회와 최근 택배 위치부터 확인하세요.",
+        "배송완료인데 없다면 수령 장소와 배송 문자를 확인한 뒤 주문 상세의 [문의하기]로 미수령을 남기세요.",
+      ],
+
+      steps: makeShoppingDeliveryNotReceivedSteps(
+        "나의 G마켓 주문내역",
+        "주문 상세의 [문의하기]"
+      ),
+
+      tips: [
+        ...shoppingDeliveryNotReceivedTips,
+        "판매자와 해결되지 않으면 G마켓 고객센터 1566-5701의 주문·배송 메뉴로 문의하세요.",
+      ],
+
+      officialUrl:
+        "https://help.gmarket.co.kr/Tcs/Faq/FaqCategorizationTypeSub?code=C10407",
+
+      officialActionLabel: "G마켓 배송 문의 방법 열기",
 
       lastChecked: "2026-08-18",
     },

@@ -146,6 +146,54 @@ export const skt: Company = {
     },
 
     {
+      slug: "internet-trouble",
+      title: "인터넷 연결 안 됨",
+
+      keywords: [
+        "SK 인터넷 안됨",
+        "SKT 인터넷 안돼요",
+        "SK브로드밴드 인터넷 끊김",
+        "SKB 와이파이 안됨",
+        "B tv 인터넷 장애",
+        "SK 인터넷 고장신고",
+        "SK 와이파이 연결 안됨",
+      ],
+
+      quickSummary: [
+        "한 기기만 안 되면 그 기기의 Wi-Fi를 껐다 켜고 다시 연결하세요.",
+        "집 안 모든 기기가 안 되면 공유기·모뎀 전원을 다시 연결한 뒤 B world AS 간편진단을 실행하세요.",
+      ],
+
+      phone: {
+        number: "106",
+        feeNote: "SK브로드밴드 고객센터 무료",
+      },
+
+      hours: "고장문의 365일 · 24시간",
+
+      steps: [
+        "다른 휴대폰이나 PC도 같은 Wi-Fi에 연결되지 않는지 확인합니다.",
+        "모든 기기가 안 되면 공유기·모뎀의 전원선과 인터넷 선이 빠지지 않았는지 확인합니다.",
+        "공유기·모뎀 전원선을 뺐다가 다시 연결하고 장비가 켜질 때까지 몇 분 기다립니다.",
+        "그래도 안 되면 B world의 [AS 간편진단/조치]에서 가입 상품을 선택해 진단합니다.",
+        "진단으로 해결되지 않으면 106 → 고장문의로 접수합니다.",
+      ],
+
+      tips: [
+        "공유기의 작은 RESET 구멍은 누르지 마세요. Wi-Fi 이름과 비밀번호 설정이 지워질 수 있어요.",
+        "한 기기만 안 된다면 통신망보다 그 기기의 Wi-Fi 설정 문제일 가능성이 커요.",
+        "지역 장애라면 장비를 여러 번 재부팅해도 해결되지 않으니 106에서 장애 여부를 확인하세요.",
+      ],
+
+      officialUrl:
+        "https://www.bworld.co.kr/customer/center/service.do?menu_id=C02000000",
+
+      officialActionLabel: "B world 고장 간편진단 열기",
+
+      lastChecked: "2026-08-18",
+    },
+
+    {
       slug: "customer-center",
       title: "고객센터",
 

@@ -1,7 +1,9 @@
 import type { Company } from "../types";
 
 import {
+  makeShoppingDeliveryNotReceivedSteps,
   makeShoppingReturnSteps,
+  shoppingDeliveryNotReceivedTips,
   shoppingReturnCommonTips,
 } from "../shoppingCommon";
 
@@ -108,6 +110,42 @@ export const naverSmartstore: Company = {
 
       officialUrl:
         "https://help.pay.naver.com/",
+
+      lastChecked: "2026-08-18",
+    },
+
+    {
+      slug: "delivery-not-received",
+      title: "배송 지연·미도착",
+
+      keywords: [
+        "네이버 스마트스토어 배송 안옴",
+        "네이버쇼핑 배송 안 와요",
+        "네이버페이 배송 지연",
+        "Npay 배송완료 상품 없음",
+        "네이버 배송완료인데 안옴",
+        "스마트스토어 택배 못 받음",
+      ],
+
+      quickSummary: [
+        "Npay 결제내역에서 주문을 열고 배송조회와 판매자 문의를 바로 확인하세요.",
+        "배송완료인데 없다면 배송 문자·사진과 수령 장소를 확인하고, 찾지 못하면 구매확정 전에 미수령으로 문의하세요.",
+      ],
+
+      steps: makeShoppingDeliveryNotReceivedSteps(
+        "Npay 결제내역",
+        "주문 상세의 [판매자 문의]"
+      ),
+
+      tips: [
+        ...shoppingDeliveryNotReceivedTips,
+        "판매자와 협의가 되지 않으면 Npay 고객센터 1588-3819로 문의하세요.",
+      ],
+
+      officialUrl:
+        "https://help.pay.naver.com/faq/content.help?faqId=11338",
+
+      officialActionLabel: "Npay 배송 문제 도움말 열기",
 
       lastChecked: "2026-08-18",
     },

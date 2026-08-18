@@ -10,10 +10,10 @@ export const metadata: Metadata = {
 };
 
 const popularTasks = [
-  ["coupang", "return-refund"],
-  ["naver-smartstore", "cancel"],
+  ["coupang", "delivery-not-received"],
+  ["naver-smartstore", "return-refund"],
   ["kt", "lost-phone"],
-  ["lguplus", "internet-moving"],
+  ["lguplus", "internet-trouble"],
 ].map(([companySlug, serviceSlug]) => getService(companySlug, serviceSlug));
 
 export default function Home() {
@@ -24,7 +24,7 @@ export default function Home() {
     alternateName: "바로처리 생활업무 안내",
     url: SITE_URL,
     description:
-      "쇼핑몰 반품·환불과 통신사 분실·이전설치 등 생활 업무의 준비물과 처리 순서를 안내합니다.",
+      "쇼핑몰 배송·반품 문제와 통신사 분실·인터넷 문제를 바로 처리할 공식 메뉴와 해결 순서로 안내합니다.",
     inLanguage: "ko-KR",
   };
 
@@ -50,7 +50,7 @@ export default function Home() {
             순서대로 바로 알려드려요
           </h1>
           <p className="mx-auto mt-4 max-w-2xl break-keep text-base leading-7 text-gray-600 sm:text-lg">
-            준비물, 처리 순서, 고객센터 운영시간과 공식 링크를 한 화면에서 확인하세요.
+            지금 누를 공식 메뉴, 혼자 해볼 1분 확인, 안 될 때 연락처를 한 화면에서 확인하세요.
           </p>
 
           <HomeSearch />
@@ -89,9 +89,9 @@ export default function Home() {
           <h2 className="text-center text-3xl font-bold">이렇게 이용해요</h2>
           <div className="mt-10 grid gap-5 md:grid-cols-3">
             {[
-              ["01", "업무 검색", "회사명과 처리할 일을 함께 입력합니다."],
-              ["02", "준비물 확인", "전화나 신청 전에 필요한 정보를 챙깁니다."],
-              ["03", "순서대로 처리", "공식 페이지나 고객센터를 이용해 마무리합니다."],
+              ["01", "문제 그대로 검색", "예: 쿠팡 배송 안 옴, KT 인터넷 안 됨처럼 입력합니다."],
+              ["02", "첫 버튼부터 처리", "긴 설명보다 주문내역·고장진단 같은 공식 메뉴를 먼저 엽니다."],
+              ["03", "안 되면 바로 연결", "셀프로 해결되지 않을 때 맞는 고객센터 번호로 이어갑니다."],
             ].map(([number, title, description]) => (
               <div key={number} className="rounded-2xl bg-white p-7 shadow-sm">
                 <p className="text-sm font-black text-blue-700">{number}</p>

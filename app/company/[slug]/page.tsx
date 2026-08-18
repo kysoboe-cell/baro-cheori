@@ -7,11 +7,13 @@ import { absoluteUrl, companyPath, servicePath } from "../../lib/site";
 const servicePriority: Record<string, number> = {
   cancel: 1,
   "return-refund": 2,
-  exchange: 3,
-  "order-check": 4,
+  "delivery-not-received": 3,
+  exchange: 4,
+  "order-check": 5,
   "lost-phone": 1,
-  "internet-moving": 2,
-  billing: 3,
+  "internet-trouble": 2,
+  "internet-moving": 3,
+  billing: 4,
   "home-customer-center": 90,
   "mobile-customer-center": 91,
   "customer-center": 99,
@@ -95,7 +97,7 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
           {company.name}
         </h1>
         <p className="mt-4 leading-7 text-gray-600">
-          처리하려는 업무를 선택하면 준비물부터 공식 신청 경로까지 순서대로 보여드려요.
+          처리하려는 업무를 선택하면 지금 누를 메뉴, 짧은 해결 순서, 안 될 때 연락처를 보여드려요.
         </p>
 
         <div className="mt-10 grid gap-4 sm:grid-cols-2">

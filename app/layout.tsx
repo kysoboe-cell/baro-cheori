@@ -12,11 +12,11 @@ const naverVerification = process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION;
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "바로처리 | 고객센터·반품·분실 업무를 한눈에",
+    default: "바로처리 | 반품·배송·분실·인터넷 해결 순서",
     template: `%s | ${SITE_NAME}`,
   },
   description:
-    "쇼핑몰 반품·환불부터 통신사 휴대폰 분실·인터넷 이전설치까지, 전화번호와 처리 순서를 한 화면에서 확인하세요.",
+    "쇼핑몰 배송이 안 왔을 때와 반품·환불, 통신사 휴대폰 분실과 인터넷이 안 될 때 지금 누를 공식 메뉴와 연락처를 확인하세요.",
   applicationName: SITE_NAME,
   alternates: { canonical: "/" },
   openGraph: {
@@ -24,9 +24,9 @@ export const metadata: Metadata = {
     locale: "ko_KR",
     siteName: SITE_NAME,
     url: "/",
-    title: "바로처리 | 고객센터·반품·분실 업무를 한눈에",
+    title: "바로처리 | 반품·배송·분실·인터넷 해결 순서",
     description:
-      "헷갈리는 생활 업무의 준비물, 처리 순서, 고객센터와 공식 링크를 한 화면에서 확인하세요.",
+      "헷갈리는 생활 문제를 지금 누를 공식 메뉴, 짧은 해결 순서, 안 될 때 연락처로 정리합니다.",
   },
   robots: {
     index: true,
