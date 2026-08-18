@@ -1,0 +1,24 @@
+바로처리 V13 적용 방법
+
+1. baro-cheori-ott-payment-v13-20260819.zip 파일을 아래 폴더 안에 넣으세요.
+   D:\Projects\baro-cheori
+
+2. VS Code 터미널에 아래 명령을 위에서부터 한 줄씩 실행하세요.
+
+cd D:\Projects\baro-cheori
+Expand-Archive -Path ".\baro-cheori-ott-payment-v13-20260819.zip" -DestinationPath "." -Force
+Remove-Item ".\baro-cheori-ott-payment-v13-20260819.zip"
+npm run lint
+npm run build
+git add .
+git commit -m "add practical OTT cancellation and refund guides"
+git push
+
+3. 확인할 내용
+
+- 홈에 21개 업체, 92개 실제 업무가 표시되는지 확인합니다.
+- 구독 카테고리에 티빙·웨이브·디즈니+가 보이는지 확인합니다.
+- 검색창에 `티빙 해지`, `웨이브 환불`, `디즈니 해지했는데 결제`를 각각 입력합니다.
+- 각 페이지의 첫 행동이 실제 결제처 확인으로 시작하는지 확인합니다.
+
+GitHub 푸시 뒤 Netlify가 자동으로 새 버전을 배포합니다.

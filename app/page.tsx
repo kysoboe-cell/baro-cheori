@@ -70,11 +70,11 @@ const situationTasks = [
     category: "카드",
   },
   {
-    companySlug: "naver-smartstore",
-    serviceSlug: "cancel",
-    label: "주문을 빨리 취소하고 싶을 때",
-    description: "배송 전·후 처리 차이",
-    category: "쇼핑",
+    companySlug: "disney-plus",
+    serviceSlug: "charged-after-cancel",
+    label: "디즈니+ 해지 뒤 돈이 또 빠졌을 때",
+    description: "계정 삭제·다른 결제처부터 확인",
+    category: "구독",
   },
   {
     companySlug: "apple-app-store",

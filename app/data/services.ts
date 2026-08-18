@@ -19,6 +19,9 @@ import { youtubePremium } from "./companies/youtubePremium";
 import { naverPlus } from "./companies/naverPlus";
 import { appleAppStore } from "./companies/appleAppStore";
 import { googlePlay } from "./companies/googlePlay";
+import { tving } from "./companies/tving";
+import { wavve } from "./companies/wavve";
+import { disneyPlus } from "./companies/disneyPlus";
 
 export type { CategoryId, Company, ServiceTask } from "./types";
 
@@ -81,6 +84,9 @@ export const companies: Company[] = [
   naverPlus,
   appleAppStore,
   googlePlay,
+  tving,
+  wavve,
+  disneyPlus,
 ];
 
 export function getCompaniesByCategory(categoryId: CategoryId) {

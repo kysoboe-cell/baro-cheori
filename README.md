@@ -4,7 +4,7 @@
 
 - 공개 주소: https://baro-cheori.netlify.app
 - 기술: Next.js 16.3.1, TypeScript, Tailwind CSS 4
-- 현재 범위: 쇼핑몰 4곳, 통신사 3곳, 택배사 3곳, 카드사 3곳, 구독·앱결제 5곳, 주요 업무 83개
+- 현재 범위: 쇼핑몰 4곳, 통신사 3곳, 택배사 3곳, 카드사 3곳, 구독·앱결제 8곳, 주요 업무 92개
 - 콘텐츠 원칙: 온라인 해결 우선, 긴급 상황 외 ARS는 마지막, 초등학생도 이해할 짧은 문장
 - UX·사업 벤치마크: [PRODUCT_HUNT_BENCHMARK_20260818.md](./PRODUCT_HUNT_BENCHMARK_20260818.md)
 
