@@ -10,6 +10,62 @@ export type ServiceSearchResult = {
   score: number;
 };
 
+type IntentAlias = {
+  phrases: string[];
+  searchAs: string[];
+};
+
+// 사용자가 실제로 입력하는 생활 말투를 사이트 안의 업무 이름으로 연결합니다.
+// 업체별 키워드에 같은 표현을 반복해서 넣지 않도록 검색 단계에서 한 번만 관리합니다.
+const intentAliases: IntentAlias[] = [
+  {
+    phrases: ["잃어버렸", "잃어버림", "잃어버린", "카드없어", "카드없음"],
+    searchAs: ["분실", "분실신고"],
+  },
+  {
+    phrases: ["내가안한결제", "모르는결제", "이상한결제", "결제한적없"],
+    searchAs: ["모르는 결제", "부정사용", "이의신청"],
+  },
+  {
+    phrases: [
+      "배송완료인데안와",
+      "배송완료인데안옴",
+      "배송완료인데없",
+      "택배못받",
+      "물건못받",
+    ],
+    searchAs: ["배송완료 미수령", "배송 안 옴"],
+  },
+  {
+    phrases: ["택배안와", "택배안옴", "배송안와", "배송안옴", "배송늦"],
+    searchAs: ["배송조회", "택배 위치", "배송 지연"],
+  },
+  {
+    phrases: ["택배멈", "배송멈", "위치안바뀜", "며칠째그대로"],
+    searchAs: ["배송조회", "배송 상태 멈춤"],
+  },
+  {
+    phrases: ["반품안가져", "회수안와", "수거안와", "기사안와"],
+    searchAs: ["반품 회수 지연", "반품 수거 안 옴"],
+  },
+  {
+    phrases: ["돈안들어옴", "환불안됨", "환불안돼", "환불늦"],
+    searchAs: ["반품 환불", "환불 지연"],
+  },
+  {
+    phrases: ["인터넷옮", "인터넷이사", "와이파이옮"],
+    searchAs: ["인터넷 이전설치", "이사 인터넷"],
+  },
+  {
+    phrases: ["인터넷안돼", "인터넷안됨", "와이파이안돼", "와이파이끊"],
+    searchAs: ["인터넷 고장", "인터넷 연결 안 됨"],
+  },
+  {
+    phrases: ["인터넷느려", "와이파이느려", "속도느림"],
+    searchAs: ["인터넷 속도 느림", "느린 인터넷"],
+  },
+];
+
 export function normalizeSearchText(text: string) {
   return text
     .normalize("NFKC")
@@ -55,6 +111,23 @@ function similarity(query: string, target: string) {
   return (2 * matches * 70) / (queryBigrams.length + targetBigrams.length);
 }
 
+function getSearchQueries(query: string) {
+  const normalizedQuery = normalizeSearchText(query);
+  const variants = new Set([query]);
+
+  for (const alias of intentAliases) {
+    const hasMatchingPhrase = alias.phrases.some((phrase) =>
+      normalizedQuery.includes(normalizeSearchText(phrase))
+    );
+
+    if (hasMatchingPhrase) {
+      alias.searchAs.forEach((item) => variants.add(item));
+    }
+  }
+
+  return [...variants];
+}
+
 export function findExactCompany(query: string) {
   const normalizedQuery = normalizeSearchText(query);
 
@@ -79,6 +152,7 @@ export function findServiceMatches(query: string, limit = 12) {
   const mentionedCompanies = findMentionedCompanies(query);
   const companiesToSearch =
     mentionedCompanies.length > 0 ? mentionedCompanies : companies;
+  const searchQueries = getSearchQueries(query);
   const results: ServiceSearchResult[] = [];
 
   for (const company of companiesToSearch) {
@@ -90,11 +164,13 @@ export function findServiceMatches(query: string, limit = 12) {
         ...service.keywords,
       ];
       let score = Math.max(
-        ...searchTerms.map((term) => similarity(query, term))
+        ...searchQueries.flatMap((searchQuery) =>
+          searchTerms.map((term) => similarity(searchQuery, term))
+        )
       );
 
       if (mentionedCompanies.includes(company)) score += 10;
-      if (score >= 55) results.push({ company, service, score });
+      if (score >= 52) results.push({ company, service, score });
     }
   }
 
@@ -107,17 +183,18 @@ export function findBestService(query: string) {
   return findServiceMatches(query, 1)[0] ?? null;
 }
 
-export function rankSuggestions(
-  query: string,
-  suggestions: string[],
-  limit = 8
-) {
-  if (!query.trim()) return [];
+const popularServiceKeys = [
+  ["kb-card", "lost-card"],
+  ["coupang", "delivery-not-received"],
+  ["coupang", "return-refund"],
+  ["kt", "internet-moving"],
+] as const;
 
-  return suggestions
-    .map((item) => ({ item, score: similarity(query, item) }))
-    .filter((result) => result.score >= 35)
-    .sort((a, b) => b.score - a.score)
-    .slice(0, limit)
-    .map((result) => result.item);
+export function getPopularServices() {
+  return popularServiceKeys.flatMap(([companySlug, serviceSlug]) => {
+    const company = companies.find((item) => item.slug === companySlug);
+    const service = company?.services.find((item) => item.slug === serviceSlug);
+
+    return company && service ? [{ company, service, score: 0 }] : [];
+  });
 }

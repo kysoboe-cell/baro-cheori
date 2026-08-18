@@ -2,26 +2,23 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { companies } from "../data/services";
 import {
   findBestService,
   findExactCompany,
   findMentionedCompanies,
-  rankSuggestions,
+  findServiceMatches,
+  type ServiceSearchResult,
 } from "../lib/search";
 import { companyPath, servicePath } from "../lib/site";
-
-const suggestions = companies.flatMap((company) => [
-  company.name,
-  ...company.services.map((service) => `${company.name} ${service.title}`),
-]);
 
 export default function HomeSearch() {
   const [query, setQuery] = useState("");
   const [activeIndex, setActiveIndex] = useState(-1);
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
-  const filteredSuggestions = rankSuggestions(query, suggestions);
+  const filteredSuggestions = query.trim()
+    ? findServiceMatches(query, 6)
+    : [];
 
   const navigateForQuery = (value: string) => {
     const trimmedQuery = value.trim();
@@ -50,11 +47,11 @@ export default function HomeSearch() {
     navigateForQuery(query);
   };
 
-  const selectSuggestion = (item: string) => {
-    setQuery(item);
+  const selectSuggestion = ({ company, service }: ServiceSearchResult) => {
+    setQuery(`${company.name} ${service.title}`);
     setActiveIndex(-1);
     setIsOpen(false);
-    navigateForQuery(item);
+    router.push(servicePath(company.slug, service.slug));
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -133,19 +130,37 @@ export default function HomeSearch() {
         >
           {filteredSuggestions.map((item, index) => (
             <button
-              key={item}
+              key={`${item.company.slug}-${item.service.slug}`}
               type="button"
               role="option"
               aria-selected={activeIndex === index}
               onMouseEnter={() => setActiveIndex(index)}
               onClick={() => selectSuggestion(item)}
-              className={`block w-full border-b border-gray-100 px-5 py-4 text-left last:border-b-0 ${
+              className={`flex w-full items-start gap-3 border-b border-slate-100 px-4 py-3 text-left last:border-b-0 sm:px-5 ${
                 activeIndex === index
-                  ? "bg-gray-100 font-semibold"
-                  : "bg-white hover:bg-gray-50"
+                  ? "bg-blue-50"
+                  : "bg-white hover:bg-slate-50"
               }`}
             >
-              {item}
+              <span
+                aria-hidden="true"
+                className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-slate-100 text-sm"
+              >
+                →
+              </span>
+              <span className="min-w-0 flex-1">
+                <span className="block text-xs font-bold text-blue-700">
+                  {item.company.name}
+                </span>
+                <span className="mt-0.5 block font-bold text-slate-950">
+                  {item.service.title}
+                </span>
+                {item.service.quickSummary?.[0] && (
+                  <span className="mt-1 block truncate text-sm text-slate-500">
+                    {item.service.quickSummary[0]}
+                  </span>
+                )}
+              </span>
             </button>
           ))}
         </div>

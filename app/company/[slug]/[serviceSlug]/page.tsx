@@ -64,10 +64,15 @@ export default async function ServicePage({ params }: ServicePageProps) {
   const hours = service.hours ?? customerCenter?.hours;
   const usesCustomerCenterFallback = !service.phone && Boolean(phone);
   const isCustomerCenter = service.slug === "customer-center";
+  const needsImmediateBlock = [
+    "lost-card",
+    "unrecognized-charge",
+    "lost-phone",
+  ].includes(service.slug);
   const officialActionLabel = getOfficialActionLabel(service);
   const pageLead = isCustomerCenter
-    ? "필요한 번호와 상담시간, 전화 전에 챙길 것만 모았어요."
-    : "지금 바로 할 일부터, 온라인에서 안 될 때 연락처까지 정리했어요.";
+    ? "전화해야 할 때 필요한 번호와 준비할 말만 짧게 모았어요."
+    : "긴 설명은 건너뛰세요. 아래에 나온 1번부터 그대로 하면 됩니다.";
   const path = servicePath(company.slug, service.slug);
   const relatedCompanyServices = company.services
     .filter((item) => item.slug !== service.slug)
@@ -147,7 +152,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
             {service.quickSummary && service.quickSummary.length > 0 && (
               <section className="rounded-2xl border border-blue-200 bg-blue-50 p-4 sm:p-5">
                 <h2 className="font-black text-blue-950">
-                  먼저 1분 안에 해보세요
+                  지금 이것부터 하세요
                 </h2>
                 <ul className="mt-2 space-y-2">
                   {service.quickSummary.map((summary, index) => (
@@ -178,7 +183,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
                   <div>
                     <p className="text-xs font-bold text-gray-500">처리 순서</p>
                     <h2 className="mt-1 text-xl font-bold">
-                      그대로 따라 하세요
+                      1번부터 그대로 따라 하세요
                     </h2>
                   </div>
                   <p className="shrink-0 text-xs text-gray-400">
@@ -233,16 +238,18 @@ export default async function ServicePage({ params }: ServicePageProps) {
             {(phone || hours || service.officialUrl) && (
               <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
                 <div className="flex items-center justify-between gap-3">
-                  <h2 className="text-lg font-black">가장 빠른 해결</h2>
+                  <h2 className="text-lg font-black">
+                    {isCustomerCenter ? "전화할 때 이것만 확인" : "전화 전에 여기부터"}
+                  </h2>
                   <span className="rounded-full bg-blue-50 px-2.5 py-1 text-xs font-bold text-blue-700">
-                    공식 경로
+                    공식 메뉴
                   </span>
                 </div>
 
                 {!isCustomerCenter && service.officialUrl && (
                   <div className="mt-4 border-t border-gray-100 pt-4">
                     <p className="mb-3 text-sm font-semibold text-gray-500">
-                      온라인으로 직접 처리
+                      ARS 없이 먼저 처리
                     </p>
                     <a
                       href={service.officialUrl}
@@ -253,7 +260,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
                       공식 · {officialActionLabel} ↗
                     </a>
                     <p className="mt-2 text-xs leading-5 text-gray-500">
-                      로그인 후 해당 주문·카드·가입 상품을 선택하면 더 빠릅니다.
+                      새 창에서 공식 사이트가 열립니다. 로그인한 뒤 해당 주문·카드·가입 상품을 고르세요.
                     </p>
                   </div>
                 )}
@@ -263,9 +270,11 @@ export default async function ServicePage({ params }: ServicePageProps) {
                     <p className="text-sm font-semibold text-gray-500">
                       {isCustomerCenter
                         ? "안내 전화"
-                        : usesCustomerCenterFallback
-                          ? "온라인에서 안 될 때"
-                          : "전화가 더 빠른 경우"}
+                        : needsImmediateBlock
+                          ? "지금 바로 막아야 할 때"
+                          : usesCustomerCenterFallback
+                            ? "위 방법으로 해결되지 않을 때만"
+                            : "그래도 해결되지 않을 때만"}
                     </p>
                     <p className="mt-1 text-2xl font-black">{phone.number}</p>
                     {phone.feeNote && (
@@ -298,7 +307,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
                       {officialActionLabel} ↗
                     </a>
                     <p className="mt-2 text-xs leading-5 text-gray-500">
-                      전화가 어렵다면 온라인 문의와 자주 묻는 질문을 이용하세요.
+                      전화가 부담되면 공식 페이지의 온라인 문의나 자주 묻는 질문을 먼저 확인하세요.
                     </p>
                   </div>
                 )}

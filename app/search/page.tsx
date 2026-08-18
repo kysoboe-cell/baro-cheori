@@ -5,6 +5,7 @@ import {
   findExactCompany,
   findMentionedCompanies,
   findServiceMatches,
+  getPopularServices,
 } from "../lib/search";
 import { companyPath, servicePath } from "../lib/site";
 
@@ -29,56 +30,104 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
 
   const mentionedCompanies = findMentionedCompanies(query);
   const results = query ? findServiceMatches(query) : [];
+  const popularServices = getPopularServices();
 
   if (mentionedCompanies.length === 1 && results.length === 1) {
     redirect(servicePath(results[0].company.slug, results[0].service.slug));
   }
 
   return (
-    <main className="bg-gray-50">
-      <section className="mx-auto min-h-[60vh] max-w-5xl px-4 py-12 sm:px-6 sm:py-16">
-        <Link href="/" className="text-sm font-semibold text-gray-600 hover:text-black">
+    <main className="bg-slate-50">
+      <section className="mx-auto min-h-[60vh] max-w-5xl px-4 py-8 sm:px-6 sm:py-12">
+        <Link href="/" className="text-sm font-bold text-slate-600 hover:text-blue-700">
           ← 다시 검색
         </Link>
 
-        <h1 className="mt-8 break-all text-3xl font-black sm:text-4xl">
+        <h1 className="mt-6 break-words text-3xl font-black text-slate-950 sm:text-4xl">
           {query ? `“${query}” 검색 결과` : "검색어를 입력해주세요"}
         </h1>
         {results.length > 0 ? (
           <>
-            <p className="mt-3 text-gray-600">
-              업체를 확인한 뒤 원하는 업무를 선택하세요. 총 {results.length}개를 찾았습니다.
+            <p className="mt-3 break-keep leading-7 text-slate-600">
+              전화번호부터 찾지 않아도 됩니다. 내 상황과 가장 가까운 문장을 눌러 1번부터 따라 하세요.
             </p>
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
               {results.map(({ company, service }) => (
                 <Link
                   key={`${company.slug}-${service.slug}`}
                   href={servicePath(company.slug, service.slug)}
-                  className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-gray-400 hover:shadow-md"
+                  className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-md sm:p-6"
                 >
                   <p className="text-sm font-bold text-blue-700">{company.name}</p>
-                  <h2 className="mt-1 text-xl font-bold">{service.title}</h2>
-                  <p className="mt-3 line-clamp-2 text-sm leading-6 text-gray-600">
+                  <h2 className="mt-1 break-keep text-xl font-black text-slate-950">
+                    {service.title}
+                  </h2>
+                  <p className="mt-3 line-clamp-2 text-sm leading-6 text-slate-600">
                     {service.quickSummary?.[0] ?? "처리 방법과 필요한 정보를 확인하세요."}
                   </p>
-                  <p className="mt-5 text-sm font-bold">처리 순서 보기 →</p>
+                  <div className="mt-4 flex flex-wrap gap-2 text-xs font-bold">
+                    {service.officialUrl && (
+                      <span className="rounded-full bg-blue-50 px-2.5 py-1 text-blue-700">
+                        전화 전에 공식 메뉴 확인
+                      </span>
+                    )}
+                    {service.steps && (
+                      <span className="rounded-full bg-slate-100 px-2.5 py-1 text-slate-600">
+                        {service.steps.length}단계
+                      </span>
+                    )}
+                  </div>
+                  <p className="mt-5 text-sm font-black text-slate-950 group-hover:text-blue-700">
+                    이대로 해결하기 →
+                  </p>
                 </Link>
               ))}
             </div>
           </>
         ) : (
-          <div className="mt-8 rounded-2xl border border-gray-200 bg-white p-8 text-center shadow-sm sm:p-12">
-            <p className="text-xl font-bold">아직 등록되지 않은 업무예요.</p>
-            <p className="mt-3 leading-7 text-gray-600">
-              회사명과 업무를 함께 입력해보세요. 예: 국민카드 분실, 쿠팡 반품
-            </p>
-            <Link
-              href="/#services"
-              className="mt-6 inline-flex rounded-xl bg-black px-6 py-3 font-semibold text-white hover:bg-gray-800"
-            >
-              업체 목록에서 찾기
-            </Link>
-          </div>
+          <>
+            <div className="mt-8 rounded-2xl border border-amber-200 bg-amber-50 p-6 sm:p-8">
+              <p className="text-xl font-black text-slate-950">
+                이 문장과 똑같은 안내는 아직 없어요
+              </p>
+              <p className="mt-2 break-keep leading-7 text-slate-700">
+                전화부터 하지 마세요. 회사 이름을 붙여 다시 검색하거나, 아래에서 가장 비슷한 상황을 먼저 눌러보세요.
+              </p>
+              <p className="mt-3 text-sm font-bold text-slate-600">
+                예: 국민카드 잃어버림 · 쿠팡 배송완료인데 안 옴
+              </p>
+            </div>
+
+            <div className="mt-8 flex items-end justify-between gap-4">
+              <div>
+                <p className="text-sm font-black text-blue-700">바로 해결할 수 있는 문제</p>
+                <h2 className="mt-1 text-2xl font-black text-slate-950">
+                  많이 찾는 상황부터 확인하세요
+                </h2>
+              </div>
+              <Link
+                href="/#services"
+                className="hidden text-sm font-bold text-slate-600 hover:text-blue-700 sm:block"
+              >
+                업체 목록 보기 →
+              </Link>
+            </div>
+            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+              {popularServices.map(({ company, service }) => (
+                <Link
+                  key={`${company.slug}-${service.slug}`}
+                  href={servicePath(company.slug, service.slug)}
+                  className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-blue-300 hover:shadow-md"
+                >
+                  <p className="text-xs font-bold text-blue-700">{company.name}</p>
+                  <p className="mt-1 text-lg font-black text-slate-950">
+                    {service.title}
+                  </p>
+                  <p className="mt-3 text-sm font-bold">1번부터 따라 하기 →</p>
+                </Link>
+              ))}
+            </div>
+          </>
         )}
       </section>
     </main>
