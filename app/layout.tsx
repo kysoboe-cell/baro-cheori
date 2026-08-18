@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import CoffeeSupport from "./components/CoffeeSupport";
 import SiteFooter from "./components/SiteFooter";
 import SiteHeader from "./components/SiteHeader";
@@ -52,6 +53,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         </div>
         <CoffeeSupport />
       </body>
+      <GoogleAnalytics gaId="G-TEHD5XS1E2" />
     </html>
   );
 }
