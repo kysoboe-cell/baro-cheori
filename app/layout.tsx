@@ -53,7 +53,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         </div>
         <CoffeeSupport />
       </body>
-      <GoogleAnalytics gaId="G-TEHD5XS1E2" />
+      <GoogleAnalytics gaId="G-L1B6W4F68T" />
     </html>
   );
 }
