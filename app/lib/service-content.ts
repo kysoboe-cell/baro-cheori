@@ -43,6 +43,21 @@ const preparationsBySlug: Record<string, string[]> = {
   ],
   "lost-phone": ["본인인증 수단", "분실한 휴대폰 번호", "분실한 때와 장소"],
   "internet-moving": ["이사할 새 주소", "설치 희망일", "공유기·셋톱박스 등 기존 장비"],
+  "termination-fee": [
+    "현재 이용 중인 인터넷·TV 상품",
+    "약정 종료일",
+    "휴대폰·가족 결합 여부",
+  ],
+  "internet-cancel": [
+    "해지 예상금액 확인 결과",
+    "공유기·모뎀·셋톱박스와 전원선",
+    "장비 회수 연락을 받을 휴대폰",
+  ],
+  "account-transfer": [
+    "기존 명의자와 새 명의자의 본인인증 수단",
+    "명의를 바꿀 인터넷·TV 상품",
+    "새 명의자의 요금 납부 정보",
+  ],
   "internet-trouble": [
     "공유기·모뎀 전원 상태",
     "장비 앞면의 불빛 상태",
@@ -123,6 +138,9 @@ const actionLabelBySlug: Record<string, string> = {
   "unrecognized-charge": "공식 부정사용 신고 안내 열기",
   "lost-phone": "분실신고 바로가기",
   "internet-moving": "이전설치 신청 방법 열기",
+  "termination-fee": "해지 예상금액 확인하기",
+  "internet-cancel": "인터넷 해지 신청 열기",
+  "account-transfer": "인터넷 명의변경 열기",
   "internet-trouble": "인터넷 고장진단 열기",
   "slow-internet": "인터넷 고장진단 열기",
   "membership-cancel": "멤버십 해지 화면 열기",

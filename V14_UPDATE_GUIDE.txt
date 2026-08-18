@@ -1,0 +1,25 @@
+바로처리 V14 적용 방법
+
+1. baro-cheori-internet-exit-v14-20260819.zip 파일을 아래 폴더 안에 넣으세요.
+   D:\Projects\baro-cheori
+
+2. VS Code 터미널에 아래 명령을 위에서부터 한 줄씩 실행하세요.
+
+cd D:\Projects\baro-cheori
+Expand-Archive -Path ".\baro-cheori-internet-exit-v14-20260819.zip" -DestinationPath "." -Force
+Remove-Item ".\baro-cheori-internet-exit-v14-20260819.zip"
+npm run lint
+npm run build
+git add .
+git commit -m "add practical internet cancellation guides"
+git push
+
+3. 확인할 내용
+
+- 홈에 21개 업체, 101개 실제 업무가 표시되는지 확인합니다.
+- 검색창에 `SK 인터넷 해지`, `KT 위약금`, `유플러스 명의변경`을 각각 입력합니다.
+- 해지 안내가 위약금·결합 할인·반납 장비를 먼저 확인하게 하는지 확인합니다.
+- 다른 통신사로 이동할 때 원스톱 전환서비스가 먼저 안내되는지 확인합니다.
+- 명의변경 안내에서 온라인 신청이나 1:1 문의가 전화보다 먼저 보이는지 확인합니다.
+
+GitHub 푸시 뒤 Netlify가 자동으로 새 버전을 배포합니다.

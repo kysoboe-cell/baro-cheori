@@ -57,9 +57,9 @@ const situationTasks = [
   },
   {
     companySlug: "kt",
-    serviceSlug: "internet-moving",
-    label: "이사하면서 인터넷 옮길 때",
-    description: "이전설치 신청과 준비물",
+    serviceSlug: "termination-fee",
+    label: "인터넷 해지 전에 돈이 얼마나 나올지 궁금할 때",
+    description: "위약금·결합 할인·장비 비용 먼저 확인",
     category: "통신",
   },
   {
@@ -120,7 +120,7 @@ export default function Home() {
             </h1>
             <p className="mt-4 max-w-2xl break-keep text-base leading-7 text-slate-600 sm:text-lg">
               긴 고객센터 설명을 뒤지지 마세요. 문제를 검색하면 공식 처리 메뉴,
-              현실적인 순서, 안 될 때 연락처까지 한 화면에 정리해 드립니다.
+              현실적인 순서, 꼭 필요할 때만 연락처까지 한 화면에 정리해 드립니다.
             </p>
 
             <HomeSearch />
@@ -224,7 +224,7 @@ export default function Home() {
           {[
             ["01", "공식 메뉴부터", "전화 대기보다 먼저 해볼 수 있는 실제 처리 화면을 엽니다."],
             ["02", "현실적인 순서만", "규정 전체가 아니라 지금 필요한 준비와 행동만 남깁니다."],
-            ["03", "막힐 때 연락", "온라인으로 안 될 때 맞는 번호와 상담시간을 확인합니다."],
+            ["03", "전화는 마지막에", "온라인으로 끝낼 수 없는 마지막 단계에서만 맞는 번호를 보여드립니다."],
           ].map(([number, title, description]) => (
             <div key={number} className="flex gap-3">
               <span className="font-black text-blue-400">{number}</span>
