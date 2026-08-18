@@ -17,6 +17,8 @@ import { samsungCard } from "./companies/samsungCard";
 import { netflix } from "./companies/netflix";
 import { youtubePremium } from "./companies/youtubePremium";
 import { naverPlus } from "./companies/naverPlus";
+import { appleAppStore } from "./companies/appleAppStore";
+import { googlePlay } from "./companies/googlePlay";
 
 export type { CategoryId, Company, ServiceTask } from "./types";
 
@@ -77,6 +79,8 @@ export const companies: Company[] = [
   netflix,
   youtubePremium,
   naverPlus,
+  appleAppStore,
+  googlePlay,
 ];
 
 export function getCompaniesByCategory(categoryId: CategoryId) {

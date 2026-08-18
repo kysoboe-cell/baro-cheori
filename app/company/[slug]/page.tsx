@@ -24,6 +24,7 @@ const servicePriority: Record<string, number> = {
   "recurring-payment-cancel": 1,
   "wow-membership-cancel": 1,
   "refund-request": 2,
+  "unknown-charge": 3,
   "immediate-cancel-refund": 2,
   "wow-membership-refund": 2,
   "charged-after-cancel": 3,

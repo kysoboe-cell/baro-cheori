@@ -1,0 +1,24 @@
+바로처리 V12 적용 방법
+
+1. baro-cheori-app-billing-v12-20260819.zip 파일을 아래 폴더 안에 넣으세요.
+   D:\Projects\baro-cheori
+
+2. VS Code 터미널에 아래 명령을 위에서부터 한 줄씩 실행하세요.
+
+cd D:\Projects\baro-cheori
+Expand-Archive -Path ".\baro-cheori-app-billing-v12-20260819.zip" -DestinationPath "." -Force
+Remove-Item ".\baro-cheori-app-billing-v12-20260819.zip"
+npm run lint
+npm run build
+git add .
+git commit -m "add Apple and Google Play billing guides"
+git push
+
+3. 확인할 내용
+
+- 홈에 18개 업체, 83개 실제 업무가 표시되는지 확인합니다.
+- 검색창에 APPLE.COM/BILL을 입력하면 Apple 모르는 결제 페이지가 나오는지 확인합니다.
+- 검색창에 구글 결제를 입력하면 Google Play 모르는 결제 페이지가 나오는지 확인합니다.
+- 구독 카테고리에 Apple 앱스토어와 Google Play가 보이는지 확인합니다.
+
+GitHub 푸시 뒤 Netlify가 자동으로 새 버전을 배포합니다.

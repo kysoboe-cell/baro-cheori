@@ -68,6 +68,11 @@ const preparationsBySlug: Record<string, string[]> = {
     "카드·계좌에 찍힌 결제처 이름",
     "구독에 사용한 이메일·계정",
   ],
+  "unknown-charge": [
+    "결제된 날짜와 금액",
+    "카드 명세서에 찍힌 결제 이름",
+    "사용 중인 Apple·Google 계정",
+  ],
   "recurring-payment-cancel": [
     "결제한 네이버 계정",
     "다음 결제 예정일",
@@ -124,6 +129,7 @@ const actionLabelBySlug: Record<string, string> = {
   "charged-after-cancel": "결제·멤버십 확인하기",
   "payment-method": "결제수단 관리 열기",
   "refund-request": "공식 환불 안내 열기",
+  "unknown-charge": "공식 결제내역 확인·신고",
   "recurring-payment-cancel": "정기결제 해지 안내 열기",
   "immediate-cancel-refund": "즉시 종료·환불 안내 열기",
   "unexpected-membership-charge": "결제금액 확인 안내 열기",

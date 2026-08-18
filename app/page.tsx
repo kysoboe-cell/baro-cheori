@@ -77,10 +77,10 @@ const situationTasks = [
     category: "쇼핑",
   },
   {
-    companySlug: "naver-plus",
-    serviceSlug: "immediate-cancel-refund",
-    label: "멤버십 결제까지 취소하고 싶을 때",
-    description: "다음 결제 해지와 지금 환불 구분",
+    companySlug: "apple-app-store",
+    serviceSlug: "unknown-charge",
+    label: "카드에 APPLE.COM/BILL이 찍혔을 때",
+    description: "어떤 앱 결제인지 금액으로 찾기",
     category: "구독",
   },
 ];

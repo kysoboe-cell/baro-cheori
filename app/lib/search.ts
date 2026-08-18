@@ -28,6 +28,33 @@ const intentAliases: IntentAlias[] = [
   },
   {
     phrases: [
+      "applecombill",
+      "애플결제뭐",
+      "아이폰결제",
+      "앱스토어결제",
+      "애플돈나감",
+    ],
+    searchAs: [
+      "Apple APPLE.COM/BILL 모르는 결제",
+      "Apple 구입 내역",
+    ],
+  },
+  {
+    phrases: [
+      "google결제",
+      "구글결제",
+      "플레이스토어결제",
+      "구글아시아",
+      "google앱",
+      "구글돈나감",
+    ],
+    searchAs: [
+      "Google Play 모르는 결제",
+      "Google Play 주문 내역",
+    ],
+  },
+  {
+    phrases: [
       "배송완료인데안와",
       "배송완료인데안옴",
       "배송완료인데없",
@@ -219,8 +246,8 @@ export function findBestService(query: string) {
 const popularServiceKeys = [
   ["kb-card", "lost-card"],
   ["coupang", "delivery-not-received"],
-  ["youtube-premium", "membership-cancel"],
-  ["naver-plus", "immediate-cancel-refund"],
+  ["apple-app-store", "unknown-charge"],
+  ["google-play", "membership-cancel"],
 ] as const;
 
 export function getPopularServices() {
