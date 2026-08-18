@@ -23,7 +23,12 @@ export type ServiceTask = {
   lastChecked?: string;
 };
 
-export type CategoryId = "shopping" | "telecom" | "delivery" | "card";
+export type CategoryId =
+  | "shopping"
+  | "telecom"
+  | "delivery"
+  | "card"
+  | "subscription";
 
 export type Company = {
   slug: string;

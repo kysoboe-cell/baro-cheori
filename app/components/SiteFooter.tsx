@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { categories, companies } from "../data/services";
+import { categories, getCompaniesByCategory } from "../data/services";
 import { companyPath } from "../lib/site";
 
 export default function SiteFooter() {
@@ -21,15 +21,14 @@ export default function SiteFooter() {
         </div>
         <nav
           aria-label="전체 업체"
-          className="mt-7 grid gap-4 border-t border-gray-800 pt-6 sm:grid-cols-2 lg:grid-cols-4"
+          className="mt-7 grid gap-4 border-t border-gray-800 pt-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5"
         >
           {categories.map((category) => (
             <div key={category.id} className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
               <p className="font-bold text-white">
                 {category.icon} {category.name}
               </p>
-              {companies
-                .filter((company) => company.categoryId === category.id)
+              {getCompaniesByCategory(category.id)
                 .map((company) => (
                   <Link
                     key={company.slug}

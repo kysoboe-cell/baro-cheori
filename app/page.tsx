@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import CategoryFinder from "./components/CategoryFinder";
 import HomeSearch from "./components/HomeSearch";
-import { getService } from "./data/services";
+import { allServices, companies, getService } from "./data/services";
 import { SITE_NAME, SITE_URL, servicePath } from "./lib/site";
 
 export const metadata: Metadata = {
@@ -77,11 +77,11 @@ const situationTasks = [
     category: "쇼핑",
   },
   {
-    companySlug: "hanjin",
-    serviceSlug: "parcel-not-received",
-    label: "배송완료인데 물건이 없을 때",
-    description: "주변 확인 후 신고 순서",
-    category: "택배",
+    companySlug: "naver-plus",
+    serviceSlug: "immediate-cancel-refund",
+    label: "멤버십 결제까지 취소하고 싶을 때",
+    description: "다음 결제 해지와 지금 환불 구분",
+    category: "구독",
   },
 ];
 
@@ -93,7 +93,7 @@ export default function Home() {
     alternateName: "바로처리 생활업무 안내",
     url: SITE_URL,
     description:
-      "카드 분실·모르는 결제, 쇼핑몰 배송·반품, 통신사 분실·인터넷, 택배 조회 문제를 바로 처리할 공식 메뉴와 해결 순서로 안내합니다.",
+      "카드 분실·모르는 결제, 구독 해지·환불, 쇼핑몰 배송·반품, 통신사 분실·인터넷, 택배 조회 문제를 바로 처리할 공식 메뉴와 해결 순서로 안내합니다.",
     inLanguage: "ko-KR",
   };
 
@@ -115,7 +115,7 @@ export default function Home() {
               전화 돌리기 전에, 지금 할 수 있는 것부터
             </p>
             <h1 className="mt-4 max-w-3xl break-keep text-4xl font-black leading-[1.13] tracking-tight text-slate-950 sm:text-5xl lg:text-[3.45rem]">
-              카드 분실·배송 안 옴·반품 막힘,
+              카드 분실·배송 안 옴·자동결제,
               <br className="hidden sm:block" /> 지금 할 일만 바로
             </h1>
             <p className="mt-4 max-w-2xl break-keep text-base leading-7 text-slate-600 sm:text-lg">
@@ -126,8 +126,8 @@ export default function Home() {
             <HomeSearch />
 
             <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm text-slate-600">
-              <span><strong className="text-slate-950">13개</strong> 업체</span>
-              <span><strong className="text-slate-950">66개</strong> 실제 업무</span>
+              <span><strong className="text-slate-950">{companies.length}개</strong> 업체</span>
+              <span><strong className="text-slate-950">{allServices.length}개</strong> 실제 업무</span>
               <span><strong className="text-slate-950">공식 링크·확인일</strong> 표시</span>
             </div>
           </div>

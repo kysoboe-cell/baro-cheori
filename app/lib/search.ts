@@ -64,6 +64,39 @@ const intentAliases: IntentAlias[] = [
     phrases: ["인터넷느려", "와이파이느려", "속도느림"],
     searchAs: ["인터넷 속도 느림", "느린 인터넷"],
   },
+  {
+    phrases: [
+      "구독취소",
+      "구독끊",
+      "멤버십해지",
+      "자동결제해지",
+      "다음달결제막",
+      "앱지웠는데",
+      "앱삭제했는데",
+    ],
+    searchAs: ["멤버십 해지", "다음 결제 막기", "정기결제 해지"],
+  },
+  {
+    phrases: [
+      "해지했는데결제",
+      "취소했는데결제",
+      "해지했는데돈",
+      "취소했는데돈",
+    ],
+    searchAs: ["해지했는데 결제됨", "자동결제 됨"],
+  },
+  {
+    phrases: [
+      "무료체험결제",
+      "무료체험끝",
+      "무료기간끝",
+      "체험끝나고결제",
+      "구독환불",
+      "멤버십환불",
+      "돈돌려받",
+    ],
+    searchAs: ["결제 취소 환불", "이미 결제된 금액 환불"],
+  },
 ];
 
 export function normalizeSearchText(text: string) {
@@ -186,8 +219,8 @@ export function findBestService(query: string) {
 const popularServiceKeys = [
   ["kb-card", "lost-card"],
   ["coupang", "delivery-not-received"],
-  ["coupang", "return-refund"],
-  ["kt", "internet-moving"],
+  ["youtube-premium", "membership-cancel"],
+  ["naver-plus", "immediate-cancel-refund"],
 ] as const;
 
 export function getPopularServices() {

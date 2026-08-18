@@ -110,7 +110,7 @@ export default function HomeSearch() {
           }}
           onFocus={() => setIsOpen(true)}
           onKeyDown={handleKeyDown}
-          placeholder="예: 카드 잃어버림, 배송완료인데 안 옴"
+          placeholder="예: 카드 잃어버림, 구독 끊고 싶음"
           className="min-w-0 flex-1 px-4 py-4 text-base text-slate-950 outline-none placeholder:text-slate-400 sm:px-6"
         />
         <button

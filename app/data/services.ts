@@ -1,4 +1,4 @@
-import type { Company } from "./types";
+import type { CategoryId, Company } from "./types";
 
 import { coupang } from "./companies/coupang";
 import { naverSmartstore } from "./companies/naverSmartstore";
@@ -14,6 +14,9 @@ import { lotteDelivery } from "./companies/lotteDelivery";
 import { kbCard } from "./companies/kbCard";
 import { shinhanCard } from "./companies/shinhanCard";
 import { samsungCard } from "./companies/samsungCard";
+import { netflix } from "./companies/netflix";
+import { youtubePremium } from "./companies/youtubePremium";
+import { naverPlus } from "./companies/naverPlus";
 
 export type { CategoryId, Company, ServiceTask } from "./types";
 
@@ -41,6 +44,11 @@ export const categories = [
     name: "카드",
     icon: "💳",
   },
+  {
+    id: "subscription" as const,
+    name: "구독",
+    icon: "▶️",
+  },
 ];
 
 export const companies: Company[] = [
@@ -64,7 +72,20 @@ export const companies: Company[] = [
   kbCard,
   shinhanCard,
   samsungCard,
+
+  // 구독·자동결제
+  netflix,
+  youtubePremium,
+  naverPlus,
 ];
+
+export function getCompaniesByCategory(categoryId: CategoryId) {
+  return companies.filter(
+    (company) =>
+      company.categoryId === categoryId ||
+      (categoryId === "subscription" && company.slug === "coupang")
+  );
+}
 
 export const allServices = companies.flatMap((company) =>
   company.services.map((service) => ({ company, service }))

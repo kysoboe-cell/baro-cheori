@@ -260,7 +260,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
                       공식 · {officialActionLabel} ↗
                     </a>
                     <p className="mt-2 text-xs leading-5 text-gray-500">
-                      새 창에서 공식 사이트가 열립니다. 로그인한 뒤 해당 주문·카드·가입 상품을 고르세요.
+                      새 창에서 공식 사이트가 열립니다. 로그인한 뒤 해당 결제·주문·가입 상품을 고르세요.
                     </p>
                   </div>
                 )}

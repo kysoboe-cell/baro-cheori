@@ -32,7 +32,7 @@ export default function InformationPolicyPage() {
         </div>
 
         <p className="mt-8 text-sm leading-6 text-gray-500">
-          정책 최종 정리일: 2026-08-18 · 바로처리는 안내 정보의 정확성을 높이기 위해 지속해서 검토하지만, 각 업체와 제휴·대행 관계는 없습니다.
+          정책 최종 정리일: 2026-08-19 · 바로처리는 안내 정보의 정확성을 높이기 위해 지속해서 검토하지만, 각 업체와 제휴·대행 관계는 없습니다.
         </p>
       </article>
     </main>

@@ -6,7 +6,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages: MetadataRoute.Sitemap = [
     {
       url: absoluteUrl("/"),
-      lastModified: "2026-08-18",
+      lastModified: "2026-08-19",
       changeFrequency: "weekly",
       priority: 1,
     },

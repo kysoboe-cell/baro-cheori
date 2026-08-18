@@ -53,6 +53,38 @@ const preparationsBySlug: Record<string, string[]> = {
     "유선·Wi-Fi 중 느린 연결",
     "가입자 본인인증 수단",
   ],
+  "membership-cancel": [
+    "구독에 사용한 이메일·계정",
+    "다음 결제 예정일",
+  ],
+  "charged-after-cancel": [
+    "결제된 날짜와 금액",
+    "해지 확인 메일·화면",
+    "구독에 사용한 이메일·계정",
+  ],
+  "payment-method": ["구독에 사용한 이메일·계정", "새 결제수단"],
+  "refund-request": [
+    "결제된 날짜와 금액",
+    "카드·계좌에 찍힌 결제처 이름",
+    "구독에 사용한 이메일·계정",
+  ],
+  "recurring-payment-cancel": [
+    "결제한 네이버 계정",
+    "다음 결제 예정일",
+  ],
+  "immediate-cancel-refund": [
+    "결제한 네이버 계정",
+    "이번 달 혜택 사용 여부",
+  ],
+  "unexpected-membership-charge": [
+    "결제된 날짜와 금액",
+    "결제한 네이버 계정",
+  ],
+  "wow-membership-cancel": ["결제한 쿠팡 계정", "무료체험·다음 결제 날짜"],
+  "wow-membership-refund": [
+    "결제한 쿠팡 계정",
+    "이번 달 와우 혜택 사용 여부",
+  ],
   billing: ["본인인증 수단", "납부할 결제수단"],
   "customer-center": [
     "카드·주문번호 또는 가입한 휴대폰 번호",
@@ -88,6 +120,15 @@ const actionLabelBySlug: Record<string, string> = {
   "internet-moving": "이전설치 신청 방법 열기",
   "internet-trouble": "인터넷 고장진단 열기",
   "slow-internet": "인터넷 고장진단 열기",
+  "membership-cancel": "멤버십 해지 화면 열기",
+  "charged-after-cancel": "결제·멤버십 확인하기",
+  "payment-method": "결제수단 관리 열기",
+  "refund-request": "공식 환불 안내 열기",
+  "recurring-payment-cancel": "정기결제 해지 안내 열기",
+  "immediate-cancel-refund": "즉시 종료·환불 안내 열기",
+  "unexpected-membership-charge": "결제금액 확인 안내 열기",
+  "wow-membership-cancel": "와우 멤버십 열기",
+  "wow-membership-refund": "와우 해지·환불 안내 열기",
   billing: "요금 조회·납부 방법 열기",
   "customer-center": "공식 고객센터 열기",
 };

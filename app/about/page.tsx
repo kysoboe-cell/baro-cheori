@@ -14,7 +14,7 @@ export default function AboutPage() {
         <p className="text-sm font-bold text-blue-700">서비스 소개</p>
         <h1 className="mt-2 text-4xl font-black tracking-tight">바로처리는 왜 만들었나요?</h1>
         <p className="mt-6 text-lg leading-8 text-gray-700">
-          반품 하나를 하려 해도 어디에서 신청하는지, 무엇을 준비하는지, 고객센터는 언제 연결되는지 여러 화면을 찾아야 합니다. 바로처리는 그 과정을 한 화면의 실행 순서로 바꿉니다.
+          반품이나 구독 해지 하나를 하려 해도 어디를 눌러야 하는지 몰라 여러 화면과 ARS를 헤매게 됩니다. 바로처리는 그 과정을 전화 없이 먼저 따라 할 수 있는 한 화면의 실행 순서로 바꿉니다.
         </p>
 
         <div className="mt-10 space-y-5">
@@ -22,7 +22,7 @@ export default function AboutPage() {
             <h2 className="text-xl font-bold">하는 일</h2>
             <ul className="mt-4 space-y-3 leading-7 text-gray-700">
               <li>• 공식 안내를 바탕으로 준비물과 처리 순서를 쉽게 풀어씁니다.</li>
-              <li>• 고객센터 전화번호, 상담시간, 공식 링크를 한곳에 모읍니다.</li>
+              <li>• 공식 처리 화면을 먼저 보여주고, 온라인에서 안 될 때만 연락처를 안내합니다.</li>
               <li>• 회사와 업무별로 고유한 주소를 제공해 다시 찾기 쉽게 합니다.</li>
             </ul>
           </section>
