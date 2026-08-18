@@ -115,7 +115,7 @@ export default function Home() {
               전화 돌리기 전에, 지금 할 수 있는 것부터
             </p>
             <h1 className="mt-4 max-w-3xl break-keep text-4xl font-black leading-[1.13] tracking-tight text-slate-950 sm:text-5xl lg:text-[3.45rem]">
-              카드 분실·배송 안 옴·가전 고장,
+              카드 분실·배송 안 옴·<span className="whitespace-nowrap">가전 고장,</span>
               <br className="hidden sm:block" />
               <span className="text-blue-700 underline decoration-blue-200 decoration-[0.16em] underline-offset-[0.12em]">
                 지금 할 일만 바로
