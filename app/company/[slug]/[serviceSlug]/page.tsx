@@ -5,6 +5,7 @@ import PhoneActions from "../../../components/PhoneActions";
 import { allServices, getService } from "../../../data/services";
 import {
   getCustomerCenterFallback,
+  getOfficialActionLabel,
   getPreparations,
 } from "../../../lib/service-content";
 import {
@@ -36,7 +37,7 @@ export async function generateMetadata({
 
   const { company, service } = item;
   const path = servicePath(company.slug, service.slug);
-  const description = `${company.name} ${service.title} 준비물과 처리 순서, 고객센터 및 공식 링크를 한 화면에서 확인하세요.`;
+  const description = `${company.name} ${service.title}: 지금 눌러야 할 메뉴, 실제 처리 순서, 안 될 때 고객센터를 확인하세요.`;
 
   return {
     title: `${company.name} ${service.title} 방법·고객센터`,
@@ -62,6 +63,11 @@ export default async function ServicePage({ params }: ServicePageProps) {
   const phone = service.phone ?? customerCenter?.phone;
   const hours = service.hours ?? customerCenter?.hours;
   const usesCustomerCenterFallback = !service.phone && Boolean(phone);
+  const isCustomerCenter = service.slug === "customer-center";
+  const officialActionLabel = getOfficialActionLabel(service);
+  const pageLead = isCustomerCenter
+    ? "필요한 번호와 상담시간, 전화 전에 챙길 것만 모았어요."
+    : "지금 바로 할 일부터, 온라인에서 안 될 때 연락처까지 정리했어요.";
   const path = servicePath(company.slug, service.slug);
   const relatedCompanyServices = company.services
     .filter((item) => item.slug !== service.slug)
@@ -126,7 +132,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
           </h1>
           <div className="mt-3 flex flex-col gap-2 text-gray-600 sm:flex-row sm:items-center sm:justify-between">
             <p className="break-keep leading-7">
-              전화부터 하지 않아도 되도록, 준비할 것과 직접 처리하는 순서를 정리했어요.
+              {pageLead}
             </p>
             {service.lastChecked && (
               <p className="shrink-0 text-sm text-gray-500">
@@ -141,19 +147,23 @@ export default async function ServicePage({ params }: ServicePageProps) {
             {service.quickSummary && service.quickSummary.length > 0 && (
               <section className="rounded-2xl border border-blue-200 bg-blue-50 p-4">
                 <h2 className="font-bold text-blue-900">
-                  먼저 이것부터 확인하세요
+                  지금 바로 이렇게 하세요
                 </h2>
                 <ul className="mt-2 space-y-2">
-                  {service.quickSummary.map((summary) => (
+                  {service.quickSummary.map((summary, index) => (
                     <li
                       key={summary}
-                      className="flex gap-2 text-sm leading-6 text-gray-900 sm:text-base"
+                      className={`flex gap-2 leading-6 text-gray-900 ${
+                        index === 0
+                          ? "text-base font-bold"
+                          : "text-sm sm:text-base"
+                      }`}
                     >
                       <span
                         aria-hidden="true"
                         className="font-bold text-blue-700"
                       >
-                        ✓
+                        {index === 0 ? "→" : "✓"}
                       </span>
                       <span>{summary}</span>
                     </li>
@@ -168,7 +178,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
                   <div>
                     <p className="text-xs font-bold text-gray-500">처리 순서</p>
                     <h2 className="mt-1 text-xl font-bold">
-                      위에서부터 따라 하세요
+                      그대로 따라 하세요
                     </h2>
                   </div>
                   <p className="shrink-0 text-xs text-gray-400">
@@ -194,12 +204,12 @@ export default async function ServicePage({ params }: ServicePageProps) {
           <div className="space-y-4">
             <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
               <p className="text-xs font-bold text-gray-500">시작 전 준비</p>
-              <h2 className="mt-1 text-xl font-bold">이것을 준비하세요</h2>
-              <ul className="mt-4 space-y-2">
+              <h2 className="mt-1 text-xl font-bold">이것만 챙기세요</h2>
+              <ul className="mt-3 space-y-2">
                 {preparations.map((preparation) => (
                   <li
                     key={preparation}
-                    className="rounded-xl bg-gray-50 px-3 py-2.5 text-sm font-semibold leading-6"
+                    className="rounded-xl bg-gray-50 px-3 py-2 text-sm font-semibold leading-6"
                   >
                     □ {preparation}
                   </li>
@@ -209,7 +219,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
 
             {service.tips && service.tips.length > 0 && (
               <section className="rounded-2xl border border-amber-200 bg-amber-50 p-5">
-                <h2 className="font-bold">💡 헷갈리기 쉬운 부분</h2>
+                <h2 className="font-bold">💡 이것만 주의하세요</h2>
                 <ul className="mt-3 space-y-2 text-sm leading-6 text-gray-700">
                   {service.tips.map((tip) => (
                     <li key={tip}>• {tip}</li>
@@ -219,16 +229,38 @@ export default async function ServicePage({ params }: ServicePageProps) {
             )}
           </div>
 
-          <aside className="xl:sticky xl:top-24 xl:self-start">
+          <aside className="order-first xl:order-none xl:sticky xl:top-24 xl:self-start">
             {(phone || hours || service.officialUrl) && (
               <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-                <h2 className="text-lg font-bold">직접 해결이 어렵다면</h2>
+                <h2 className="text-lg font-bold">바로 해결하기</h2>
+
+                {!isCustomerCenter && service.officialUrl && (
+                  <div className="mt-4 border-t border-gray-100 pt-4">
+                    <p className="mb-3 text-sm font-semibold text-gray-500">
+                      온라인으로 직접 처리
+                    </p>
+                    <a
+                      href={service.officialUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex w-full justify-center rounded-xl bg-blue-700 px-4 py-3 text-center text-sm font-bold text-white hover:bg-blue-800"
+                    >
+                      {officialActionLabel} ↗
+                    </a>
+                    <p className="mt-2 text-xs leading-5 text-gray-500">
+                      로그인이 필요하면 해당 주문이나 가입 상품을 선택해 진행하세요.
+                    </p>
+                  </div>
+                )}
+
                 {phone && (
                   <div className="mt-4 border-t border-gray-100 pt-4">
                     <p className="text-sm font-semibold text-gray-500">
-                      {usesCustomerCenterFallback
-                        ? "대표 고객센터"
-                        : "안내 전화"}
+                      {isCustomerCenter
+                        ? "안내 전화"
+                        : usesCustomerCenterFallback
+                          ? "온라인에서 안 될 때"
+                          : "전화가 더 빠른 경우"}
                     </p>
                     <p className="mt-1 text-2xl font-black">{phone.number}</p>
                     {phone.feeNote && (
@@ -239,28 +271,29 @@ export default async function ServicePage({ params }: ServicePageProps) {
                     <div className="mt-3">
                       <PhoneActions phone={phone.number} />
                     </div>
+                    {hours && (
+                      <div className="mt-4 border-t border-gray-100 pt-4">
+                        <p className="text-sm font-semibold text-gray-500">
+                          상담 가능 시간
+                        </p>
+                        <p className="mt-1 font-bold leading-6">{hours}</p>
+                      </div>
+                    )}
                   </div>
                 )}
-                {hours && (
-                  <div className="mt-4 border-t border-gray-100 pt-4">
-                    <p className="text-sm font-semibold text-gray-500">
-                      상담 가능 시간
-                    </p>
-                    <p className="mt-1 font-bold leading-6">{hours}</p>
-                  </div>
-                )}
-                {service.officialUrl && (
+
+                {isCustomerCenter && service.officialUrl && (
                   <div className="mt-4 border-t border-gray-100 pt-4">
                     <a
                       href={service.officialUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex w-full justify-center rounded-xl bg-blue-700 px-4 py-3 text-sm font-bold text-white hover:bg-blue-800"
+                      className="flex w-full justify-center rounded-xl bg-blue-700 px-4 py-3 text-center text-sm font-bold text-white hover:bg-blue-800"
                     >
-                      공식 페이지에서 계속하기 ↗
+                      {officialActionLabel} ↗
                     </a>
                     <p className="mt-2 text-xs leading-5 text-gray-500">
-                      신청 조건과 비용은 공식 화면에서 마지막으로 확인하세요.
+                      전화가 어렵다면 온라인 문의와 자주 묻는 질문을 이용하세요.
                     </p>
                   </div>
                 )}

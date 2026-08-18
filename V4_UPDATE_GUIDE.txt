@@ -1,0 +1,46 @@
+바로처리 V4 적용 안내
+=====================
+
+이번 ZIP은 프로젝트 전체가 아니라 변경된 파일만 들어 있습니다.
+기존 D:\Projects\baro-cheori 폴더에 덮어쓰면 됩니다.
+
+1. 받은 ZIP 파일 이름을 아래와 똑같이 바꿉니다.
+   baro-cheori-action-v4-20260818.zip
+
+2. ZIP 파일을 D:\Projects\baro-cheori 폴더 안으로 옮깁니다.
+
+3. VS Code 터미널에서 아래 명령을 위에서부터 한 줄씩 실행합니다.
+
+cd D:\Projects\baro-cheori
+Expand-Archive -LiteralPath ".\baro-cheori-action-v4-20260818.zip" -DestinationPath "." -Force
+Remove-Item -LiteralPath ".\baro-cheori-action-v4-20260818.zip"
+npm run lint
+npm run build
+
+4. lint와 build가 끝났으면 아래 명령을 한 줄씩 실행합니다.
+
+git add .
+git commit -m "make service guides action first"
+git push
+
+5. Netlify가 GitHub의 새 커밋을 자동으로 감지합니다.
+   Netlify의 Deploys 목록에서 가장 위 배포가 Published가 될 때까지 기다립니다.
+
+6. 배포 확인 주소
+
+https://baro-cheori.netlify.app/company/coupang/return-refund
+https://baro-cheori.netlify.app/company/kt/lost-phone
+https://baro-cheori.netlify.app/company/elevenst/cancel
+
+확인할 변화
+
+- 데스크톱: 오른쪽에 온라인 직접 처리 버튼이 전화번호보다 먼저 보입니다.
+- 모바일: 제목 바로 아래에 바로 해결하기 카드가 먼저 보입니다.
+- 상세 안내: 긴 설명보다 실제 메뉴명과 버튼명이 먼저 보입니다.
+- 취소 불가·이미 발송·판매자 문의 같은 현실적인 예외가 함께 표시됩니다.
+
+문제 확인
+
+- git commit에서 "nothing to commit"이 나오면 ZIP이 프로젝트에 덮어써지지 않은 것입니다.
+- npm run build 마지막에 "Generating static pages" 성공 표시가 나오면 정상입니다.
+- Remove-Item 명령은 압축 해제가 끝난 V4 ZIP만 지웁니다. 코드 파일은 지우지 않습니다.

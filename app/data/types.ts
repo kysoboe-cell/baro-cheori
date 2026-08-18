@@ -18,6 +18,8 @@ export type ServiceTask = {
 
   officialUrl?: string;
 
+  officialActionLabel?: string;
+
   lastChecked?: string;
 };
 

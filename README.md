@@ -54,6 +54,7 @@ Netlify가 GitHub 저장소와 연결돼 있다면 새 커밋을 감지해 자�
   steps: ["첫 단계", "다음 단계"],
   tips: ["주의할 내용"],
   officialUrl: "https://공식주소",
+  officialActionLabel: "공식 신청 화면 열기",
   lastChecked: "YYYY-MM-DD",
 }
 ```
