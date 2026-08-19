@@ -22,7 +22,7 @@ type ServicePageProps = {
   params: Promise<{ slug: string; serviceSlug: string }>;
 };
 
-export const dynamicParams = false;
+
 
 export function generateStaticParams() {
   return allServices.map(({ company, service }) => ({

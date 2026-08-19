@@ -46,7 +46,7 @@ type CompanyPageProps = {
   params: Promise<{ slug: string }>;
 };
 
-export const dynamicParams = false;
+
 
 export function generateStaticParams() {
   return companies.map((company) => ({ slug: company.slug }));
