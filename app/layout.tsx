@@ -7,7 +7,9 @@ import SiteHeader from "./components/SiteHeader";
 import "./globals.css";
 import { SITE_NAME, SITE_URL } from "./lib/site";
 
-const googleVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
+const googleVerification =
+  process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ??
+  "Vh0-I2bKItBclgLNrtQ0tC2USRugKCEG5y-D-gNRkiA";
 const naverVerification = process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION;
 
 export const metadata: Metadata = {
