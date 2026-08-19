@@ -112,7 +112,7 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
 
       <section className="mx-auto max-w-5xl px-4 py-12 sm:px-6 sm:py-16">
         <nav aria-label="현재 위치" className="text-sm text-gray-500">
-          <Link href="/" className="hover:text-black">홈</Link>
+          <Link prefetch={false} href="/" className="hover:text-black">홈</Link>
           <span aria-hidden="true"> / </span>
           <span>{company.name}</span>
         </nav>
@@ -129,7 +129,7 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
 
         <div className="mt-10 grid gap-4 sm:grid-cols-2">
           {orderedServices.map((service) => (
-            <Link
+            <Link prefetch={false}
               key={service.slug}
               href={servicePath(company.slug, service.slug)}
               className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-gray-400 hover:shadow-md"

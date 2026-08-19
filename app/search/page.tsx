@@ -39,7 +39,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
   return (
     <main className="bg-slate-50">
       <section className="mx-auto min-h-[60vh] max-w-5xl px-4 py-8 sm:px-6 sm:py-12">
-        <Link href="/" className="text-sm font-bold text-slate-600 hover:text-blue-700">
+        <Link prefetch={false} href="/" className="text-sm font-bold text-slate-600 hover:text-blue-700">
           ← 다시 검색
         </Link>
 
@@ -57,7 +57,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
             </p>
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
               {results.map(({ company, service }) => (
-                <Link
+                <Link prefetch={false}
                   key={`${company.slug}-${service.slug}`}
                   href={servicePath(company.slug, service.slug)}
                   className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-md sm:p-6"
@@ -110,7 +110,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                   많이 찾는 상황부터 확인하세요
                 </h2>
               </div>
-              <Link
+              <Link prefetch={false}
                 href="/#services"
                 className="hidden text-sm font-bold text-slate-600 hover:text-blue-700 sm:block"
               >
@@ -119,7 +119,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
             </div>
             <div className="mt-4 grid gap-3 sm:grid-cols-2">
               {popularServices.map(({ company, service }) => (
-                <Link
+                <Link prefetch={false}
                   key={`${company.slug}-${service.slug}`}
                   href={servicePath(company.slug, service.slug)}
                   className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-blue-300 hover:shadow-md"

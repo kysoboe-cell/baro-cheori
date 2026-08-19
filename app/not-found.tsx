@@ -9,7 +9,7 @@ export default function NotFound() {
         <p className="mt-4 leading-7 text-gray-600">
           주소가 바뀌었거나 아직 등록되지 않은 업무일 수 있습니다.
         </p>
-        <Link
+        <Link prefetch={false}
           href="/"
           className="mt-7 rounded-xl bg-black px-6 py-3 font-semibold text-white hover:bg-gray-800"
         >

@@ -155,7 +155,7 @@ export default function Home() {
                 if (!item) return null;
 
                 return (
-                  <Link
+                  <Link prefetch={false}
                     key={`${task.companySlug}-${task.serviceSlug}`}
                     href={servicePath(task.companySlug, task.serviceSlug)}
                     className="group flex items-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 transition hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-md"
@@ -202,7 +202,7 @@ export default function Home() {
             if (!item) return null;
 
             return (
-              <Link
+              <Link prefetch={false}
                 key={`${task.companySlug}-${task.serviceSlug}`}
                 href={servicePath(task.companySlug, task.serviceSlug)}
                 className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-slate-400 hover:shadow-md"
@@ -252,7 +252,7 @@ export default function Home() {
               실제 신청 전에는 연결된 공식 화면의 최신 조건을 다시 확인합니다.
             </p>
           </div>
-          <Link
+          <Link prefetch={false}
             href="/information-policy"
             className="inline-flex shrink-0 justify-center rounded-xl border border-slate-300 px-5 py-3 text-sm font-bold hover:bg-slate-50"
           >

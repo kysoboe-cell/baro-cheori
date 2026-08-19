@@ -83,7 +83,7 @@ export default function CategoryFinder() {
 
             <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
               {activeCompanies.map((company) => (
-                <Link
+                <Link prefetch={false}
                   key={company.slug}
                   href={companyPath(company.slug)}
                   className="flex min-h-14 items-center justify-between gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm font-bold transition hover:border-blue-400 hover:bg-white"

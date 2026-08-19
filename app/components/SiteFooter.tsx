@@ -14,9 +14,9 @@ export default function SiteFooter() {
             </p>
           </div>
           <nav aria-label="하단 메뉴" className="flex flex-wrap gap-x-5 gap-y-3 text-sm">
-            <Link href="/about" className="hover:text-white">서비스 소개</Link>
-            <Link href="/information-policy" className="hover:text-white">정보 원칙</Link>
-            <Link href="/privacy" className="hover:text-white">개인정보 안내</Link>
+            <Link prefetch={false} href="/about" className="hover:text-white">서비스 소개</Link>
+            <Link prefetch={false} href="/information-policy" className="hover:text-white">정보 원칙</Link>
+            <Link prefetch={false} href="/privacy" className="hover:text-white">개인정보 안내</Link>
           </nav>
         </div>
         <nav
@@ -30,7 +30,7 @@ export default function SiteFooter() {
               </p>
               {getCompaniesByCategory(category.id)
                 .map((company) => (
-                  <Link
+                  <Link prefetch={false}
                     key={company.slug}
                     href={companyPath(company.slug)}
                     className="text-gray-400 hover:text-white"

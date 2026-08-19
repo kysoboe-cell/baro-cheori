@@ -127,11 +127,11 @@ export default async function ServicePage({ params }: ServicePageProps) {
           aria-label="현재 위치"
           className="flex flex-wrap gap-2 text-sm text-gray-500"
         >
-          <Link href="/" className="hover:text-black">
+          <Link prefetch={false} href="/" className="hover:text-black">
             홈
           </Link>
           <span aria-hidden="true">/</span>
-          <Link href={companyPath(company.slug)} className="hover:text-black">
+          <Link prefetch={false} href={companyPath(company.slug)} className="hover:text-black">
             {company.name}
           </Link>
           <span aria-hidden="true">/</span>
@@ -394,7 +394,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
             </h2>
             <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
               {relatedCompanyServices.map((relatedService) => (
-                <Link
+                <Link prefetch={false}
                   key={`${company.slug}-${relatedService.slug}`}
                   href={servicePath(company.slug, relatedService.slug)}
                   className="rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 transition hover:border-gray-500 hover:bg-white"
@@ -408,7 +408,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
                 </Link>
               ))}
               {relatedSameTaskServices.map((related) => (
-                <Link
+                <Link prefetch={false}
                   key={`${related.company.slug}-${related.service.slug}`}
                   href={servicePath(related.company.slug, related.service.slug)}
                   className="rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 transition hover:border-gray-500 hover:bg-white"

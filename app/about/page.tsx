@@ -37,10 +37,10 @@ export default function AboutPage() {
         </div>
 
         <div className="mt-10 flex flex-wrap gap-3">
-          <Link href="/" className="rounded-xl bg-black px-5 py-3 font-semibold text-white">
+          <Link prefetch={false} href="/" className="rounded-xl bg-black px-5 py-3 font-semibold text-white">
             업무 찾기
           </Link>
-          <Link href="/information-policy" className="rounded-xl border border-gray-300 bg-white px-5 py-3 font-semibold">
+          <Link prefetch={false} href="/information-policy" className="rounded-xl border border-gray-300 bg-white px-5 py-3 font-semibold">
             정보 관리 원칙
           </Link>
         </div>
