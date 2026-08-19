@@ -1,6 +1,6 @@
 export const SITE_NAME = "바로처리";
 export const SITE_URL = (
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://baro-cheori.netlify.app"
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://baro-cheori.kysoboe.workers.dev"
 ).replace(/\/$/, "");
 
 export function companyPath(companySlug: string) {
