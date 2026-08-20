@@ -93,7 +93,7 @@ export default function HomeSearch() {
       <label htmlFor="task-search" className="sr-only">
         회사명 또는 처리할 업무
       </label>
-      <div className="flex overflow-hidden rounded-2xl border border-slate-300 bg-white shadow-[0_14px_35px_-18px_rgba(15,23,42,0.45)] focus-within:border-primary-600 focus-within:ring-4 focus-within:ring-primary-100">
+      <div className="flex h-14 overflow-hidden rounded-lg border border-line bg-white focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
         <input
           id="task-search"
           type="search"
@@ -111,12 +111,12 @@ export default function HomeSearch() {
           onFocus={() => setIsOpen(true)}
           onKeyDown={handleKeyDown}
           placeholder="예: 삼성 세탁기 고장, LG 출장수리"
-          className="min-w-0 flex-1 px-4 py-4 text-base text-slate-950 outline-none placeholder:text-ink-500 sm:px-6"
+          className="min-w-0 flex-1 px-4 text-body text-ink-900 outline-none placeholder:text-ink-500 sm:px-5"
         />
         <button
           type="button"
           onClick={runSearch}
-          className="shrink-0 bg-accent px-5 font-bold text-white transition hover:bg-accent-dark sm:px-8"
+          className="shrink-0 bg-accent px-6 text-button text-white transition hover:bg-accent-dark sm:px-8"
         >
           검색
         </button>
@@ -126,7 +126,7 @@ export default function HomeSearch() {
         <div
           id="search-suggestions"
           role="listbox"
-          className="absolute left-0 right-0 top-full z-30 mt-2 overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-xl"
+          className="absolute left-0 right-0 top-full z-30 mt-2 overflow-hidden rounded-xl border border-line bg-white shadow-lg"
         >
           {filteredSuggestions.map((item, index) => (
             <button
@@ -136,30 +136,27 @@ export default function HomeSearch() {
               aria-selected={activeIndex === index}
               onMouseEnter={() => setActiveIndex(index)}
               onClick={() => selectSuggestion(item)}
-              className={`flex w-full items-start gap-3 border-b border-slate-100 px-4 py-3 text-left last:border-b-0 sm:px-5 ${
+              className={`flex w-full items-start gap-3 border-b border-line-soft px-4 py-3 text-left last:border-b-0 sm:px-5 ${
                 activeIndex === index
-                  ? "bg-primary-50"
-                  : "bg-white hover:bg-slate-50"
+                  ? "bg-primary-soft"
+                  : "bg-white hover:bg-bg-soft"
               }`}
             >
-              <span
-                aria-hidden="true"
-                className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-slate-100 text-sm"
-              >
-                →
-              </span>
               <span className="min-w-0 flex-1">
-                <span className="block text-caption font-bold text-primary-700">
+                <span className="block text-caption text-primary">
                   {item.company.name}
                 </span>
-                <span className="mt-0.5 block font-bold text-slate-950">
+                <span className="mt-0.5 block text-body font-semibold text-ink-900">
                   {item.service.title}
                 </span>
                 {item.service.quickSummary?.[0] && (
-                  <span className="mt-1 block truncate text-sm text-ink-600">
+                  <span className="mt-1 block truncate text-body-sm text-ink-600">
                     {item.service.quickSummary[0]}
                   </span>
                 )}
+              </span>
+              <span aria-hidden="true" className="mt-1 shrink-0 text-ink-500">
+                ›
               </span>
             </button>
           ))}

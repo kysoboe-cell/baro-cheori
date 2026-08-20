@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { GoogleAnalytics } from "@next/third-parties/google";
-import CoffeeSupport from "./components/CoffeeSupport";
 import SiteFooter from "./components/SiteFooter";
 import SiteHeader from "./components/SiteHeader";
 import "./globals.css";
@@ -62,7 +61,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <div className="flex-1">{children}</div>
           <SiteFooter />
         </div>
-        <CoffeeSupport />
       </body>
       <GoogleAnalytics gaId="G-L1B6W4F68T" />
     </html>

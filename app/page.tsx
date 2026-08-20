@@ -106,17 +106,21 @@ export default function Home() {
         }}
       />
 
-      <CategoryFinder />
+      <CategoryFinder variant="bar" />
 
-      <section className="overflow-hidden border-b border-slate-200 bg-[linear-gradient(180deg,#f0fdfa_0%,#ffffff_100%)]">
-        <div className="mx-auto max-w-7xl px-4 py-9 sm:px-6 sm:py-12 lg:py-14">
+      <section className="overflow-hidden border-b border-line bg-[linear-gradient(180deg,#f0fdfa_0%,#ffffff_100%)]">
+        <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:py-14">
           <div className="max-w-2xl">
-            <h1 className="break-keep text-4xl font-bold leading-[1.15] tracking-tight text-slate-950 sm:text-5xl">
+            <h1 className="text-display text-ink-900 md:text-display-md">
               복잡한 ARS 싫으셨죠?
             </h1>
-            <p className="mt-4 max-w-xl break-keep text-base leading-7 text-slate-600 sm:text-lg">
-              처리 순서와 진짜 필요한 연락처까지, 검색 한 번이면 바로 나와요.{" "}
-              <strong className="font-bold text-accent">완전 무료입니다.</strong>
+            <p className="mt-3 max-w-xl text-body text-ink-700 md:text-body-md">
+              처리 순서와 진짜 필요한 연락처까지, 검색 한 번이면 바로 나와요.
+            </p>
+            <p className="mt-3">
+              <span className="inline-flex items-center rounded-full bg-primary-soft px-3 py-1.5 text-body-sm font-semibold text-primary">
+                완전 무료입니다
+              </span>
             </p>
 
             <HomeSearch />
@@ -125,19 +129,21 @@ export default function Home() {
               {companies.length}개 업체 · {allServices.length}개 실제 업무 · 공식
               링크·확인일 표시
             </p>
+
+            <CategoryFinder variant="chips" />
           </div>
 
-          <div className="mt-10">
+          <div className="mt-8 sm:mt-12">
             <div className="flex flex-wrap items-center justify-between gap-3">
-              <h2 className="text-lg font-bold text-slate-950">
+              <h2 className="text-h2 text-ink-900 md:text-h2-md">
                 다들 이것부터 찾아요
               </h2>
-              <span className="rounded-full bg-primary-50 px-3 py-1 text-caption font-bold text-primary-700">
+              <span className="rounded-full bg-primary-soft px-3 py-1 text-caption font-semibold text-primary">
                 많이 찾는 해결
               </span>
             </div>
 
-            <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-4 grid grid-cols-2 gap-2 sm:gap-3 lg:grid-cols-4">
               {quickStarts.map((task) => {
                 const item = getService(task.companySlug, task.serviceSlug);
                 if (!item) return null;
@@ -146,23 +152,17 @@ export default function Home() {
                   <Link prefetch={false}
                     key={`${task.companySlug}-${task.serviceSlug}`}
                     href={servicePath(task.companySlug, task.serviceSlug)}
-                    className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-primary-300 hover:shadow-md"
+                    className="rounded-xl border border-line bg-white p-4 transition hover:border-primary/40 hover:bg-primary-soft/30"
                   >
-                    <div className="flex items-center justify-between gap-3">
-                      <span
-                        aria-hidden="true"
-                        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-slate-100 text-lg"
-                      >
+                    <p className="break-keep text-h3 text-ink-900 md:text-h3-md">
+                      <span aria-hidden="true" className="mr-1.5">
                         {task.icon}
                       </span>
-                      <span aria-hidden="true" className="font-bold text-primary-700 transition group-hover:translate-x-0.5">
-                        →
-                      </span>
-                    </div>
-                    <p className="mt-4 break-keep font-bold text-slate-950">
                       {task.question}
                     </p>
-                    <p className="mt-1 text-sm text-ink-600">{task.answer}</p>
+                    <p className="mt-1 text-caption text-ink-600">
+                      {task.answer}
+                    </p>
                   </Link>
                 );
               })}
@@ -171,57 +171,62 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="quick-start" className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-12">
-        <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <p className="text-sm font-bold text-primary-700">상황별 빠른 해결</p>
-            <h2 className="mt-1 break-keep text-2xl font-bold text-slate-950 sm:text-3xl">
-              내 상황과 <span className="text-primary-700">같은 문장부터</span> 누르세요
-            </h2>
-          </div>
-          <p className="text-sm text-ink-600">긴 설명 대신 필요한 행동부터 보여드립니다.</p>
+      <section id="quick-start" className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12">
+        <div className="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
+          <h2 className="break-keep text-h2 text-ink-900 md:text-h2-md">
+            내 상황과 <span className="text-primary">같은 문장부터</span> 누르세요
+          </h2>
+          <p className="text-caption text-ink-600">
+            긴 설명 대신 필요한 행동부터 보여드립니다.
+          </p>
         </div>
 
-        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="mt-4 border-t border-line-soft sm:grid sm:grid-cols-2 sm:gap-x-10">
           {situationTasks.map((task) => {
             const item = getService(task.companySlug, task.serviceSlug);
             if (!item) return null;
 
             return (
-              <Link prefetch={false}
+              <li
                 key={`${task.companySlug}-${task.serviceSlug}`}
-                href={servicePath(task.companySlug, task.serviceSlug)}
-                className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-slate-400 hover:shadow-md"
+                className="border-b border-line-soft"
               >
-                <div className="flex items-center justify-between gap-3">
-                  <span className="rounded-full bg-slate-100 px-2.5 py-1 text-caption font-bold text-slate-600">
-                    {task.category} · {item.company.name}
+                <Link prefetch={false}
+                  href={servicePath(task.companySlug, task.serviceSlug)}
+                  className="group flex min-h-16 items-center gap-3 py-4"
+                >
+                  <span className="shrink-0 rounded-full bg-line-soft px-2.5 py-1 text-caption text-ink-600">
+                    {task.category}
                   </span>
-                  <span aria-hidden="true" className="font-bold text-primary-700 transition group-hover:translate-x-0.5">
-                    →
+                  <span className="min-w-0 flex-1">
+                    <span className="block break-keep text-h3 text-ink-900 group-hover:text-primary">
+                      {task.label}
+                    </span>
+                    <span className="mt-0.5 block break-keep text-caption text-ink-600">
+                      {task.description} · {item.company.name}
+                    </span>
                   </span>
-                </div>
-                <h3 className="mt-4 break-keep text-lg font-bold text-slate-950">
-                  {task.label}
-                </h3>
-                <p className="mt-1 text-sm leading-6 text-ink-600">{task.description}</p>
-              </Link>
+                  <span aria-hidden="true" className="shrink-0 text-ink-500">
+                    ›
+                  </span>
+                </Link>
+              </li>
             );
           })}
-        </div>
+        </ul>
       </section>
 
       <section className="bg-slate-950 text-white">
-        <div className="mx-auto grid max-w-7xl gap-6 px-4 py-8 sm:grid-cols-3 sm:px-6 sm:py-9">
+        <div className="mx-auto grid max-w-7xl gap-6 px-4 py-8 sm:grid-cols-3 sm:px-6 sm:py-10">
           {[
             ["01", "공식 메뉴부터", "전화 대기보다 먼저 해볼 수 있는 실제 처리 화면을 엽니다."],
             ["02", "현실적인 순서만", "규정 전체가 아니라 지금 필요한 준비와 행동만 남깁니다."],
             ["03", "전화는 마지막에", "온라인으로 끝낼 수 없는 마지막 단계에서만 맞는 번호를 보여드립니다."],
           ].map(([number, title, description]) => (
             <div key={number} className="flex gap-3">
-              <span className="font-bold text-primary-400">{number}</span>
+              <span className="tnum font-bold text-primary-400">{number}</span>
               <div>
-                <h2 className="font-bold">{title}</h2>
+                <h2 className="text-h3 text-white">{title}</h2>
                 <p className="mt-1 break-keep text-body-sm text-gray-300">{description}</p>
               </div>
             </div>
@@ -229,18 +234,18 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-white py-10 sm:py-12">
+      <section className="bg-white py-8 sm:py-12">
         <div className="mx-auto flex max-w-5xl flex-col gap-5 px-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
           <div>
-            <h2 className="text-xl font-bold text-slate-950">공식 정보를 바탕으로 쉽게 풀어씁니다</h2>
-            <p className="mt-2 max-w-3xl break-keep text-sm leading-6 text-slate-600 sm:text-base">
+            <h2 className="text-h2 text-ink-900">공식 정보를 바탕으로 쉽게 풀어씁니다</h2>
+            <p className="mt-2 max-w-3xl break-keep text-body-sm text-ink-700">
               바로처리는 각 업체와 독립된 안내 서비스입니다. 확인 날짜와 공식 링크를 표시하고,
               실제 신청 전에는 연결된 공식 화면의 최신 조건을 다시 확인합니다.
             </p>
           </div>
           <Link prefetch={false}
             href="/information-policy"
-            className="inline-flex shrink-0 justify-center rounded-xl border border-slate-300 px-5 py-3 text-sm font-bold hover:bg-slate-50"
+            className="inline-flex min-h-12 shrink-0 items-center justify-center rounded-[10px] border border-line px-5 text-body-sm font-semibold text-ink-800 hover:bg-bg-soft"
           >
             정보 관리 원칙 보기
           </Link>
