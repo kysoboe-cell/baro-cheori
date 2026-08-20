@@ -8,6 +8,51 @@ import BoldText from "./BoldText";
 type Guide = NonNullable<ServiceTask["screenshotGuide"]>;
 
 /**
+ * "방법 절차 한눈에 보기" 사이드바 아코디언 등에서 쓰는 격자 전용 버전입니다.
+ * 라이트박스(dialog)는 만들지 않고 data-guide-open으로 클릭을 위임하므로,
+ * 같은 페이지에 본체 <ScreenshotGuide>가 함께 마운트돼 있어야 열립니다
+ * (본체와 노출 조건이 항상 같으므로 실제로는 늘 함께 있습니다).
+ */
+export function ScreenshotGuideGrid({ guide }: { guide: Guide }) {
+  return (
+    <div className="grid grid-cols-3 gap-2">
+      {guide.steps.map((item) => (
+        <button
+          key={item.img}
+          type="button"
+          data-guide-open={item.n}
+          aria-label={`${item.n}단계 화면 크게 보기: ${item.label}`}
+          className="group text-left"
+        >
+          <span className="relative block overflow-hidden rounded-lg border border-line transition group-hover:border-primary/50">
+            <Image
+              src={item.thumb ?? item.img}
+              alt={item.alt}
+              width={480}
+              height={600}
+              loading="lazy"
+              sizes="150px"
+              className={`aspect-[4/5] w-full object-cover ${
+                item.thumb ? "" : "object-top"
+              }`}
+            />
+            <span
+              aria-hidden="true"
+              className="absolute left-1.5 top-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-accent text-caption font-bold text-white"
+            >
+              {item.n}
+            </span>
+          </span>
+          <span className="mt-1 block truncate text-caption font-semibold text-ink-800">
+            {item.label}
+          </span>
+        </button>
+      ))}
+    </div>
+  );
+}
+
+/**
  * 스샷 가이드 v2 — 스펙 v3 5절 "한 화면에 흐름 전체".
  * 모바일 3열 격자(썸네일만 로드) + <dialog> 라이트박스.
  * 텍스트 단계의 "화면 보기" 버튼(data-guide-open="n")도 같은 라이트박스를 엽니다.

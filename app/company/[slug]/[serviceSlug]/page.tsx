@@ -3,7 +3,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import FixedBottomCTA from "../../../components/FixedBottomCTA";
 import PhoneActions from "../../../components/PhoneActions";
-import ScreenshotGuide from "../../../components/ScreenshotGuide";
+import ScreenshotGuide, {
+  ScreenshotGuideGrid,
+} from "../../../components/ScreenshotGuide";
 import StepText from "../../../components/StepText";
 import { allServices, getService } from "../../../data/services";
 import {
@@ -458,6 +460,23 @@ export default async function ServicePage({ params }: ServicePageProps) {
           </div>
 
           <div className="min-w-0 space-y-4 lg:col-start-2">
+            {guide && guide.steps.length > 0 && (
+              <details className="group hidden rounded-xl border border-line bg-white lg:block">
+                <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-3 rounded-xl p-5 text-h3 text-ink-900 marker:content-none">
+                  <span>방법 절차 한눈에 보기</span>
+                  <span
+                    aria-hidden="true"
+                    className="shrink-0 text-ink-500 transition-transform group-open:rotate-180"
+                  >
+                    ⌄
+                  </span>
+                </summary>
+                <div className="border-t border-line-soft p-5 pt-4">
+                  <ScreenshotGuideGrid guide={guide} />
+                </div>
+              </details>
+            )}
+
             <section className="hidden rounded-xl border border-line bg-white p-5 lg:block">
               <h2 className="text-h3 text-ink-900">시작 전 준비</h2>
               <ul className="mt-3 space-y-2">

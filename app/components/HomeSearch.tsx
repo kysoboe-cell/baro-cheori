@@ -110,7 +110,7 @@ export default function HomeSearch() {
           }}
           onFocus={() => setIsOpen(true)}
           onKeyDown={handleKeyDown}
-          placeholder="예: 삼성 세탁기 고장, LG 출장수리"
+          placeholder="예: 쿠팡 와우 해지, 넷플릭스 해지"
           className="min-w-0 flex-1 px-4 text-body text-ink-900 outline-none placeholder:text-ink-500 sm:px-5"
         />
         <button

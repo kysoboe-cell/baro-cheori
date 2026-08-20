@@ -115,7 +115,8 @@ export default function Home() {
               복잡한 ARS 싫으셨죠?
             </h1>
             <p className="mt-3 max-w-xl text-body text-ink-700 md:text-body-md">
-              처리 순서와 진짜 필요한 연락처까지, 검색 한 번이면 바로 나와요.
+              처리 순서와 진짜 필요한 연락처까지,
+              <br className="sm:hidden" /> 검색 한 번이면 바로 나와요.
             </p>
             <p className="mt-3">
               <span className="inline-flex items-center rounded-full bg-primary-soft px-3 py-1.5 text-body-sm font-semibold text-primary">
