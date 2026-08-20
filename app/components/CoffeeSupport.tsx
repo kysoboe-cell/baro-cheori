@@ -50,7 +50,7 @@ export default function CoffeeSupport() {
           </p>
 
           <div className="mt-4 rounded-xl bg-gray-50 p-4 text-sm">
-            <p className="text-gray-500">우리은행 · 예금주 김X석</p>
+            <p className="text-ink-600">우리은행 · 예금주 김X석</p>
             <p className="mt-2 break-all text-base font-bold">{accountNumber}</p>
             <button
               type="button"

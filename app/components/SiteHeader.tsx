@@ -4,10 +4,10 @@ export default function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
-        <Link prefetch={false} href="/" className="flex items-center gap-2.5 text-xl font-black tracking-tight sm:text-2xl">
+        <Link prefetch={false} href="/" className="flex items-center gap-2.5 text-xl font-bold tracking-tight sm:text-2xl">
           <span
             aria-hidden="true"
-            className="flex h-8 w-8 items-center justify-center rounded-xl bg-primary-700 text-base font-black text-white shadow-sm"
+            className="flex h-8 w-8 items-center justify-center rounded-xl bg-primary-700 text-base font-bold text-white shadow-sm"
           >
             ✓
           </span>

@@ -9,7 +9,7 @@ export default function SiteFooter() {
         <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
           <div>
             <p className="text-lg font-bold text-white">바로처리</p>
-            <p className="mt-2 max-w-xl text-sm leading-6 text-gray-400">
+            <p className="mt-2 max-w-xl text-body-sm text-gray-300">
               전화와 ARS를 돌기 전에 공식 화면에서 직접 해결할 순서를 쉽게 정리하는 독립 안내 서비스입니다.
             </p>
           </div>
@@ -33,7 +33,7 @@ export default function SiteFooter() {
                   <Link prefetch={false}
                     key={company.slug}
                     href={companyPath(company.slug)}
-                    className="text-gray-400 hover:text-white"
+                    className="text-gray-300 hover:text-white"
                   >
                     {company.name}
                   </Link>
@@ -41,7 +41,7 @@ export default function SiteFooter() {
             </div>
           ))}
         </nav>
-        <p className="mt-8 border-t border-gray-800 pt-6 text-xs leading-5 text-gray-500">
+        <p className="mt-8 border-t border-gray-800 pt-6 text-caption text-ink-500">
           바로처리는 각 업체의 공식 서비스가 아니며 제휴·대행 관계가 없습니다. 실제 신청 조건과 비용은 연결된 공식 페이지에서 마지막으로 확인하세요.
         </p>
       </div>

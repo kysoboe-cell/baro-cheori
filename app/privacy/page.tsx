@@ -11,7 +11,7 @@ export default function PrivacyPage() {
     <main className="bg-gray-50">
       <article className="mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16">
         <p className="text-sm font-bold text-primary-700">개인정보 안내</p>
-        <h1 className="mt-2 text-4xl font-black tracking-tight">현재 바로처리는 개인정보를 직접 입력받지 않습니다</h1>
+        <h1 className="mt-2 text-4xl font-bold tracking-tight">현재 바로처리는 개인정보를 직접 입력받지 않습니다</h1>
         <div className="mt-8 space-y-5 leading-7 text-gray-700">
           <section className="rounded-2xl border border-gray-200 bg-white p-6">
             <h2 className="text-xl font-bold text-gray-950">사이트에서 받지 않는 정보</h2>
@@ -38,7 +38,7 @@ export default function PrivacyPage() {
             </p>
           </section>
         </div>
-        <p className="mt-8 text-sm text-gray-500">시행일: 2026-08-18</p>
+        <p className="mt-8 text-sm text-ink-600">시행일: 2026-08-18</p>
       </article>
     </main>
   );

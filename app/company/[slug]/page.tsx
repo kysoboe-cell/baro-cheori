@@ -111,19 +111,19 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
       />
 
       <section className="mx-auto max-w-5xl px-4 py-12 sm:px-6 sm:py-16">
-        <nav aria-label="현재 위치" className="text-sm text-gray-500">
+        <nav aria-label="현재 위치" className="text-sm text-ink-600">
           <Link prefetch={false} href="/" className="hover:text-black">홈</Link>
           <span aria-hidden="true"> / </span>
           <span>{company.name}</span>
         </nav>
 
         <p className="mt-8 text-sm font-bold text-primary-700">업체별 업무 안내</p>
-        <h1 className="mt-2 text-4xl font-black tracking-tight sm:text-5xl">
+        <h1 className="mt-2 text-4xl font-bold tracking-tight sm:text-5xl">
           {company.name}
         </h1>
         <p className="mt-4 leading-7 text-gray-600">
-          처리하려는 업무를 선택하면 <strong className="font-black text-slate-900">지금 누를 메뉴</strong>,
-          <strong className="font-black text-primary-700"> 꼭 놓치면 안 되는 단계</strong>,
+          처리하려는 업무를 선택하면 <strong className="font-bold text-slate-900">지금 누를 메뉴</strong>,
+          <strong className="font-bold text-primary-700"> 꼭 놓치면 안 되는 단계</strong>,
           직접 해결이 막혔을 때만 연락처를 보여드려요.
         </p>
 

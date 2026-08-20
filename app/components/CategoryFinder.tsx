@@ -57,7 +57,7 @@ export default function CategoryFinder() {
                     current === category.id ? null : category.id
                   )
                 }
-                className={`flex min-w-0 min-h-11 items-center justify-center gap-1 rounded-xl border px-2 py-3 text-left text-xs font-bold transition sm:justify-between sm:gap-2 sm:px-3 sm:text-sm ${
+                className={`flex min-w-0 min-h-11 items-center justify-center gap-1 rounded-xl border px-2 py-3 text-left text-caption font-bold transition sm:justify-between sm:gap-2 sm:px-3 sm:text-sm ${
                   isActive
                     ? "border-primary-700 bg-primary-700 text-white shadow-sm"
                     : "border-slate-200 bg-white text-slate-700 hover:border-primary-300 hover:bg-primary-50"
@@ -67,7 +67,7 @@ export default function CategoryFinder() {
                   <span aria-hidden="true">{category.icon}</span>
                   <span className="truncate">{category.name}</span>
                 </span>
-                <span aria-hidden="true" className="hidden shrink-0 text-xs sm:inline">
+                <span aria-hidden="true" className="hidden shrink-0 text-caption sm:inline">
                   {isActive ? "▲" : "▼"}
                 </span>
               </button>
@@ -75,7 +75,7 @@ export default function CategoryFinder() {
           })}
         </div>
 
-        <p className="ml-auto hidden text-xs text-slate-500 xl:block">
+        <p className="ml-auto hidden text-caption text-ink-600 xl:block">
           업체를 고르면 업무가 바로 보입니다
         </p>
 
@@ -100,7 +100,7 @@ export default function CategoryFinder() {
               <button
                 type="button"
                 onClick={() => setActiveCategory(null)}
-                className="flex min-h-11 items-center rounded-lg px-3 text-sm text-slate-500 hover:bg-slate-100 hover:text-black"
+                className="flex min-h-11 items-center rounded-lg px-3 text-sm text-ink-600 hover:bg-slate-100 hover:text-black"
               >
                 닫기
               </button>

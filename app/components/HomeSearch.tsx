@@ -111,7 +111,7 @@ export default function HomeSearch() {
           onFocus={() => setIsOpen(true)}
           onKeyDown={handleKeyDown}
           placeholder="예: 삼성 세탁기 고장, LG 출장수리"
-          className="min-w-0 flex-1 px-4 py-4 text-base text-slate-950 outline-none placeholder:text-slate-400 sm:px-6"
+          className="min-w-0 flex-1 px-4 py-4 text-base text-slate-950 outline-none placeholder:text-ink-500 sm:px-6"
         />
         <button
           type="button"
@@ -149,14 +149,14 @@ export default function HomeSearch() {
                 →
               </span>
               <span className="min-w-0 flex-1">
-                <span className="block text-xs font-bold text-primary-700">
+                <span className="block text-caption font-bold text-primary-700">
                   {item.company.name}
                 </span>
                 <span className="mt-0.5 block font-bold text-slate-950">
                   {item.service.title}
                 </span>
                 {item.service.quickSummary?.[0] && (
-                  <span className="mt-1 block truncate text-sm text-slate-500">
+                  <span className="mt-1 block truncate text-sm text-ink-600">
                     {item.service.quickSummary[0]}
                   </span>
                 )}

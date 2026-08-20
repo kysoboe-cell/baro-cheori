@@ -27,7 +27,7 @@ export default function PhoneActions({ phone }: PhoneActionsProps) {
     <div className="flex flex-wrap gap-2">
       <a
         href={`tel:${telNumber}`}
-        className="min-h-12 rounded-xl bg-black px-5 py-3.5 text-base font-black text-white hover:bg-gray-800 sm:text-sm sm:font-semibold"
+        className="min-h-12 rounded-xl bg-black px-5 py-3.5 text-base font-bold text-white hover:bg-gray-800 sm:text-sm sm:font-semibold"
       >
         전화 걸기
       </a>
