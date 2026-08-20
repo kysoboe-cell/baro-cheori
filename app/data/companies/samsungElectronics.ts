@@ -165,10 +165,57 @@ export const samsungElectronics: Company = {
       steps: [
         "제품 모델명과 구입 날짜를 확인합니다.",
         "영수증이나 주문내역이 있으면 구입 날짜가 보이게 저장합니다.",
-        "삼성전자서비스 [서비스요금 산정기준]에서 출장비와 유상수리 조건을 봅니다.",
-        "보증기간과 고장 원인을 비교해 무상 가능성이 있는지 먼저 판단합니다.",
+        "삼성전자서비스 [요금안내 > 서비스요금 산정기준]에서 출장비(평절기 28,000원 / 성수기 33,000원, 할증 +5,000원)를 봅니다. 유상 안내 후 취소해도 출장비는 청구됩니다.",
+        "같은 화면 아래 '유상수리 대상'과 [보증기간 산정기준] 탭의 품목별 보증기간(일반 1년·휴대폰 2년·계절성 2년)을 비교해 무상 가능성을 판단합니다.",
         "정확한 총액은 제품 점검 뒤 달라질 수 있으므로 수리 시작 전에 견적을 듣고 결정합니다.",
       ],
+      screenshotGuide: {
+        checkedAt: "2026-08-20",
+        basis: "삼성전자서비스 홈페이지(모바일 화면) 기준",
+        steps: [
+          {
+            n: 1,
+            img: "/images/guides/samsung-repair-cost/step1.webp",
+            thumb: "/images/guides/samsung-repair-cost/step1-thumb.webp",
+            label: "출장비 기준",
+            caption:
+              "요금안내 [서비스요금 산정기준] → 출장비: 평절기·성수기, 평일 18시 이후·휴일은 할증. 수리 안 받고 취소해도 출장비는 나갑니다.",
+            alt: "삼성전자서비스 요금안내 출장비 섹션. 평절기·성수기 기본/할증 출장비와 보증기간과 무관하게 출장비가 청구되는 경우 ①~④에 표시",
+            linkedStep: 3,
+            howToImage: true,
+          },
+          {
+            n: 2,
+            img: "/images/guides/samsung-repair-cost/step2.webp",
+            thumb: "/images/guides/samsung-repair-cost/step2-thumb.webp",
+            label: "유상수리 대상",
+            caption:
+              "같은 탭 아래 '유상수리 대상'에서 내 고장이 해당되는지 봅니다. 보증기간 안이라도 '고장 아닌 점검'은 유상.",
+            alt: "유상수리 대상 목록. '보증이내 — 제품 고장이 아닌 고객 요청에 의한 점검(보증기간 내라도 유상 수리)' 카드에 표시",
+            linkedStep: 4,
+            howToImage: true,
+          },
+          {
+            n: 3,
+            img: "/images/guides/samsung-repair-cost/step3.webp",
+            thumb: "/images/guides/samsung-repair-cost/step3-thumb.webp",
+            label: "보증기간 탭",
+            caption: "맨 위 탭 버튼을 눌러 [보증기간 산정기준]으로 바꿉니다.",
+            alt: "요금안내 상단 탭 버튼과 펼쳐진 목록. '보증기간 산정기준' 항목에 표시",
+            linkedStep: 3,
+          },
+          {
+            n: 4,
+            img: "/images/guides/samsung-repair-cost/step4.webp",
+            thumb: "/images/guides/samsung-repair-cost/step4-thumb.webp",
+            label: "품목별 보증기간",
+            caption:
+              "품목별 보증기간 표: 일반 제품 1년, 휴대폰·태블릿 2년, 계절성 제품 2년. 표는 옆으로 밀어서 봅니다.",
+            alt: "보증기간 산정기준 탭의 품목별 보증기간 표. 일반 제품 1년/2년, 계절성 제품 2년 행에 표시",
+            linkedStep: 3,
+          },
+        ],
+      },
       tips: [
         "보증기간 안이라는 이유만으로 모든 고장이 무료가 되는 것은 아니에요.",
         "출장수리를 받지 않아도 기사 방문이나 제품 점검 상황에 따라 비용이 생길 수 있어요.",
@@ -219,7 +266,7 @@ export const samsungElectronics: Company = {
         {
           question: "출장 신청만 해도 무조건 출장비가 나가나요?",
           answer:
-            "기사가 방문해 점검한 이상 수리를 진행하지 않아도 출장비가 청구되는 경우가 일반적이에요. 방문 전 전화 상담으로 원인을 먼저 좁혀보는 것도 방법이에요.",
+            "기사가 방문해 점검한 이상 수리를 진행하지 않아도 출장비가 청구되는 경우가 일반적이에요. 공식 요금안내에는 '보증기간과 무관하게 출장비가 청구되는 경우' 목록(유상 안내 후 수리 취소, 고장이 아닌 사용 설명 요청 등)이 따로 공시돼 있으니, 방문 전 전화 상담으로 원인을 먼저 좁혀보는 것도 방법이에요.",
         },
         {
           question: "수리비가 너무 비싸면 어떻게 하나요?",
