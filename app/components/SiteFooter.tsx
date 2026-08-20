@@ -13,10 +13,10 @@ export default function SiteFooter() {
               전화와 ARS를 돌기 전에 공식 화면에서 직접 해결할 순서를 쉽게 정리하는 독립 안내 서비스입니다.
             </p>
           </div>
-          <nav aria-label="하단 메뉴" className="flex flex-wrap gap-x-5 gap-y-3 text-sm">
-            <Link prefetch={false} href="/about" className="hover:text-white">서비스 소개</Link>
-            <Link prefetch={false} href="/information-policy" className="hover:text-white">정보 원칙</Link>
-            <Link prefetch={false} href="/privacy" className="hover:text-white">개인정보 안내</Link>
+          <nav aria-label="하단 메뉴" className="flex flex-wrap gap-x-3 text-body-sm">
+            <Link prefetch={false} href="/about" className="inline-flex min-h-12 items-center hover:text-white">서비스 소개</Link>
+            <Link prefetch={false} href="/information-policy" className="inline-flex min-h-12 items-center hover:text-white">정보 원칙</Link>
+            <Link prefetch={false} href="/privacy" className="inline-flex min-h-12 items-center hover:text-white">개인정보 안내</Link>
           </nav>
         </div>
         <nav
@@ -24,7 +24,7 @@ export default function SiteFooter() {
           className="mt-7 grid gap-4 border-t border-gray-800 pt-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6"
         >
           {categories.map((category) => (
-            <div key={category.id} className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
+            <div key={category.id} className="flex flex-wrap items-center gap-x-3 text-body-sm">
               <p className="font-bold text-white">
                 {category.icon} {category.name}
               </p>
@@ -33,7 +33,7 @@ export default function SiteFooter() {
                   <Link prefetch={false}
                     key={company.slug}
                     href={companyPath(company.slug)}
-                    className="text-gray-300 hover:text-white"
+                    className="inline-flex min-h-12 items-center text-gray-300 hover:text-white"
                   >
                     {company.name}
                   </Link>

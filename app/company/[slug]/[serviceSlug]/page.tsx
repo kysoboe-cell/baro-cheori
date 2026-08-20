@@ -182,16 +182,20 @@ export default async function ServicePage({ params }: ServicePageProps) {
       <article className="mx-auto max-w-7xl px-4 py-6 pb-24 sm:px-6 sm:py-8 lg:pb-8">
         <nav
           aria-label="현재 위치"
-          className="flex flex-wrap gap-2 text-caption text-ink-600"
+          className="flex flex-wrap items-center gap-2 text-caption text-ink-600"
         >
-          <Link prefetch={false} href="/" className="hover:text-ink-900">
+          <Link
+            prefetch={false}
+            href="/"
+            className="inline-flex min-h-12 items-center hover:text-ink-900"
+          >
             홈
           </Link>
           <span aria-hidden="true">/</span>
           <Link
             prefetch={false}
             href={companyPath(company.slug)}
-            className="hover:text-ink-900"
+            className="inline-flex min-h-12 items-center hover:text-ink-900"
           >
             {company.name}
           </Link>
@@ -321,7 +325,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
                             <button
                               type="button"
                               data-guide-open={linkedGuideStep.n}
-                              className="-my-2 ml-1.5 inline-flex min-h-11 items-center px-1.5 align-middle text-caption font-semibold text-primary underline decoration-1 underline-offset-4 hover:decoration-2"
+                              className="-my-2.5 ml-1.5 inline-flex min-h-12 items-center px-1.5 align-middle text-caption font-semibold text-primary underline decoration-1 underline-offset-4 hover:decoration-2"
                             >
                               화면 보기
                             </button>
