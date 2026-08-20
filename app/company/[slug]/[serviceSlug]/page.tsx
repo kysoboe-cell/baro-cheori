@@ -337,36 +337,36 @@ export default async function ServicePage({ params }: ServicePageProps) {
                   {service.screenshotGuide.steps.map((step, index) => (
                     <li key={step.image}>
                       <figure
-                        className={`overflow-hidden rounded-2xl border ${
+                        className={`overflow-hidden rounded-2xl border sm:flex sm:items-center ${
                           step.emphasize
                             ? "border-primary-300 bg-primary-50"
                             : "border-gray-200 bg-white"
                         }`}
                       >
-                        <div className="relative">
+                        <div className="sm:w-[340px] sm:max-w-[340px] sm:flex-none">
                           <Image
                             src={`/images/guides/${service.screenshotGuide!.folder}/${step.image}`}
                             alt={step.alt}
                             width={step.width}
                             height={step.height}
                             loading={index === 0 ? "eager" : "lazy"}
-                            sizes="(min-width: 1024px) 28rem, 100vw"
+                            sizes="(min-width: 640px) 340px, 100vw"
                             className="w-full"
                           />
-                          <span
-                            aria-hidden="true"
-                            className="absolute left-3 top-3 flex h-7 w-7 items-center justify-center rounded-full bg-slate-950/85 text-sm font-black text-white"
-                          >
-                            {index + 1}
-                          </span>
                         </div>
                         <figcaption
-                          className={`p-4 text-sm leading-6 ${
+                          className={`break-keep p-4 text-sm leading-6 sm:flex-1 sm:px-6 sm:py-5 sm:text-base sm:leading-7 ${
                             step.emphasize
                               ? "font-bold text-primary-950"
                               : "text-gray-800"
                           }`}
                         >
+                          <span
+                            aria-hidden="true"
+                            className="mb-2.5 hidden h-8 w-8 items-center justify-center rounded-full bg-accent text-sm font-black text-white sm:flex"
+                          >
+                            {index + 1}
+                          </span>
                           <BoldText
                             text={step.caption}
                             strongClassName={
