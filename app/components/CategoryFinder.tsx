@@ -57,7 +57,7 @@ export default function CategoryFinder() {
                     current === category.id ? null : category.id
                   )
                 }
-                className={`flex min-w-0 items-center justify-center gap-1 rounded-xl border px-2 py-2.5 text-left text-xs font-bold transition sm:justify-between sm:gap-2 sm:px-3 sm:text-sm ${
+                className={`flex min-w-0 min-h-11 items-center justify-center gap-1 rounded-xl border px-2 py-3 text-left text-xs font-bold transition sm:justify-between sm:gap-2 sm:px-3 sm:text-sm ${
                   isActive
                     ? "border-primary-700 bg-primary-700 text-white shadow-sm"
                     : "border-slate-200 bg-white text-slate-700 hover:border-primary-300 hover:bg-primary-50"
@@ -106,7 +106,7 @@ export default function CategoryFinder() {
               </button>
             </div>
 
-            <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
+            <div className="mt-3 grid max-h-[60vh] grid-cols-2 gap-2 overflow-y-auto sm:grid-cols-4">
               {activeCompanies.map((company) => (
                 <Link prefetch={false}
                   key={company.slug}

@@ -13,14 +13,14 @@ export default function SiteHeader() {
           </span>
           <span>바로처리</span>
         </Link>
-        <nav aria-label="주요 메뉴" className="flex items-center gap-4 text-sm font-bold text-slate-700 sm:gap-7">
-          <Link prefetch={false} href="/#quick-start" className="hover:text-primary-700">
+        <nav aria-label="주요 메뉴" className="flex items-center gap-2 text-sm font-bold text-slate-700 sm:gap-5">
+          <Link prefetch={false} href="/#quick-start" className="flex min-h-11 items-center px-1.5 hover:text-primary-700">
             빠른 해결
           </Link>
-          <Link prefetch={false} href="/#services" className="hidden hover:text-primary-700 sm:inline">
+          <Link prefetch={false} href="/#services" className="hidden min-h-11 items-center px-1.5 hover:text-primary-700 sm:flex">
             업체 찾기
           </Link>
-          <Link prefetch={false} href="/information-policy" className="hover:text-primary-700">
+          <Link prefetch={false} href="/information-policy" className="flex min-h-11 items-center px-1.5 hover:text-primary-700">
             정보 원칙
           </Link>
         </nav>
