@@ -212,7 +212,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
         </header>
 
         <div className="mt-5 grid items-start gap-4 lg:grid-cols-[minmax(0,1.5fr)_minmax(18rem,0.78fr)]">
-          <div className="space-y-4">
+          <div className="min-w-0 space-y-4">
             {service.quickSummary && service.quickSummary.length > 0 && (
               <section className="rounded-2xl border border-primary-200 border-l-4 border-l-primary-700 bg-primary-50 p-4 sm:p-5">
                 <h2 className="text-lg font-black text-primary-950">
@@ -497,7 +497,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
             )}
           </div>
 
-          <div className="space-y-4 lg:col-start-2">
+          <div className="min-w-0 space-y-4 lg:col-start-2">
             <div className="space-y-4">
               <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
                 <p className="text-xs font-bold text-gray-500">시작 전 준비</p>

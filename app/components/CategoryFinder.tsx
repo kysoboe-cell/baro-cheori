@@ -100,7 +100,7 @@ export default function CategoryFinder() {
               <button
                 type="button"
                 onClick={() => setActiveCategory(null)}
-                className="rounded-lg px-2 py-1 text-sm text-slate-500 hover:bg-slate-100 hover:text-black"
+                className="flex min-h-11 items-center rounded-lg px-3 text-sm text-slate-500 hover:bg-slate-100 hover:text-black"
               >
                 닫기
               </button>
