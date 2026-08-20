@@ -13,11 +13,22 @@ export default function SiteFooter() {
               전화와 ARS를 돌기 전에 공식 화면에서 직접 해결할 순서를 쉽게 정리하는 독립 안내 서비스입니다.
             </p>
           </div>
-          <nav aria-label="하단 메뉴" className="flex flex-wrap gap-x-3 text-body-sm">
-            <Link prefetch={false} href="/about" className="inline-flex min-h-12 items-center hover:text-white">서비스 소개</Link>
-            <Link prefetch={false} href="/information-policy" className="inline-flex min-h-12 items-center hover:text-white">정보 원칙</Link>
-            <Link prefetch={false} href="/privacy" className="inline-flex min-h-12 items-center hover:text-white">개인정보 안내</Link>
-          </nav>
+          <div className="flex flex-col gap-1">
+            <nav aria-label="하단 메뉴" className="flex flex-wrap gap-x-3 text-body-sm">
+              <Link prefetch={false} href="/about" className="inline-flex min-h-12 items-center hover:text-white">서비스 소개</Link>
+              <Link prefetch={false} href="/information-policy" className="inline-flex min-h-12 items-center hover:text-white">정보 원칙</Link>
+              <Link prefetch={false} href="/privacy" className="inline-flex min-h-12 items-center hover:text-white">개인정보 안내</Link>
+            </nav>
+            <p className="text-body-sm text-gray-300">
+              문의:{" "}
+              <a
+                href="mailto:kysoboe@gmail.com"
+                className="inline-flex min-h-12 items-center underline underline-offset-4 hover:text-white"
+              >
+                kysoboe@gmail.com
+              </a>
+            </p>
+          </div>
         </div>
         <nav
           aria-label="전체 업체"

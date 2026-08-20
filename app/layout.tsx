@@ -47,6 +47,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="ko">
       <head>
+        {/*
+          AdSense 코드 삽입 지점 — 신청 시 pub ID를 받으면 여기에 넣습니다.
+          ads.txt는 pub ID 없이는 의미가 없어 지금 만들지 않습니다
+          (공식: 코드 / 메타태그 / ads.txt 중 하나만 있으면 됨).
+        */}
         {/* Pretendard Variable dynamic subset — 한글 웹폰트, SIL OFL 라이선스(상업 무료) */}
         <link
           rel="stylesheet"

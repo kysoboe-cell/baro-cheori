@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import AdSlot from "../../../components/AdSlot";
 import FixedBottomCTA from "../../../components/FixedBottomCTA";
+import JumpNav, { type JumpItem } from "../../../components/JumpNav";
+import PageFeedback from "../../../components/PageFeedback";
 import PhoneActions from "../../../components/PhoneActions";
 import ScreenshotGuide, {
   ScreenshotGuideGrid,
@@ -107,6 +110,25 @@ export default async function ServicePage({ params }: ServicePageProps) {
         item.company.slug !== company.slug && item.service.slug === service.slug
     )
     .slice(0, 4);
+  const hasContactBlock = Boolean(phone || hours || usefulOfficialUrl);
+  // 점프 목차 — 이 페이지에 실제로 있는 섹션만 담습니다(없는 섹션 링크 금지).
+  const jumpItems: JumpItem[] = [
+    ...(service.steps && service.steps.length > 0
+      ? [{ href: "#steps", label: "처리 순서" }]
+      : []),
+    ...(guide && guide.steps.length > 0
+      ? [{ href: "#screens", label: "화면 따라하기" }]
+      : []),
+    ...(service.priceTable && service.priceTable.length > 0
+      ? [{ href: "#price-table", label: "참고표" }]
+      : []),
+    ...(service.faq && service.faq.length > 0
+      ? [{ href: "#faq", label: "자주 묻는 질문" }]
+      : []),
+    ...(hasContactBlock
+      ? [{ href: "#contact-block", label: "전화·공식 링크" }]
+      : []),
+  ];
   // 이 업무를 담고 있는 상황 허브가 있으면 "업체 고르기" 화면으로 되돌아갈 길을 둡니다.
   const parentProblem = problems.find((problem) =>
     problem.options.some(
@@ -229,7 +251,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
           {service.lastChecked && (
             <p className="mt-3">
               <span className="tnum inline-flex items-center rounded-full border border-line px-3 py-1 text-caption text-ink-600">
-                정보 확인일 {service.lastChecked}
+                정보 확인일 {service.lastChecked} · 바로처리 직접 확인
               </span>
             </p>
           )}
@@ -268,6 +290,8 @@ export default async function ServicePage({ params }: ServicePageProps) {
               </section>
             )}
 
+            <JumpNav items={jumpItems} />
+
             <section className="lg:hidden" aria-label="시작 전 준비물">
               <div className="flex flex-wrap gap-2">
                 {preparations.map((preparation) => (
@@ -303,7 +327,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
                     </div>
                   </details>
                 )}
-                <section aria-label="처리 순서">
+                <section id="steps" aria-label="처리 순서" className="scroll-mt-20">
                   <h2 className="text-h2 text-ink-900 md:text-h2-md">
                     처리 순서
                   </h2>
@@ -399,6 +423,9 @@ export default async function ServicePage({ params }: ServicePageProps) {
               </section>
             )}
 
+            {/* 처리 순서 섹션이 끝난 경계 — 리스트 내부가 아니라 여기에만 둡니다. */}
+            <AdSlot id="in-article-1" />
+
             {guide && guide.steps.length > 0 && (
               <ScreenshotGuide guide={guide} />
             )}
@@ -408,7 +435,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
               const hasVisitFee = priceTable.some((row) => row.visitFee);
 
               return (
-                <section aria-label="참고 비용표">
+                <section id="price-table" aria-label="참고 비용표" className="scroll-mt-20">
                   <h2 className="text-h2 text-ink-900 md:text-h2-md">
                     {service.priceTableHeading?.title ??
                       "품목별 대략 수리비 참고표"}
@@ -470,7 +497,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
             })()}
 
             {service.faq && service.faq.length > 0 && (
-              <section aria-label="자주 묻는 질문">
+              <section id="faq" aria-label="자주 묻는 질문" className="scroll-mt-20">
                 <h2 className="text-h2 text-ink-900 md:text-h2-md">
                   자주 묻는 질문
                 </h2>
@@ -497,6 +524,11 @@ export default async function ServicePage({ params }: ServicePageProps) {
                 </div>
               </section>
             )}
+
+            {/* FAQ 섹션이 끝난 경계 */}
+            <AdSlot id="in-article-2" />
+
+            <PageFeedback />
           </div>
 
           <div className="min-w-0 space-y-4 lg:col-start-2">
@@ -556,7 +588,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
             {(phone || hours || usefulOfficialUrl) && (
               <section
                 id="contact-block"
-                className="rounded-xl border border-line bg-white p-5"
+                className="scroll-mt-20 rounded-xl border border-line bg-white p-5"
               >
                 <div className="flex items-center justify-between gap-3">
                   <h2 className="text-h3 text-ink-900">
@@ -644,13 +676,22 @@ export default async function ServicePage({ params }: ServicePageProps) {
                 )}
               </section>
             )}
+
+            {/* 사이드바 광고 자리 — 전화·공식 버튼과 붙지 않도록 카드 바깥 아래에 둡니다. */}
+            <AdSlot id="sidebar-1" minHeight={250} />
           </div>
         </div>
+
+        {/* 면책 한 줄 — 관련 링크 위. 박스 치지 않습니다. */}
+        <p className="mt-8 break-keep text-caption text-ink-600 md:mt-12">
+          이 안내는 이해를 돕기 위한 정리이며, 실제 신청·처리는 연결된 공식
+          화면의 최신 조건 기준입니다.
+        </p>
 
         {(relatedCompanyServices.length > 0 ||
           relatedSameTaskServices.length > 0 ||
           parentProblem) && (
-          <section className="mt-8 border-t border-line-soft pt-6 md:mt-12">
+          <section className="mt-6 border-t border-line-soft pt-6">
             <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
               <h2 className="text-h2 text-ink-900 md:text-h2-md">관련 업무</h2>
               {parentProblem && (

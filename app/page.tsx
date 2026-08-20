@@ -280,23 +280,12 @@ export default function Home() {
         </ul>
       </section>
 
-      <section className="bg-slate-950 text-white">
-        <div className="mx-auto grid max-w-7xl gap-6 px-4 py-8 sm:grid-cols-3 sm:px-6 sm:py-10">
-          {[
-            ["01", "공식 메뉴부터", "전화 대기보다 먼저 해볼 수 있는 실제 처리 화면을 엽니다."],
-            ["02", "현실적인 순서만", "규정 전체가 아니라 지금 필요한 준비와 행동만 남깁니다."],
-            ["03", "전화는 마지막에", "온라인으로 끝낼 수 없는 마지막 단계에서만 맞는 번호를 보여드립니다."],
-          ].map(([number, title, description]) => (
-            <div key={number} className="flex gap-3">
-              <span className="tnum font-bold text-primary-400">{number}</span>
-              <div>
-                <h2 className="text-h3 text-white">{title}</h2>
-                <p className="mt-1 break-keep text-body-sm text-gray-300">{description}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+      {/*
+        v6 2-3: 홈 다크 밴드(01/02/03 자기소개 선언문)는 삭제했습니다.
+        잘되는 사이트(토스 고객센터·삼쩜삼)는 과업 흐름 중간에 회사 이야기를
+        두지 않습니다. 세 항목의 내용은 /about "바로처리가 일하는 방식"으로
+        옮겼습니다.
+      */}
 
       <section className="bg-white py-8 sm:py-12">
         <div className="mx-auto flex max-w-5xl flex-col gap-5 px-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">

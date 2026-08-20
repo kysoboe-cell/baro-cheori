@@ -16,7 +16,7 @@ export default function PrivacyPage() {
           <section className="rounded-2xl border border-gray-200 bg-white p-6">
             <h2 className="text-xl font-bold text-gray-950">사이트에서 받지 않는 정보</h2>
             <p className="mt-3">
-              회원가입, 문의 폼, 주문 대행 기능이 없으며 이름·전화번호·주문번호 같은 개인정보를 사이트에 입력받아 저장하지 않습니다. 현재 별도의 방문 분석 도구나 광고 쿠키도 사용하지 않습니다.
+              회원가입, 문의 폼, 주문 대행 기능이 없으며 이름·전화번호·주문번호 같은 개인정보를 사이트에 입력받아 저장하지 않습니다. 방문 통계는 Google Analytics로 익명 집계만 하며, 이용자를 식별할 수 있는 정보와 연결하지 않습니다.
             </p>
           </section>
           <section className="rounded-2xl border border-gray-200 bg-white p-6">
@@ -32,13 +32,58 @@ export default function PrivacyPage() {
             </p>
           </section>
           <section className="rounded-2xl border border-gray-200 bg-white p-6">
+            <h2 className="text-xl font-bold text-gray-950">광고와 쿠키</h2>
+            <p className="mt-3">
+              바로처리는 서비스 운영을 위해 Google AdSense 광고 게재를 준비하고 있습니다. 광고가 게재되는 경우:
+            </p>
+            <ul className="mt-3 space-y-3">
+              <li>• Google을 포함한 제3자 광고 사업자는 쿠키를 사용하여 이용자가 이 사이트 또는 다른 웹사이트를 방문한 기록을 바탕으로 광고를 표시할 수 있습니다.</li>
+              <li>
+                • 맞춤 광고는 Google 광고 설정(
+                <a
+                  href="https://adssettings.google.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="-my-2.5 inline-flex min-h-12 items-center align-middle font-semibold text-primary-700 underline underline-offset-4"
+                >
+                  adssettings.google.com
+                </a>
+                )에서 해제할 수 있습니다.
+              </li>
+              <li>
+                • 자세한 내용은 Google 광고 정책(
+                <a
+                  href="https://policies.google.com/technologies/ads"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="-my-2.5 inline-flex min-h-12 items-center align-middle font-semibold text-primary-700 underline underline-offset-4"
+                >
+                  policies.google.com/technologies/ads
+                </a>
+                )을 참고하세요.
+              </li>
+            </ul>
+            <p className="mt-3">
+              바로처리는 이 외에 이용자를 식별할 수 있는 개인정보를 직접 수집하지 않으며, 방문 통계는 Google Analytics를 통해 익명으로 집계됩니다.
+            </p>
+          </section>
+          <section className="rounded-2xl border border-gray-200 bg-white p-6">
             <h2 className="text-xl font-bold text-gray-950">자발적 후원</h2>
             <p className="mt-3">
               커피 후원은 계좌번호를 복사할 수 있게 제공하는 선택 기능입니다. 바로처리는 이 기능을 통해 후원자의 개인정보를 별도로 수집하거나 서비스 이용과 연결하지 않습니다.
             </p>
           </section>
         </div>
-        <p className="mt-8 text-sm text-ink-600">시행일: 2026-08-18</p>
+        <p className="mt-8 text-sm text-ink-600">
+          문의:{" "}
+          <a
+            href="mailto:kysoboe@gmail.com"
+            className="-my-2.5 inline-flex min-h-12 items-center align-middle font-semibold text-primary-700 underline underline-offset-4"
+          >
+            kysoboe@gmail.com
+          </a>
+        </p>
+        <p className="mt-2 text-sm text-ink-600">시행일: 2026-08-21</p>
       </article>
     </main>
   );

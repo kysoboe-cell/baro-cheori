@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import AdSlot from "../../components/AdSlot";
+import JumpNav, { type JumpItem } from "../../components/JumpNav";
+import PageFeedback from "../../components/PageFeedback";
 import { getProblem, problems } from "../../data/problems";
 import { getService } from "../../data/services";
 import {
@@ -52,6 +55,16 @@ export default async function ProblemPage({ params }: ProblemPageProps) {
     const related = getProblem(slug);
     return related ? [related] : [];
   });
+  // 점프 목차 — 이 허브에 실제로 있는 섹션만 담습니다(없는 섹션 링크 금지).
+  const jumpItems: JumpItem[] = [
+    { href: "#companies", label: "업체 고르기" },
+    ...(problem.fallback
+      ? [{ href: "#other-case", label: problem.fallback.label }]
+      : []),
+    ...(problem.faq && problem.faq.length > 0
+      ? [{ href: "#faq", label: "자주 묻는 질문" }]
+      : []),
+  ];
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
@@ -150,7 +163,7 @@ export default async function ProblemPage({ params }: ProblemPageProps) {
           </h1>
           <p className="mt-3">
             <span className="tnum inline-flex items-center rounded-full border border-line px-3 py-1 text-caption text-ink-600">
-              정보 확인일 {problem.lastChecked}
+              정보 확인일 {problem.lastChecked} · 바로처리 직접 확인
             </span>
           </p>
         </header>
@@ -181,7 +194,15 @@ export default async function ProblemPage({ params }: ProblemPageProps) {
           </ul>
         </section>
 
-        <section className="mt-8 md:mt-12" aria-label="업체 고르기">
+        <div className="mt-6">
+          <JumpNav items={jumpItems} />
+        </div>
+
+        <section
+          id="companies"
+          className="mt-8 scroll-mt-20 md:mt-12"
+          aria-label="업체 고르기"
+        >
           <h2 className="text-h2 text-ink-900 md:text-h2-md">
             {problem.chooseLabel}
           </h2>
@@ -222,8 +243,11 @@ export default async function ProblemPage({ params }: ProblemPageProps) {
           </ul>
         </section>
 
+        {/* 업체 선택 목록이 끝난 경계 */}
+        <AdSlot id="in-article-1" />
+
         {problem.fallback && (
-          <section className="mt-6 rounded-xl bg-bg-soft p-5">
+          <section id="other-case" className="mt-6 scroll-mt-20 rounded-xl bg-bg-soft p-5">
             <h2 className="break-keep text-h3 text-ink-900">
               {problem.fallback.label}
             </h2>
@@ -249,7 +273,11 @@ export default async function ProblemPage({ params }: ProblemPageProps) {
         )}
 
         {problem.faq && problem.faq.length > 0 && (
-          <section className="mt-8 md:mt-12" aria-label="자주 묻는 질문">
+          <section
+            id="faq"
+            className="mt-8 scroll-mt-20 md:mt-12"
+            aria-label="자주 묻는 질문"
+          >
             <h2 className="text-h2 text-ink-900 md:text-h2-md">
               자주 묻는 질문
             </h2>
@@ -277,8 +305,18 @@ export default async function ProblemPage({ params }: ProblemPageProps) {
           </section>
         )}
 
+        <div className="mt-8 md:mt-12">
+          <PageFeedback />
+        </div>
+
+        {/* 면책 한 줄 — 관련 링크 위. 박스 치지 않습니다. */}
+        <p className="mt-8 break-keep text-caption text-ink-600">
+          이 안내는 이해를 돕기 위한 정리이며, 실제 신청·처리는 연결된 공식
+          화면의 최신 조건 기준입니다.
+        </p>
+
         {relatedProblems.length > 0 && (
-          <section className="mt-8 border-t border-line-soft pt-6 md:mt-12">
+          <section className="mt-6 border-t border-line-soft pt-6">
             <h2 className="text-h2 text-ink-900 md:text-h2-md">
               이런 상황도 있어요
             </h2>
@@ -301,7 +339,7 @@ export default async function ProblemPage({ params }: ProblemPageProps) {
           </section>
         )}
 
-        <p className="mt-8 border-t border-line-soft pt-5 text-caption text-ink-600 md:mt-12">
+        <p className="mt-8 border-t border-line-soft pt-5 text-caption text-ink-600">
           <span className="font-semibold text-ink-800">안내 범위 · </span>
           바로처리는 위 업체들의 공식 서비스가 아니며 제휴·대행 관계가 없습니다.
           업체 정책이나 화면은 정보 확인일 이후 변경될 수 있습니다.

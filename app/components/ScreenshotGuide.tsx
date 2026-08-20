@@ -119,7 +119,11 @@ export default function ScreenshotGuide({ guide }: { guide: Guide }) {
   );
 
   return (
-    <section aria-label="화면 그대로 따라하기">
+    <section
+      id="screens"
+      aria-label="화면 그대로 따라하기"
+      className="scroll-mt-20"
+    >
       <div className="flex flex-wrap items-baseline justify-between gap-2">
         <h2 className="text-h2 text-ink-900 md:text-h2-md">
           화면 그대로 따라하기

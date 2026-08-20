@@ -40,15 +40,21 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
   }
 
   return (
-    <main className="bg-slate-50">
+    <main className="bg-bg-soft">
       <section className="mx-auto min-h-[60vh] max-w-5xl px-4 py-8 sm:px-6 sm:py-12">
-        <Link prefetch={false} href="/" className="text-sm font-bold text-slate-600 hover:text-primary-700">
+        <Link
+          prefetch={false}
+          href="/"
+          className="inline-flex min-h-12 items-center text-body-sm font-semibold text-ink-700 hover:text-primary"
+        >
           ← 다시 검색
         </Link>
 
-        <h1 className="mt-6 break-words text-3xl font-bold text-slate-950 sm:text-4xl">
+        <h1 className="mt-4 break-keep text-h1 text-ink-900 md:text-h1-md">
           {query ? (
-            <><span className="text-primary-700">“{query}”</span> 검색 결과</>
+            <>
+              <span className="text-primary">“{query}”</span> 검색 결과
+            </>
           ) : (
             "검색어를 입력해주세요"
           )}
@@ -61,9 +67,9 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                 <Link
                   prefetch={false}
                   href={problemPath(problem.slug)}
-                  className="group flex min-h-14 items-center gap-3 rounded-2xl border border-primary-200 bg-primary-50 px-5 py-3 transition hover:border-primary-300"
+                  className="group flex min-h-14 items-center gap-3 rounded-xl border border-line bg-primary-soft px-5 py-3 transition hover:border-primary/40"
                 >
-                  <span aria-hidden="true" className="shrink-0 text-xl">
+                  <span aria-hidden="true" className="shrink-0 text-lg">
                     {problem.icon}
                   </span>
                   <span className="min-w-0 flex-1 break-keep text-h3 text-ink-900 group-hover:text-primary">
@@ -84,36 +90,41 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
 
         {results.length > 0 ? (
           <>
-            <p className="mt-3 break-keep leading-7 text-slate-600">
-              전화번호부터 찾지 않아도 됩니다. 내 상황과 가장 가까운 문장을 눌러 1번부터 따라 하세요.
+            <p className="mt-4 break-keep text-body text-ink-700">
+              전화번호부터 찾지 않아도 됩니다. 내 상황과 가장 가까운 문장을 눌러
+              1번부터 따라 하세요.
             </p>
-            <div className="mt-8 grid gap-4 sm:grid-cols-2">
+            <div className="mt-6 grid gap-3 sm:grid-cols-2">
               {results.map(({ company, service }) => (
-                <Link prefetch={false}
+                <Link
+                  prefetch={false}
                   key={`${company.slug}-${service.slug}`}
                   href={servicePath(company.slug, service.slug)}
-                  className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-primary-300 hover:shadow-md sm:p-6"
+                  className="group rounded-xl border border-line bg-white p-5 transition hover:border-primary/40"
                 >
-                  <p className="text-sm font-bold text-primary-700">{company.name}</p>
-                  <h2 className="mt-1 break-keep text-xl font-bold text-slate-950">
+                  <p className="text-caption font-semibold text-primary">
+                    {company.name}
+                  </p>
+                  <h2 className="mt-1 break-keep text-h3 text-ink-900 md:text-h3-md group-hover:text-primary">
                     {service.title}
                   </h2>
-                  <p className="mt-3 line-clamp-2 text-sm leading-6 text-slate-600">
-                    {service.quickSummary?.[0] ?? "처리 방법과 필요한 정보를 확인하세요."}
+                  <p className="mt-2 line-clamp-2 break-keep text-body-sm text-ink-700">
+                    {service.quickSummary?.[0] ??
+                      "처리 방법과 필요한 정보를 확인하세요."}
                   </p>
-                  <div className="mt-4 flex flex-wrap gap-2 text-caption font-bold">
+                  <div className="mt-3 flex flex-wrap gap-2">
                     {service.officialUrl && (
-                      <span className="rounded-full bg-primary-50 px-2.5 py-1 text-primary-700">
+                      <span className="rounded-full bg-primary-soft px-2.5 py-1 text-caption font-semibold text-primary">
                         전화 전에 공식 메뉴 확인
                       </span>
                     )}
                     {service.steps && (
-                      <span className="rounded-full bg-slate-100 px-2.5 py-1 text-slate-600">
+                      <span className="tnum rounded-full bg-line-soft px-2.5 py-1 text-caption text-ink-600">
                         {service.steps.length}단계
                       </span>
                     )}
                   </div>
-                  <p className="mt-5 text-sm font-bold text-slate-950 group-hover:text-primary-700">
+                  <p className="mt-4 text-body-sm font-semibold text-ink-900 group-hover:text-primary">
                     이대로 해결하기 →
                   </p>
                 </Link>
@@ -122,45 +133,54 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
           </>
         ) : (
           <>
-            <div className="mt-8 rounded-2xl border border-amber-200 bg-amber-50 p-6 sm:p-8">
-              <p className="text-xl font-bold text-slate-950">
+            <div className="mt-6 rounded-xl border-l-4 border-warn-line bg-warn-bg p-5">
+              <p className="break-keep text-h3 text-warn-text md:text-h3-md">
                 이 문장과 똑같은 안내는 아직 없어요
               </p>
-              <p className="mt-2 break-keep leading-7 text-slate-700">
-                전화부터 하지 마세요. <strong className="font-bold text-primary-700">회사 이름을 붙여 다시 검색</strong>하거나,
-                아래에서 가장 비슷한 상황을 먼저 눌러보세요.
+              <p className="mt-2 break-keep text-body-sm text-warn-text">
+                전화부터 하지 마세요.{" "}
+                <strong className="font-semibold">회사 이름을 붙여 다시 검색</strong>
+                하거나, 아래에서 가장 비슷한 상황을 먼저 눌러보세요.
               </p>
-              <p className="mt-3 text-sm font-bold text-slate-600">
+              <p className="mt-2 text-caption text-warn-text">
                 예: 삼성 세탁기 고장 · LG 출장수리 · 국민카드 잃어버림
               </p>
             </div>
 
-            <div className="mt-8 flex items-end justify-between gap-4">
+            <div className="mt-8 flex flex-wrap items-end justify-between gap-3">
               <div>
-                <p className="text-sm font-bold text-primary-700">바로 해결할 수 있는 문제</p>
-                <h2 className="mt-1 text-2xl font-bold text-slate-950">
+                <p className="text-caption font-semibold text-primary">
+                  바로 해결할 수 있는 문제
+                </p>
+                <h2 className="mt-1 break-keep text-h2 text-ink-900 md:text-h2-md">
                   많이 찾는 상황부터 확인하세요
                 </h2>
               </div>
-              <Link prefetch={false}
+              <Link
+                prefetch={false}
                 href="/#services"
-                className="hidden text-sm font-bold text-slate-600 hover:text-primary-700 sm:block"
+                className="hidden min-h-12 items-center text-body-sm font-semibold text-ink-700 hover:text-primary sm:inline-flex"
               >
                 업체 목록 보기 →
               </Link>
             </div>
-            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+            <div className="mt-4 grid gap-2 sm:grid-cols-2">
               {popularServices.map(({ company, service }) => (
-                <Link prefetch={false}
+                <Link
+                  prefetch={false}
                   key={`${company.slug}-${service.slug}`}
                   href={servicePath(company.slug, service.slug)}
-                  className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-primary-300 hover:shadow-md"
+                  className="group rounded-xl border border-line bg-white p-5 transition hover:border-primary/40"
                 >
-                  <p className="text-caption font-bold text-primary-700">{company.name}</p>
-                  <p className="mt-1 text-lg font-bold text-slate-950">
+                  <p className="text-caption font-semibold text-primary">
+                    {company.name}
+                  </p>
+                  <p className="mt-1 break-keep text-h3 text-ink-900 group-hover:text-primary">
                     {service.title}
                   </p>
-                  <p className="mt-3 text-sm font-bold">1번부터 따라 하기 →</p>
+                  <p className="mt-3 text-body-sm font-semibold text-ink-900">
+                    1번부터 따라 하기 →
+                  </p>
                 </Link>
               ))}
             </div>
