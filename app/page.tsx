@@ -2,15 +2,42 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import CategoryFinder from "./components/CategoryFinder";
 import HomeSearch from "./components/HomeSearch";
+import { getProblem } from "./data/problems";
 import { allServices, companies, getService } from "./data/services";
-import { SITE_NAME, SITE_URL, servicePath } from "./lib/site";
+import { SITE_NAME, SITE_URL, problemPath, servicePath } from "./lib/site";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
-const quickStarts = [
+/**
+ * 홈에서 누르는 문구 하나가 도착하는 곳입니다.
+ * - kind: "company" — 문구에 업체명이 들어 있어 그 업체로 바로 보내도 되는 진입점
+ * - kind: "problem" — 업체를 안 물어봤으므로 상황 허브에서 고르게 하는 진입점
+ * 이 구분은 아래 assertHomeEntries가 빌드 때 강제합니다.
+ */
+type HomeEntry =
+  | {
+      kind: "company";
+      companySlug: string;
+      serviceSlug: string;
+      question: string;
+      answer: string;
+      icon?: string;
+      category?: string;
+    }
+  | {
+      kind: "problem";
+      problemSlug: string;
+      question: string;
+      answer: string;
+      icon?: string;
+      category?: string;
+    };
+
+const quickStarts: HomeEntry[] = [
   {
+    kind: "company",
     companySlug: "coupang",
     serviceSlug: "wow-membership-cancel",
     question: "쿠팡 와우, 그만 쓰고 싶어요",
@@ -18,72 +45,111 @@ const quickStarts = [
     icon: "🛒",
   },
   {
-    companySlug: "samsung-electronics",
-    serviceSlug: "repair-cost-warranty",
+    kind: "problem",
+    problemSlug: "repair-cost",
     question: "가전 수리비, 부르기 전에 궁금해요",
-    answer: "출장비·무상보증 기준 먼저",
+    answer: "삼성·LG 중에서 고르세요",
     icon: "🔧",
   },
   {
-    companySlug: "netflix",
-    serviceSlug: "charged-after-cancel",
+    kind: "problem",
+    problemSlug: "charged-after-cancel",
     question: "해지했는데 또 결제됐어요",
-    answer: "원인 확인과 환불 순서",
+    answer: "결제된 곳부터 고르세요",
     icon: "💸",
   },
   {
-    companySlug: "kb-card",
-    serviceSlug: "lost-card",
+    kind: "problem",
+    problemSlug: "lost-card",
     question: "카드를 잃어버렸어요",
-    answer: "분실신고부터 바로",
+    answer: "카드사 고르고 즉시 정지",
     icon: "🔒",
   },
 ];
 
-const situationTasks = [
+const situationTasks: HomeEntry[] = [
   {
-    companySlug: "coupang",
-    serviceSlug: "return-refund",
-    label: "반품 신청이 막혔을 때",
-    description: "포장·회수·환불 시점까지",
+    kind: "problem",
+    problemSlug: "return-refund",
+    question: "반품 신청이 막혔을 때",
+    answer: "포장·회수·환불 시점까지",
     category: "쇼핑",
   },
   {
-    companySlug: "cj-logistics",
-    serviceSlug: "delivery-tracking",
-    label: "택배가 어디 있는지 모를 때",
-    description: "운송장 조회와 멈춤 대응",
+    kind: "problem",
+    problemSlug: "delivery-tracking",
+    question: "택배가 어디 있는지 모를 때",
+    answer: "운송장 조회와 멈춤 대응",
     category: "택배",
   },
   {
-    companySlug: "kt",
-    serviceSlug: "termination-fee",
-    label: "인터넷 해지 전에 돈이 얼마나 나올지 궁금할 때",
-    description: "위약금·결합 할인·장비 비용 먼저 확인",
+    kind: "problem",
+    problemSlug: "termination-fee",
+    question: "인터넷 해지 전에 돈이 얼마나 나올지 궁금할 때",
+    answer: "위약금·할인반환금·장비 비용까지",
     category: "통신",
   },
   {
-    companySlug: "samsung-card",
-    serviceSlug: "card-reissue",
-    label: "카드를 다시 받아야 할 때",
-    description: "정지와 재발급 차이부터",
+    kind: "problem",
+    problemSlug: "card-reissue",
+    question: "카드를 다시 받아야 할 때",
+    answer: "정지와 재발급 차이부터",
     category: "카드",
   },
   {
-    companySlug: "kt",
-    serviceSlug: "lost-phone",
-    label: "휴대폰을 잃어버렸을 때",
-    description: "정지·위치찾기 순서부터",
+    kind: "problem",
+    problemSlug: "lost-phone",
+    question: "휴대폰을 잃어버렸을 때",
+    answer: "정지·위치찾기 순서부터",
     category: "통신",
   },
   {
-    companySlug: "samsung-electronics",
-    serviceSlug: "self-check",
-    label: "가전제품이 갑자기 안 될 때",
-    description: "기사 부르기 전 오류 글자로 먼저 확인",
+    kind: "problem",
+    problemSlug: "appliance-broken",
+    question: "가전제품이 갑자기 안 될 때",
+    answer: "기사 부르기 전 오류 글자로 먼저 확인",
     category: "전자·가전",
   },
 ];
+
+/**
+ * 원칙 1 — 업체를 안 물어봤으면 업체를 고르게 한다.
+ * 문구에 업체명이 없는 진입점이 특정 업체 상세로 직결되면 빌드를 깨뜨립니다.
+ */
+(function assertHomeEntries() {
+  for (const entry of [...quickStarts, ...situationTasks]) {
+    if (entry.kind !== "company") {
+      if (!getProblem(entry.problemSlug)) {
+        throw new Error(`[home] 없는 상황 허브: ${entry.problemSlug}`);
+      }
+      continue;
+    }
+    const company = companies.find((c) => c.slug === entry.companySlug);
+    if (!company) throw new Error(`[home] 없는 업체: ${entry.companySlug}`);
+    const names = [company.name, ...company.aliases];
+    if (!names.some((name) => entry.question.includes(name))) {
+      throw new Error(
+        `[home] "${entry.question}"에는 업체명이 없는데 ${company.name}로 직결됩니다. ` +
+          `/problem/ 허브로 보내거나 문구에 업체명을 넣으세요.`
+      );
+    }
+  }
+})();
+
+/** 업체 직결 진입점만 도착지 업체명을 부제 끝에 붙입니다(허브는 붙일 업체가 없음). */
+function resolveHomeEntry(entry: HomeEntry) {
+  if (entry.kind === "problem") {
+    return { href: problemPath(entry.problemSlug), answer: entry.answer };
+  }
+
+  const item = getService(entry.companySlug, entry.serviceSlug);
+  if (!item) return null;
+
+  return {
+    href: servicePath(entry.companySlug, entry.serviceSlug),
+    answer: `${entry.answer} · ${item.company.name}`,
+  };
+}
 
 export default function Home() {
   const websiteJsonLd = {
@@ -146,13 +212,13 @@ export default function Home() {
 
             <div className="mt-4 grid grid-cols-2 gap-2 sm:gap-3 lg:grid-cols-4">
               {quickStarts.map((task) => {
-                const item = getService(task.companySlug, task.serviceSlug);
-                if (!item) return null;
+                const resolved = resolveHomeEntry(task);
+                if (!resolved) return null;
 
                 return (
                   <Link prefetch={false}
-                    key={`${task.companySlug}-${task.serviceSlug}`}
-                    href={servicePath(task.companySlug, task.serviceSlug)}
+                    key={resolved.href}
+                    href={resolved.href}
                     className="rounded-xl border border-line bg-white p-4 transition hover:border-primary/40 hover:bg-primary-soft/30"
                   >
                     <p className="break-keep text-h3 text-ink-900 md:text-h3-md">
@@ -161,8 +227,8 @@ export default function Home() {
                       </span>
                       {task.question}
                     </p>
-                    <p className="mt-1 text-caption text-ink-600">
-                      {task.answer}
+                    <p className="mt-1 break-keep text-caption text-ink-600">
+                      {resolved.answer}
                     </p>
                   </Link>
                 );
@@ -184,16 +250,13 @@ export default function Home() {
 
         <ul className="mt-4 border-t border-line-soft sm:grid sm:grid-cols-2 sm:gap-x-10">
           {situationTasks.map((task) => {
-            const item = getService(task.companySlug, task.serviceSlug);
-            if (!item) return null;
+            const resolved = resolveHomeEntry(task);
+            if (!resolved) return null;
 
             return (
-              <li
-                key={`${task.companySlug}-${task.serviceSlug}`}
-                className="border-b border-line-soft"
-              >
+              <li key={resolved.href} className="border-b border-line-soft">
                 <Link prefetch={false}
-                  href={servicePath(task.companySlug, task.serviceSlug)}
+                  href={resolved.href}
                   className="group flex min-h-16 items-center gap-3 py-4"
                 >
                   <span className="shrink-0 rounded-full bg-line-soft px-2.5 py-1 text-caption text-ink-600">
@@ -201,10 +264,10 @@ export default function Home() {
                   </span>
                   <span className="min-w-0 flex-1">
                     <span className="block break-keep text-h3 text-ink-900 group-hover:text-primary">
-                      {task.label}
+                      {task.question}
                     </span>
                     <span className="mt-0.5 block break-keep text-caption text-ink-600">
-                      {task.description} · {item.company.name}
+                      {resolved.answer}
                     </span>
                   </span>
                   <span aria-hidden="true" className="shrink-0 text-ink-500">

@@ -1,3 +1,4 @@
+import { problems, type Problem } from "../data/problems";
 import {
   companies,
   type Company,
@@ -432,4 +433,46 @@ export function getPopularServices() {
 
     return company && service ? [{ company, service, score: 0 }] : [];
   });
+}
+
+/**
+ * 검색 결과 맨 위에 띄울 상황 허브를 고릅니다(스펙 v5 2-6).
+ * 별도 매칭 엔진을 만들지 않고, 허브 이름과 허브가 담고 있는 각 업무의
+ * title·keywords를 대상으로 위 similarity()를 그대로 재사용합니다.
+ */
+export function findProblemMatches(query: string, limit = 2) {
+  if (!query.trim()) return [];
+
+  // 업무 검색과 같은 말투 사전(intentAliases)을 태워 "잃어버림 → 분실"까지 잡습니다.
+  const searchQueries = getSearchQueries(query, getMatchedIntentAliases(query));
+  const matched: { problem: Problem; score: number }[] = [];
+
+  for (const problem of problems) {
+    const searchTerms = [
+      problem.title,
+      ...problem.options.flatMap((option) => {
+        const company = companies.find((c) => c.slug === option.companySlug);
+        const service = company?.services.find(
+          (s) => s.slug === option.serviceSlug
+        );
+
+        return service ? [service.title, ...service.keywords] : [];
+      }),
+    ];
+    const score = Math.max(
+      ...searchQueries.flatMap((searchQuery) =>
+        searchTerms.map((term) => similarity(searchQuery, term))
+      )
+    );
+
+    if (score >= 52) matched.push({ problem, score });
+  }
+
+  return matched.sort((a, b) => b.score - a.score).slice(0, limit);
+}
+
+/** "어느 카드사인가요?" → "카드사 고르기" 처럼 목록 한 줄에 붙일 짧은 힌트. */
+export function getProblemChooseHint(problem: Problem) {
+  const match = problem.chooseLabel.match(/^어느\s*(.+?)인가요\?$/);
+  return match ? `${match[1]} 고르기` : problem.chooseLabel;
 }

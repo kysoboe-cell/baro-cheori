@@ -7,6 +7,7 @@ import ScreenshotGuide, {
   ScreenshotGuideGrid,
 } from "../../../components/ScreenshotGuide";
 import StepText from "../../../components/StepText";
+import { problems } from "../../../data/problems";
 import { allServices, getService } from "../../../data/services";
 import {
   getCustomerCenterFallback,
@@ -20,12 +21,20 @@ import {
 import {
   absoluteUrl,
   companyPath,
+  problemPath,
   servicePath,
 } from "../../../lib/site";
 
 type ServicePageProps = {
   params: Promise<{ slug: string; serviceSlug: string }>;
 };
+
+const CIRCLED_NUMBERS = "①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳";
+
+/** 한 단계에 스샷이 2장 이상 붙었을 때 "화면 보기 ③"처럼 스샷 번호를 붙입니다. */
+function circledNumber(n: number) {
+  return CIRCLED_NUMBERS[n - 1] ?? String(n);
+}
 
 export function generateStaticParams() {
   return allServices.map(({ company, service }) => ({
@@ -98,6 +107,14 @@ export default async function ServicePage({ params }: ServicePageProps) {
         item.company.slug !== company.slug && item.service.slug === service.slug
     )
     .slice(0, 4);
+  // 이 업무를 담고 있는 상황 허브가 있으면 "업체 고르기" 화면으로 되돌아갈 길을 둡니다.
+  const parentProblem = problems.find((problem) =>
+    problem.options.some(
+      (option) =>
+        option.companySlug === company.slug &&
+        option.serviceSlug === service.slug
+    )
+  );
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -268,14 +285,32 @@ export default async function ServicePage({ params }: ServicePageProps) {
             </section>
 
             {service.steps && service.steps.length > 0 && (
-              <section aria-label="처리 순서">
-                <h2 className="text-h2 text-ink-900 md:text-h2-md">
-                  처리 순서
-                </h2>
-                <ol className="mt-4">
-                  {service.steps.map((step, index) => {
+              <>
+                {/* 모바일은 스샷 격자가 본문 한참 아래라, 처리 순서 바로 위에 접힌 채로 한 번 더 둡니다. */}
+                {guide && guide.steps.length > 0 && (
+                  <details className="group rounded-xl border border-line bg-white lg:hidden">
+                    <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-3 rounded-xl p-4 text-h3 text-ink-900 marker:content-none">
+                      <span>방법 절차 한눈에 보기</span>
+                      <span
+                        aria-hidden="true"
+                        className="shrink-0 text-ink-500 transition-transform group-open:rotate-180"
+                      >
+                        ⌄
+                      </span>
+                    </summary>
+                    <div className="border-t border-line-soft p-4 pt-3">
+                      <ScreenshotGuideGrid guide={guide} />
+                    </div>
+                  </details>
+                )}
+                <section aria-label="처리 순서">
+                  <h2 className="text-h2 text-ink-900 md:text-h2-md">
+                    처리 순서
+                  </h2>
+                  <ol className="mt-4">
+                    {service.steps.map((step, index) => {
                     const isKeyStep = keyStepIndexes.has(index);
-                    const linkedGuideStep = guideSteps.find(
+                    const linkedGuideSteps = guideSteps.filter(
                       (guideStep) => guideStep.linkedStep === index + 1
                     );
                     const isLast = index === service.steps!.length - 1;
@@ -323,21 +358,26 @@ export default async function ServicePage({ params }: ServicePageProps) {
                                 : "font-semibold text-ink-900"
                             }
                           />
-                          {linkedGuideStep && (
+                          {linkedGuideSteps.map((linkedGuideStep) => (
                             <button
+                              key={linkedGuideStep.n}
                               type="button"
                               data-guide-open={linkedGuideStep.n}
+                              aria-label={`${linkedGuideStep.n}번 화면 보기`}
                               className="-my-2.5 ml-1.5 inline-flex min-h-12 items-center px-1.5 align-middle text-caption font-semibold text-primary underline decoration-1 underline-offset-4 hover:decoration-2"
                             >
-                              화면 보기
+                              {linkedGuideSteps.length > 1
+                                ? `화면 보기 ${circledNumber(linkedGuideStep.n)}`
+                                : "화면 보기"}
                             </button>
-                          )}
+                          ))}
                         </p>
                       </li>
                     );
                   })}
-                </ol>
-              </section>
+                  </ol>
+                </section>
+              </>
             )}
 
             {service.tips && service.tips.length > 0 && (
@@ -608,9 +648,21 @@ export default async function ServicePage({ params }: ServicePageProps) {
         </div>
 
         {(relatedCompanyServices.length > 0 ||
-          relatedSameTaskServices.length > 0) && (
+          relatedSameTaskServices.length > 0 ||
+          parentProblem) && (
           <section className="mt-8 border-t border-line-soft pt-6 md:mt-12">
-            <h2 className="text-h2 text-ink-900 md:text-h2-md">관련 업무</h2>
+            <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
+              <h2 className="text-h2 text-ink-900 md:text-h2-md">관련 업무</h2>
+              {parentProblem && (
+                <Link
+                  prefetch={false}
+                  href={problemPath(parentProblem.slug)}
+                  className="inline-flex min-h-12 items-center break-keep text-body-sm font-semibold text-primary hover:underline"
+                >
+                  {parentProblem.chooseLabel} → {parentProblem.title}
+                </Link>
+              )}
+            </div>
             <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
               {relatedCompanyServices.map((relatedService) => (
                 <Link prefetch={false}

@@ -1,6 +1,12 @@
 import type { MetadataRoute } from "next";
+import { problems } from "./data/problems";
 import { allServices, companies } from "./data/services";
-import { absoluteUrl, companyPath, servicePath } from "./lib/site";
+import {
+  absoluteUrl,
+  companyPath,
+  problemPath,
+  servicePath,
+} from "./lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages: MetadataRoute.Sitemap = [
@@ -29,6 +35,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.3,
     },
   ];
+  // 상황 허브는 홈(1)과 업체 상세(0.7) 사이 — 업체명 없는 검색어의 착지점입니다.
+  const problemPages: MetadataRoute.Sitemap = problems.map((problem) => ({
+    url: absoluteUrl(problemPath(problem.slug)),
+    lastModified: problem.lastChecked,
+    changeFrequency: "weekly",
+    priority: 0.9,
+  }));
   const companyPages: MetadataRoute.Sitemap = companies.map((company) => ({
     url: absoluteUrl(companyPath(company.slug)),
     lastModified:
@@ -46,5 +59,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })
   );
 
-  return [...staticPages, ...companyPages, ...servicePages];
+  return [...staticPages, ...problemPages, ...companyPages, ...servicePages];
 }

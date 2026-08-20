@@ -4,10 +4,12 @@ import { redirect } from "next/navigation";
 import {
   findExactCompany,
   findMentionedCompanies,
+  findProblemMatches,
   findServiceMatches,
   getPopularServices,
+  getProblemChooseHint,
 } from "../lib/search";
-import { companyPath, servicePath } from "../lib/site";
+import { companyPath, problemPath, servicePath } from "../lib/site";
 
 export const metadata: Metadata = {
   title: "업무 검색",
@@ -30,6 +32,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
 
   const mentionedCompanies = findMentionedCompanies(query);
   const results = query ? findServiceMatches(query) : [];
+  const problemMatches = query ? findProblemMatches(query) : [];
   const popularServices = getPopularServices();
 
   if (mentionedCompanies.length === 1 && results.length === 1) {
@@ -50,6 +53,35 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
             "검색어를 입력해주세요"
           )}
         </h1>
+
+        {problemMatches.length > 0 && (
+          <ul className="mt-6 space-y-2">
+            {problemMatches.map(({ problem }) => (
+              <li key={problem.slug}>
+                <Link
+                  prefetch={false}
+                  href={problemPath(problem.slug)}
+                  className="group flex min-h-14 items-center gap-3 rounded-2xl border border-primary-200 bg-primary-50 px-5 py-3 transition hover:border-primary-300"
+                >
+                  <span aria-hidden="true" className="shrink-0 text-xl">
+                    {problem.icon}
+                  </span>
+                  <span className="min-w-0 flex-1 break-keep text-h3 text-ink-900 group-hover:text-primary">
+                    {problem.title}
+                    <span className="font-normal text-ink-600">
+                      {" "}
+                      — {getProblemChooseHint(problem)}
+                    </span>
+                  </span>
+                  <span aria-hidden="true" className="shrink-0 text-ink-500">
+                    ›
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
+
         {results.length > 0 ? (
           <>
             <p className="mt-3 break-keep leading-7 text-slate-600">

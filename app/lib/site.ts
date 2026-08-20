@@ -11,6 +11,10 @@ export function servicePath(companySlug: string, serviceSlug: string) {
   return `${companyPath(companySlug)}/${serviceSlug}`;
 }
 
+export function problemPath(problemSlug: string) {
+  return `/problem/${problemSlug}`;
+}
+
 export function absoluteUrl(path: string) {
   return `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;
 }
