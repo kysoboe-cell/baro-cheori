@@ -88,7 +88,38 @@ export const gmarket: Company = {
 
       officialActionLabel: "G마켓 반품 도움말 열기",
 
-      lastChecked: "2026-08-18",
+      priceTableNote:
+        "아래 소요기간은 일반적으로 알려진 참고용 대략치예요. 실제 처리 속도는 판매자 확인, 카드사 반영 시점에 따라 달라질 수 있어요.",
+      priceTableHeading: {
+        label: "환불 소요기간 참고",
+        title: "환불 소요기간 참고표",
+        columns: {
+          item: "쇼핑몰",
+          issue: "결제수단",
+          priceRange: "환불 대략 소요기간(참고)",
+        },
+      },
+      priceTable: [
+        {
+          item: "G마켓",
+          issue: "카드 결제",
+          priceRange: "매입 취소 기준 영업일 3~5일 내 카드사 반영",
+        },
+      ],
+
+      faq: [
+        {
+          question: "G마켓과 옥션은 같은 방식인가요?",
+          answer: "같은 계열사지만 주문관리는 따로 이뤄져요. 각각 확인해야 해요.",
+        },
+        {
+          question: "스마일배송과 일반배송 반품이 다른가요?",
+          answer:
+            "스마일배송은 G마켓이 직접 처리해 상대적으로 빠른 편이고, 일반 판매자 배송은 판매자 확인 절차가 추가돼요.",
+        },
+      ],
+
+      lastChecked: "2026-08-20",
     },
 
     {

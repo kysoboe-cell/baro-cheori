@@ -38,7 +38,29 @@ export const hanjin: Company = {
       tips: parcelTrackingTips,
       officialUrl: trackingUrl,
       officialActionLabel: "한진택배 배송조회 열기",
-      lastChecked: "2026-08-18",
+      faq: [
+        {
+          question: "운송장 번호는 어디서 찾나요?",
+          answer:
+            "주문한 쇼핑몰의 주문·배송내역 화면에서 확인하세요. 택배사에 직접 물어봐도 판매자가 아니라 조회가 안 되는 경우가 많아요.",
+        },
+        {
+          question: "'상품인수 전'에서 계속 안 바뀌어요",
+          answer:
+            "택배사가 아직 물건을 받지 않은 상태예요. 택배사보다 판매자에게 실제 발송 여부를 먼저 확인하는 게 빨라요.",
+        },
+        {
+          question: "배송 위치가 이상한 곳에 찍혀요(다른 지역 등)",
+          answer:
+            "택배 터미널 경유 위치가 찍히는 것으로 실제 배송지와 다를 수 있어요. 최종 배송완료 전까지는 정상적인 경유 표시일 수 있어요.",
+        },
+        {
+          question: "한진택배는 편의점 픽업도 있나요?",
+          answer:
+            "반값택배 등 일부 상품은 편의점 픽업 방식이라 일반 방문배송과 조회·수령 방식이 다를 수 있어요.",
+        },
+      ],
+      lastChecked: "2026-08-20",
     },
     {
       slug: "parcel-not-received",
@@ -61,7 +83,24 @@ export const hanjin: Company = {
       tips: parcelNotReceivedTips,
       officialUrl: trackingUrl,
       officialActionLabel: "배송완료 위치 확인하기",
-      lastChecked: "2026-08-18",
+      faq: [
+        {
+          question: "구매확정을 이미 눌러버렸어요",
+          answer:
+            "구매확정 후에도 판매자·쇼핑몰 고객센터에 미수령을 접수할 수 있는 경우가 많아요. 다만 확정 전보다 처리가 늦어질 수 있어요.",
+        },
+        {
+          question: "기사님 연락처를 모르겠어요",
+          answer:
+            "배송완료 문자에 포함된 경우가 많고, 없다면 택배사 고객센터를 통해 담당 기사 확인을 요청할 수 있어요.",
+        },
+        {
+          question: "CCTV로 확인하고 싶어요",
+          answer:
+            "공동현관·택배함 CCTV는 관리사무소를 통해 확인 요청할 수 있어요. 개인이 직접 열람하는 건 제한될 수 있어 관리사무소 협조가 필요해요.",
+        },
+      ],
+      lastChecked: "2026-08-20",
     },
     {
       slug: "return-reservation",

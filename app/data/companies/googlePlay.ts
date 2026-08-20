@@ -72,7 +72,19 @@ export const googlePlay: Company = {
       ],
       officialUrl: "https://support.google.com/googleplay/answer/15574897?hl=ko",
       officialActionLabel: "Google Play 환불 요청 열기",
-      lastChecked: "2026-08-19",
+      faq: [
+        {
+          question: "구매 후 몇 시간 안에는 자동 환불되나요?",
+          answer:
+            "Google Play는 구매 직후 짧은 시간 안에는 간편 취소가 되는 경우가 있어요. 시간이 지나면 개별 신청이 필요해요.",
+        },
+        {
+          question: "게임 인앱결제도 같은 방식인가요?",
+          answer:
+            "네. 구독뿐 아니라 앱 내 구매도 같은 환불 신청 화면에서 처리해요.",
+        },
+      ],
+      lastChecked: "2026-08-20",
     },
     {
       slug: "unknown-charge",

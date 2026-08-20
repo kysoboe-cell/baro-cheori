@@ -35,6 +35,43 @@ export type ServiceTask = {
   /** 전화가 꼭 필요할 때 들을 메뉴나 상담원에게 말할 문장입니다. */
   phoneGuide?: string[];
 
+  /**
+   * 품목·업체별 대략 참고표입니다(수리비, 환불 소요기간 등). 정확한 공식
+   * 수치가 아니라 대략적인 참고 범위이므로, 표 위에 안내 문구(priceTableNote)와
+   * 함께 노출합니다. visitFee는 값이 있는 행이 하나도 없으면 열 자체가 표에서
+   * 빠집니다.
+   */
+  priceTable?: {
+    item: string;
+    issue: string;
+    visitFee?: string;
+    priceRange: string;
+  }[];
+
+  /** priceTable 위에 표시할 안내 문구입니다. 지정하지 않으면 기본 문구를 씁니다. */
+  priceTableNote?: string;
+
+  /**
+   * priceTable의 섹션 제목·열 이름을 바꿉니다. 지정하지 않으면 "수리비 참고 ·
+   * 품목별 대략 수리비 참고표" 기본값(가전 수리비 표 기준)을 씁니다.
+   */
+  priceTableHeading?: {
+    label?: string;
+    title?: string;
+    columns?: {
+      item?: string;
+      issue?: string;
+      visitFee?: string;
+      priceRange?: string;
+    };
+  };
+
+  /** 자주 묻는 질문입니다. FAQPage 구조화 데이터로도 함께 노출됩니다. */
+  faq?: {
+    question: string;
+    answer: string;
+  }[];
+
   lastChecked?: string;
 };
 

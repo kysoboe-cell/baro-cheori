@@ -86,7 +86,39 @@ export const elevenst: Company = {
 
       officialActionLabel: "11번가 주문/배송조회 열기",
 
-      lastChecked: "2026-08-18",
+      priceTableNote:
+        "아래 소요기간은 일반적으로 알려진 참고용 대략치예요. 실제 처리 속도는 회수·검수 상황, 카드사 반영 시점에 따라 달라질 수 있어요.",
+      priceTableHeading: {
+        label: "환불 소요기간 참고",
+        title: "환불 소요기간 참고표",
+        columns: {
+          item: "쇼핑몰",
+          issue: "결제수단",
+          priceRange: "환불 대략 소요기간(참고)",
+        },
+      },
+      priceTable: [
+        {
+          item: "11번가",
+          issue: "카드 결제",
+          priceRange: "회수·검수 후 영업일 기준 3~5일",
+        },
+      ],
+
+      faq: [
+        {
+          question: "11번가는 우체국 픽업도 되나요?",
+          answer:
+            "상품·판매자에 따라 지정 택배사가 다를 수 있어요. 신청 화면에 나온 안내를 따라야 해요.",
+        },
+        {
+          question: "아마존 글로벌 상품도 같은 방식인가요?",
+          answer:
+            "해외직구 상품은 반품 배송비와 소요기간이 국내 상품과 다르게 적용돼요.",
+        },
+      ],
+
+      lastChecked: "2026-08-20",
     },
 
     {

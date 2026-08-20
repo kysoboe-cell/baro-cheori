@@ -34,7 +34,19 @@ export const tving: Company = {
       ],
       officialUrl: "https://www.tving.com/help/faq",
       officialActionLabel: "티빙 결제 유형·해지 안내 열기",
-      lastChecked: "2026-08-19",
+      faq: [
+        {
+          question: "통신사 결합 이용권은 어디서 해지하나요?",
+          answer:
+            "통신사 제휴 요금제는 티빙 앱이 아니라 해당 통신사 고객센터·앱에서 해지해야 하는 경우가 많아요.",
+        },
+        {
+          question: "해지해도 다운로드한 콘텐츠는 볼 수 있나요?",
+          answer:
+            "대부분 스트리밍 서비스는 멤버십 종료 시 오프라인 다운로드 콘텐츠도 재생이 막혀요.",
+        },
+      ],
+      lastChecked: "2026-08-20",
     },
     {
       slug: "refund-request",
@@ -64,7 +76,18 @@ export const tving: Company = {
       ],
       officialUrl: "https://www.tving.com/help/early-termination",
       officialActionLabel: "티빙 중도 해지·환불 안내 열기",
-      lastChecked: "2026-08-19",
+      faq: [
+        {
+          question: "티빙은 통신사 결합 요금제도 환불되나요?",
+          answer:
+            "통신사 결합상품은 해당 통신사 고객센터를 통해야 하는 경우가 있어요. 결제처부터 먼저 확인하세요.",
+        },
+        {
+          question: "환불 대신 다음 달 이용권으로 전환되나요?",
+          answer: "정책상 가능한 경우가 있으니 상담 시 문의해보세요.",
+        },
+      ],
+      lastChecked: "2026-08-20",
     },
     {
       slug: "charged-after-cancel",

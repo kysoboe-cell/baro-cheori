@@ -32,7 +32,19 @@ export const naverPlus: Company = {
       ],
       officialUrl: "https://help.naver.com/service/23168/contents/13775?lang=ko",
       officialActionLabel: "네이버 정기결제 해지 안내 열기",
-      lastChecked: "2026-08-19",
+      faq: [
+        {
+          question: "정기결제 해지와 즉시해지 환불이 다른가요?",
+          answer:
+            "정기결제 해지는 다음 결제만 막는 것이고, 즉시해지·환불은 남은 기간 이용권을 포기하는 대신 바로 환불받는 방식이라 목적이 달라요(즉시해지·환불은 별도 안내 페이지를 확인하세요).",
+        },
+        {
+          question: "네이버플러스 해지하면 네이버페이 적립도 바로 끊기나요?",
+          answer:
+            "결제 주기 종료 시점까지는 기존 혜택이 유지되는 경우가 일반적이에요.",
+        },
+      ],
+      lastChecked: "2026-08-20",
     },
     {
       slug: "immediate-cancel-refund",
@@ -60,7 +72,19 @@ export const naverPlus: Company = {
       ],
       officialUrl: "https://help.naver.com/service/23168/contents/13774?lang=ko",
       officialActionLabel: "네이버 즉시 종료·환불 안내 열기",
-      lastChecked: "2026-08-19",
+      faq: [
+        {
+          question: "즉시해지하면 남은 기간 혜택은 못 쓰나요?",
+          answer:
+            "네, 즉시해지·환불을 선택하면 남은 이용 기간 혜택 대신 결제금액을 돌려받는 방식이라 그 시점부터 혜택이 종료돼요.",
+        },
+        {
+          question: "이미 적립·사용한 포인트도 회수되나요?",
+          answer:
+            "이미 적립되어 사용 가능한 포인트는 대부분 유지되지만, 환불 정책에 따라 일부 차감될 수 있어 신청 화면에서 확인이 필요해요.",
+        },
+      ],
+      lastChecked: "2026-08-20",
     },
     {
       slug: "unexpected-membership-charge",

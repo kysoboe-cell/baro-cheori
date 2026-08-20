@@ -112,6 +112,21 @@ export default async function ServicePage({ params }: ServicePageProps) {
       },
     ],
   };
+  const faqJsonLd =
+    service.faq && service.faq.length > 0
+      ? {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: service.faq.map((item) => ({
+            "@type": "Question",
+            name: item.question,
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: item.answer,
+            },
+          })),
+        }
+      : null;
 
   return (
     <main className="bg-slate-50">
@@ -121,6 +136,14 @@ export default async function ServicePage({ params }: ServicePageProps) {
           __html: JSON.stringify(breadcrumbJsonLd).replace(/</g, "\\u003c"),
         }}
       />
+      {faqJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(faqJsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
+      )}
 
       <article className="mx-auto max-w-[90rem] px-4 py-6 sm:px-6 sm:py-8">
         <nav
@@ -253,6 +276,105 @@ export default async function ServicePage({ params }: ServicePageProps) {
                     );
                   })}
                 </ol>
+              </section>
+            )}
+
+            {service.priceTable && service.priceTable.length > 0 && (() => {
+              const priceTable = service.priceTable;
+              const hasVisitFee = priceTable.some((row) => row.visitFee);
+
+              return (
+              <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+                <p className="text-xs font-bold text-gray-500">
+                  {service.priceTableHeading?.label ?? "수리비 참고"}
+                </p>
+                <h2 className="mt-1 text-xl font-bold">
+                  {service.priceTableHeading?.title ??
+                    "품목별 대략 수리비 참고표"}
+                </h2>
+                <p className="mt-2 break-keep text-xs leading-5 text-gray-500">
+                  {service.priceTableNote ??
+                    "아래 금액은 부품 종류·모델·지역에 따라 달라지는 대략적인 참고 범위입니다. 정확한 금액은 방문 점검 후 견적으로 확정돼요."}
+                </p>
+                <div className="mt-4 overflow-x-auto">
+                  <table className="w-full min-w-[32rem] border-collapse text-sm">
+                    <thead>
+                      <tr className="border-b border-gray-200 text-left text-xs font-bold text-gray-500">
+                        <th scope="col" className="py-2 pr-3">
+                          {service.priceTableHeading?.columns?.item ?? "제품"}
+                        </th>
+                        <th scope="col" className="py-2 pr-3">
+                          {service.priceTableHeading?.columns?.issue ??
+                            "흔한 고장 유형"}
+                        </th>
+                        {hasVisitFee && (
+                          <th scope="col" className="py-2 pr-3">
+                            {service.priceTableHeading?.columns?.visitFee ??
+                              "출장비(참고)"}
+                          </th>
+                        )}
+                        <th scope="col" className="py-2">
+                          {service.priceTableHeading?.columns?.priceRange ??
+                            "수리비 대략 범위(참고)"}
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {priceTable.map((row) => (
+                        <tr
+                          key={`${row.item}-${row.issue}`}
+                          className="border-b border-gray-100 align-top"
+                        >
+                          <td className="py-2.5 pr-3 font-bold text-slate-900">
+                            {row.item}
+                          </td>
+                          <td className="py-2.5 pr-3 text-gray-700">
+                            {row.issue}
+                          </td>
+                          {hasVisitFee && (
+                            <td className="py-2.5 pr-3 text-gray-700">
+                              {row.visitFee}
+                            </td>
+                          )}
+                          <td className="py-2.5 text-gray-700">
+                            {row.priceRange}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+              );
+            })()}
+
+            {service.faq && service.faq.length > 0 && (
+              <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+                <p className="text-xs font-bold text-gray-500">자주 묻는 질문</p>
+                <h2 className="mt-1 text-xl font-bold">
+                  이런 것도 궁금하실 거예요
+                </h2>
+                <div className="mt-4 space-y-2">
+                  {service.faq.map((item) => (
+                    <details
+                      key={item.question}
+                      className="group rounded-xl border border-gray-200 bg-gray-50 p-4 open:bg-white"
+                    >
+                      <summary className="flex cursor-pointer list-none items-start justify-between gap-3 font-bold text-slate-900 marker:content-none">
+                        <span>Q. {item.question}</span>
+                        <span
+                          aria-hidden="true"
+                          className="mt-0.5 shrink-0 text-gray-400 transition-transform group-open:rotate-180"
+                        >
+                          ⌄
+                        </span>
+                      </summary>
+                      <p className="mt-3 border-t border-gray-100 pt-3 text-sm leading-6 text-gray-700">
+                        {item.answer}
+                      </p>
+                    </details>
+                  ))}
+                </div>
               </section>
             )}
           </div>

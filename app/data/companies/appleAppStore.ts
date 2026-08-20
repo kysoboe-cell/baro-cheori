@@ -70,7 +70,19 @@ export const appleAppStore: Company = {
       ],
       officialUrl: "https://reportaproblem.apple.com/",
       officialActionLabel: "Apple 환불 요청 열기",
-      lastChecked: "2026-08-19",
+      faq: [
+        {
+          question: "애플 환불은 얼마나 걸리나요?",
+          answer:
+            "요청 후 결과 통보까지 대략 며칠이 걸려요. 승인되면 실제 환불은 결제수단 처리기간에 따라 더 걸릴 수 있어요.",
+        },
+        {
+          question: "환불이 거절되면 재신청 가능한가요?",
+          answer:
+            "사유를 보완해 재신청할 수 있어요. 다만 반복 거절 이력이 있으면 더 어려울 수 있어요.",
+        },
+      ],
+      lastChecked: "2026-08-20",
     },
     {
       slug: "unknown-charge",

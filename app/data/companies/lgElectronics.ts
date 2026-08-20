@@ -117,6 +117,23 @@ export const lgElectronics: Company = {
       ],
       officialUrl: "https://www.lge.co.kr/support/visit-center-reservation",
       officialActionLabel: "LG 센터 방문 예약 열기",
+      faq: [
+        {
+          question: "LG전자서비스센터도 온라인 예약이 되나요?",
+          answer:
+            "가능해요. LG전자 공식 페이지에서 지역과 제품을 선택해 예약할 수 있어요.",
+        },
+        {
+          question: "방문 전 미리 확인할 게 있나요?",
+          answer:
+            "제품 모델명, 구입일자(영수증), 고장 증상을 사진으로 준비해가면 접수와 점검이 빨라져요.",
+        },
+        {
+          question: "대형가전도 센터로 가져가야 하나요?",
+          answer:
+            "세탁기·냉장고 같은 대형가전은 대부분 방문(출장) 수리로 진행돼요. 센터 방문은 소형가전·휴대용 제품 위주예요.",
+        },
+      ],
       lastChecked: "2026-08-19",
     },
     {
@@ -151,7 +168,58 @@ export const lgElectronics: Company = {
       ],
       officialUrl: "https://www.lge.co.kr/support/rates-warranty-guide",
       officialActionLabel: "LG 요금·보증 안내 열기",
-      lastChecked: "2026-08-19",
+      priceTableNote:
+        "출장비(출장점검료)는 LG전자 [요금/보증] 페이지에 공시된 정액 기준이고, 수리비는 부품·모델·지역에 따라 달라지는 대략적인 참고 범위예요. 정확한 금액은 방문 점검 후 견적으로 확정돼요.",
+      priceTable: [
+        {
+          item: "세탁기(트롬 등)",
+          issue: "배수 불량, 기판 고장",
+          visitFee: "2.8만~3.8만원(성수기·야간·휴일 할증 포함)",
+          priceRange: "3만~15만원대",
+        },
+        {
+          item: "냉장고",
+          issue: "냉각 안 됨, 컴프레서 문제",
+          visitFee: "2.8만~3.8만원(성수기·야간·휴일 할증 포함)",
+          priceRange: "5만~20만원대(컴프레서 교체 시 더 높음)",
+        },
+        {
+          item: "TV(OLED 포함)",
+          issue: "화면 불량, 전원 문제",
+          visitFee: "2.8만~3.8만원(성수기·야간·휴일 할증 포함)",
+          priceRange: "패널 손상 시 고가, 신제품 구매와 비교 권장",
+        },
+        {
+          item: "에어컨(휘센 등)",
+          issue: "냉방 안 됨, 가스 부족",
+          visitFee: "2.8만~3.8만원(성수기·야간·휴일 할증 포함)",
+          priceRange: "가스 충전 5만원대~",
+        },
+        {
+          item: "스타일러",
+          issue: "냄새 제거 안 됨, 문 고장",
+          visitFee: "2.8만~3.8만원(성수기·야간·휴일 할증 포함)",
+          priceRange: "부품별로 다름, 점검 후 확정",
+        },
+      ],
+      faq: [
+        {
+          question: "일반제품·계절제품·휴대전화 보증기간이 왜 다른가요?",
+          answer:
+            "LG전자는 제품군별로 무상보증 기준이 달라요. 예약 전에 [요금/보증] 페이지에서 내 제품군의 기준을 확인하는 게 정확해요.",
+        },
+        {
+          question: "점검만 받아도 비용이 나오나요?",
+          answer:
+            "고장이 아닌 단순 점검 요청도 기사 방문이 이뤄지면 출장점검료가 발생할 수 있어요.",
+        },
+        {
+          question: "수리 대신 새 제품을 사는 게 나을 때는 언제인가요?",
+          answer:
+            "수리비가 신제품 가격의 절반을 넘어가는 경우(특히 패널·컴프레서 교체) 새 제품 구매와 비교해보는 걸 권장해요.",
+        },
+      ],
+      lastChecked: "2026-08-20",
     },
   ],
 };

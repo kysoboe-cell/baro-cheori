@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   categories,
   getCompaniesByCategory,
@@ -18,6 +18,18 @@ export default function CategoryFinder() {
     ? getCompaniesByCategory(activeCategory)
     : [];
 
+  // ESC 키로 닫기
+  useEffect(() => {
+    if (!activeCategory) return;
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") setActiveCategory(null);
+    }
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [activeCategory]);
+
   return (
     <section
       id="services"
@@ -28,7 +40,7 @@ export default function CategoryFinder() {
           업체로 바로 찾기
         </p>
 
-        <div className="grid min-w-0 flex-1 grid-cols-3 gap-1.5 sm:grid-cols-6 sm:gap-2">
+        <div className="relative z-50 grid min-w-0 flex-1 grid-cols-3 gap-1.5 sm:grid-cols-6 sm:gap-2">
           {categories.map((category) => {
             const isActive = activeCategory === category.id;
 
@@ -40,7 +52,11 @@ export default function CategoryFinder() {
                 aria-controls="company-list"
                 onMouseEnter={() => setActiveCategory(category.id)}
                 onFocus={() => setActiveCategory(category.id)}
-                onClick={() => setActiveCategory(category.id)}
+                onClick={() =>
+                  setActiveCategory((current) =>
+                    current === category.id ? null : category.id
+                  )
+                }
                 className={`flex min-w-0 items-center justify-center gap-1 rounded-xl border px-2 py-2.5 text-left text-xs font-bold transition sm:justify-between sm:gap-2 sm:px-3 sm:text-sm ${
                   isActive
                     ? "border-blue-700 bg-blue-700 text-white shadow-sm"
@@ -62,6 +78,15 @@ export default function CategoryFinder() {
         <p className="ml-auto hidden text-xs text-slate-500 xl:block">
           업체를 고르면 업무가 바로 보입니다
         </p>
+
+        {activeData && (
+          <button
+            type="button"
+            aria-label="업체 목록 닫기"
+            onClick={() => setActiveCategory(null)}
+            className="fixed inset-0 z-40 cursor-default bg-slate-950/30 backdrop-blur-[1px]"
+          />
+        )}
 
         {activeData && (
           <div

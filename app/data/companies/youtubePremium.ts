@@ -32,7 +32,19 @@ export const youtubePremium: Company = {
       ],
       officialUrl: "https://www.youtube.com/paid_memberships",
       officialActionLabel: "유튜브 멤버십 관리 열기",
-      lastChecked: "2026-08-19",
+      faq: [
+        {
+          question: "해지 버튼이 안 보여요",
+          answer:
+            "가입 경로(웹·Apple·Google Play)에 따라 해지 메뉴 위치가 달라요. Apple로 가입했다면 유튜브 앱이 아니라 아이폰 설정의 구독 관리에서 해지해야 해요.",
+        },
+        {
+          question: "가족 요금제 관리자가 해지하면 전체가 끊기나요?",
+          answer:
+            "네, 관리자가 해지하면 가족 구성원 전체의 프리미엄 혜택이 함께 종료돼요.",
+        },
+      ],
+      lastChecked: "2026-08-20",
     },
     {
       slug: "refund-request",
@@ -60,7 +72,19 @@ export const youtubePremium: Company = {
       ],
       officialUrl: "https://support.google.com/youtube/answer/12014038?hl=ko",
       officialActionLabel: "유튜브 환불 안내 열기",
-      lastChecked: "2026-08-19",
+      faq: [
+        {
+          question: "Apple 결제와 Google 결제 환불이 왜 다른가요?",
+          answer:
+            "앱스토어를 통해 가입했으면 Apple이 결제를 처리해서, 환불도 Apple 쪽에서 진행돼요.",
+        },
+        {
+          question: "가족 요금제도 환불 대상인가요?",
+          answer:
+            "가능하지만 요금제 유형에 따라 결제 단위가 달라서, 환불 화면에서 개별로 확인해야 해요.",
+        },
+      ],
+      lastChecked: "2026-08-20",
     },
     {
       slug: "charged-after-cancel",

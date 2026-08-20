@@ -85,7 +85,43 @@ export const naverSmartstore: Company = {
       officialUrl:
         "https://help.pay.naver.com/faq/content.help?faqId=11724",
 
-      lastChecked: "2026-08-18",
+      priceTableNote:
+        "스마트스토어는 입점 판매자마다 반품·환불 정책과 처리 속도가 달라요. 아래 소요기간은 참고용 대략치이며, 실제로는 상품 상세페이지의 판매자 정책을 먼저 확인하는 게 정확해요.",
+      priceTableHeading: {
+        label: "환불 소요기간 참고",
+        title: "환불 소요기간 참고표",
+        columns: {
+          item: "쇼핑몰",
+          issue: "결제수단",
+          priceRange: "환불 대략 소요기간(참고)",
+        },
+      },
+      priceTable: [
+        {
+          item: "네이버 스마트스토어",
+          issue: "카드·네이버페이 결제",
+          priceRange: "판매자 확인 후 영업일 기준 2~5일 내 (판매자별로 차이 있음)",
+        },
+      ],
+
+      faq: [
+        {
+          question: "스마트스토어는 판매자마다 정책이 다른가요?",
+          answer:
+            "네. 스마트스토어는 입점 판매자별로 반품·교환 정책이 다를 수 있어요. 상품 상세페이지의 반품 안내를 먼저 확인하세요.",
+        },
+        {
+          question: "판매자가 반품을 거절하면 어떻게 하나요?",
+          answer: "네이버페이 고객센터에 분쟁 조정을 요청할 수 있어요.",
+        },
+        {
+          question: "환불은 네이버페이로 오나요?",
+          answer:
+            "결제수단에 따라 달라요. 카드 취소, 포인트 적립, 계좌 환불 등 결제한 방식으로 처리돼요.",
+        },
+      ],
+
+      lastChecked: "2026-08-20",
     },
 
     {

@@ -32,7 +32,24 @@ export const netflix: Company = {
       ],
       officialUrl: "https://www.netflix.com/cancelplan",
       officialActionLabel: "넷플릭스 해지 화면 열기",
-      lastChecked: "2026-08-19",
+      faq: [
+        {
+          question: "해지했는데 왜 앱이 계속 보이나요?",
+          answer:
+            "결제 주기가 끝나는 날까지는 이용이 유지되는 게 정상이에요. 해지했다고 즉시 접속이 끊기는 게 아니에요.",
+        },
+        {
+          question: "해지를 취소하고 싶어요",
+          answer:
+            "결제일 전이라면 계정 화면에서 멤버십 재시작이 대부분 가능해요.",
+        },
+        {
+          question: "통신사 결합으로 가입했는데 해지가 안 돼요",
+          answer:
+            "통신사 제휴 상품은 넷플릭스 앱이 아니라 가입한 통신사 쪽에서 해지해야 하는 경우가 있어요.",
+        },
+      ],
+      lastChecked: "2026-08-20",
     },
     {
       slug: "charged-after-cancel",
@@ -61,7 +78,24 @@ export const netflix: Company = {
       ],
       officialUrl: "https://help.netflix.com/ko/node/41049",
       officialActionLabel: "넷플릭스 결제내역 확인하기",
-      lastChecked: "2026-08-19",
+      faq: [
+        {
+          question: "해지했는데도 또 결제된 이유는?",
+          answer:
+            "해지 신청과 실제 해지 완료 시점이 다르거나, 다른 사람이 계정을 재구독했을 가능성이 있어요.",
+        },
+        {
+          question: "환불이 잘 안 되는 편인가요?",
+          answer:
+            "넷플릭스는 이용 기간에 따라 환불 여부가 갈리는 경우가 많아요. 채팅 상담으로 개별 확인이 필요해요.",
+        },
+        {
+          question: "결제처가 넷플릭스가 아니라 통신사로 찍혀요",
+          answer:
+            "통신사 제휴 결제(이동통신 요금 합산 등)일 수 있어요. 그 통신사 고객센터에서도 확인해야 해요.",
+        },
+      ],
+      lastChecked: "2026-08-20",
     },
     {
       slug: "payment-method",

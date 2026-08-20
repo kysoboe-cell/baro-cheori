@@ -34,7 +34,19 @@ export const wavve: Company = {
       ],
       officialUrl: "https://www.wavve.com/my/subscription",
       officialActionLabel: "웨이브 나의 이용권 열기",
-      lastChecked: "2026-08-19",
+      faq: [
+        {
+          question: "이용권을 낮추는 것도 해지인가요?",
+          answer:
+            "상위 요금제에서 하위 요금제로 변경은 해지가 아니라 '이용권 변경'이에요. 완전 해지와는 처리 화면이 달라요.",
+        },
+        {
+          question: "해지 후 재가입하면 이전 시청기록이 남아있나요?",
+          answer:
+            "계정 자체는 유지되는 경우가 많아 시청기록이 남아있을 수 있지만, 정책이 바뀔 수 있어 화면에서 확인이 필요해요.",
+        },
+      ],
+      lastChecked: "2026-08-20",
     },
     {
       slug: "refund-request",
@@ -64,7 +76,14 @@ export const wavve: Company = {
       ],
       officialUrl: "https://www.wavve.com/customer/faq",
       officialActionLabel: "웨이브 고객센터·1:1 문의 열기",
-      lastChecked: "2026-08-19",
+      faq: [
+        {
+          question: "웨이브 무료체험 중 결제된 경우도 환불되나요?",
+          answer:
+            "체험기간 정책은 가입 시점 약관에 따라 달라요. 결제내역과 가입일을 함께 확인해야 해요.",
+        },
+      ],
+      lastChecked: "2026-08-20",
     },
     {
       slug: "charged-after-cancel",

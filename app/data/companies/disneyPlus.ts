@@ -34,7 +34,18 @@ export const disneyPlus: Company = {
       ],
       officialUrl: "https://www.disneyplus.com/account/cancel-subscription",
       officialActionLabel: "디즈니+ 멤버십 취소 열기",
-      lastChecked: "2026-08-19",
+      faq: [
+        {
+          question: "Apple·Google로 가입했는데 디즈니+ 앱에 해지 메뉴가 없어요",
+          answer:
+            "정상이에요. 제3자 스토어 결제는 그 스토어(Apple 설정의 구독 관리 또는 Google Play 구독)에서 해지해야 해요.",
+        },
+        {
+          question: "해지 후 다시 보고 싶으면 어떻게 하나요?",
+          answer: "재구독하면 이전 시청기록·프로필이 대부분 유지돼요.",
+        },
+      ],
+      lastChecked: "2026-08-20",
     },
     {
       slug: "refund-request",
@@ -64,7 +75,14 @@ export const disneyPlus: Company = {
       ],
       officialUrl: "https://www.disneyplus.com/ko-kr/legal/%EC%B7%A8%EC%86%8C-%EB%B0%8F-%ED%99%98%EB%B6%88-%EC%A0%95%EC%B1%85",
       officialActionLabel: "디즈니+ 취소·환불 정책 열기",
-      lastChecked: "2026-08-19",
+      faq: [
+        {
+          question: "디즈니+ 결제가 통신사(예: LG유플러스)로 찍혀요",
+          answer:
+            "제휴 결합상품 가입자는 통신사를 통한 환불 절차를 따로 확인해야 해요.",
+        },
+      ],
+      lastChecked: "2026-08-20",
     },
     {
       slug: "charged-after-cancel",
