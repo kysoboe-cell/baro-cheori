@@ -72,6 +72,40 @@ export type ServiceTask = {
     answer: string;
   }[];
 
+  /**
+   * "화면 그대로 따라하기" 스크린샷 가이드입니다. 실제 캡처 화면 + 마커로
+   * 처리 순서를 보여줍니다. 이미지는 public/images/guides/<folder>/ 에 있어야
+   * 합니다. 재사용 가능한 구조 — 다른 서비스에도 같은 필드로 붙일 수 있습니다.
+   */
+  screenshotGuide?: {
+    /** 예: "쿠팡 안드로이드 앱 화면 기준" — 신선도 표시에 쓰입니다. */
+    platform: string;
+    /** public/images/guides/ 아래 하위 폴더 이름입니다. */
+    folder: string;
+    steps: {
+      /** 폴더 안 파일명 (예: "step1-home.webp"). */
+      image: string;
+      /** 원본 이미지 가로/세로 픽셀입니다. next/image 레이아웃 시프트 방지용. */
+      width: number;
+      height: number;
+      /** 스크린리더용 대체 텍스트, 단계별로 서술형으로 씁니다. */
+      alt: string;
+      /** 캡션 텍스트. `**단어**`로 감싸면 굵게 렌더링됩니다. */
+      caption: string;
+      /** 이 단계를 특별히 강조해야 할 때(예: 실수하기 쉬운 지점) true로. */
+      emphasize?: boolean;
+      /** 이 단계 이미지 바로 아래에 노란 주의 박스를 추가합니다. */
+      warningAfter?: string;
+    }[];
+  };
+
+  /**
+   * screenshotGuide 등 화면 캡처 기반 콘텐츠를 마지막으로 확인한 날짜입니다.
+   * "정보 확인일"(lastChecked)과 별개로, 가이드 섹션 안에서 "이 화면 기준"
+   * 신선도 표시에 씁니다.
+   */
+  guideCheckedAt?: string;
+
   lastChecked?: string;
 };
 

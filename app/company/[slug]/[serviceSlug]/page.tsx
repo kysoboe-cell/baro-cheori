@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import BoldText from "../../../components/BoldText";
 import PhoneActions from "../../../components/PhoneActions";
 import { allServices, getService } from "../../../data/services";
 import {
@@ -127,6 +129,22 @@ export default async function ServicePage({ params }: ServicePageProps) {
           })),
         }
       : null;
+  const howToJsonLd =
+    service.screenshotGuide && service.screenshotGuide.steps.length > 0
+      ? {
+          "@context": "https://schema.org",
+          "@type": "HowTo",
+          name: `${company.name} ${service.title}`,
+          step: service.screenshotGuide.steps.map((step, index) => ({
+            "@type": "HowToStep",
+            position: index + 1,
+            text: step.caption.replace(/\*\*/g, ""),
+            image: absoluteUrl(
+              `/images/guides/${service.screenshotGuide!.folder}/${step.image}`
+            ),
+          })),
+        }
+      : null;
 
   return (
     <main className="bg-slate-50">
@@ -141,6 +159,14 @@ export default async function ServicePage({ params }: ServicePageProps) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(faqJsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
+      )}
+      {howToJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(howToJsonLd).replace(/</g, "\\u003c"),
           }}
         />
       )}
@@ -275,6 +301,90 @@ export default async function ServicePage({ params }: ServicePageProps) {
                       </li>
                     );
                   })}
+                </ol>
+              </section>
+            )}
+
+            {service.screenshotGuide && service.screenshotGuide.steps.length > 0 && (
+              <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <div>
+                    <p className="text-xs font-bold text-gray-500">
+                      화면 그대로 따라하기
+                    </p>
+                    <h2 className="mt-1 text-xl font-bold">모바일 앱 캡처로 보기</h2>
+                  </div>
+                  {(service.guideCheckedAt ?? service.lastChecked) && (
+                    <p className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-semibold text-slate-500">
+                      {(service.guideCheckedAt ?? service.lastChecked)!.replace(
+                        /(\d{4})-(\d{2})-(\d{2})/,
+                        "$1년 $2월 $3일"
+                      )}{" "}
+                      · {service.screenshotGuide.platform}
+                    </p>
+                  )}
+                </div>
+
+                <ol className="mt-4 space-y-5">
+                  {service.screenshotGuide.steps.map((step, index) => (
+                    <li key={step.image}>
+                      <figure
+                        className={`overflow-hidden rounded-2xl border ${
+                          step.emphasize
+                            ? "border-blue-300 bg-blue-50"
+                            : "border-gray-200 bg-white"
+                        }`}
+                      >
+                        <div className="relative">
+                          <Image
+                            src={`/images/guides/${service.screenshotGuide!.folder}/${step.image}`}
+                            alt={step.alt}
+                            width={step.width}
+                            height={step.height}
+                            loading={index === 0 ? "eager" : "lazy"}
+                            sizes="(min-width: 1024px) 28rem, 100vw"
+                            className="w-full"
+                          />
+                          <span
+                            aria-hidden="true"
+                            className="absolute left-3 top-3 flex h-7 w-7 items-center justify-center rounded-full bg-slate-950/85 text-sm font-black text-white"
+                          >
+                            {index + 1}
+                          </span>
+                        </div>
+                        <figcaption
+                          className={`p-4 text-sm leading-6 ${
+                            step.emphasize
+                              ? "font-bold text-blue-950"
+                              : "text-gray-800"
+                          }`}
+                        >
+                          <BoldText
+                            text={step.caption}
+                            strongClassName={
+                              step.emphasize
+                                ? "font-black text-blue-700"
+                                : "font-black text-slate-950"
+                            }
+                          />
+                        </figcaption>
+                      </figure>
+
+                      {step.warningAfter && (
+                        <div className="mt-3 rounded-xl border border-amber-200 bg-amber-50 p-3.5">
+                          <p className="text-sm font-semibold leading-6 text-amber-950">
+                            <span aria-hidden="true" className="mr-1 font-black text-amber-700">
+                              ⚠️
+                            </span>
+                            <BoldText
+                              text={step.warningAfter}
+                              strongClassName="font-black text-amber-950"
+                            />
+                          </p>
+                        </div>
+                      )}
+                    </li>
+                  ))}
                 </ol>
               </section>
             )}
