@@ -117,13 +117,13 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
           <span>{company.name}</span>
         </nav>
 
-        <p className="mt-8 text-sm font-bold text-blue-700">업체별 업무 안내</p>
+        <p className="mt-8 text-sm font-bold text-primary-700">업체별 업무 안내</p>
         <h1 className="mt-2 text-4xl font-black tracking-tight sm:text-5xl">
           {company.name}
         </h1>
         <p className="mt-4 leading-7 text-gray-600">
           처리하려는 업무를 선택하면 <strong className="font-black text-slate-900">지금 누를 메뉴</strong>,
-          <strong className="font-black text-blue-700"> 꼭 놓치면 안 되는 단계</strong>,
+          <strong className="font-black text-primary-700"> 꼭 놓치면 안 되는 단계</strong>,
           직접 해결이 막혔을 때만 연락처를 보여드려요.
         </p>
 
@@ -143,7 +143,7 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
           ))}
         </div>
 
-        <div className="mt-10 rounded-2xl border border-blue-100 bg-blue-50 p-5 text-sm leading-6 text-gray-700">
+        <div className="mt-10 rounded-2xl border border-primary-100 bg-primary-50 p-5 text-sm leading-6 text-gray-700">
           바로처리는 {company.name}의 공식 서비스가 아닌 독립 안내 서비스입니다. 마지막 단계에서는 연결된 공식 페이지의 최신 조건을 확인하세요.
         </div>
       </section>

@@ -108,16 +108,16 @@ export default function Home() {
 
       <CategoryFinder />
 
-      <section className="overflow-hidden border-b border-slate-200 bg-[linear-gradient(135deg,#f7f9ff_0%,#eef5ff_48%,#ffffff_100%)]">
+      <section className="overflow-hidden border-b border-slate-200 bg-[linear-gradient(180deg,#f0fdfa_0%,#ffffff_100%)]">
         <div className="mx-auto grid max-w-7xl gap-7 px-4 py-9 sm:px-6 sm:py-12 lg:grid-cols-[minmax(0,1.12fr)_minmax(22rem,0.88fr)] lg:items-center lg:gap-10 lg:py-14">
           <div>
-            <p className="inline-flex rounded-full border border-blue-200 bg-white/80 px-3 py-1.5 text-sm font-bold text-blue-700 shadow-sm">
+            <p className="inline-flex rounded-full border border-primary-200 bg-white/80 px-3 py-1.5 text-sm font-bold text-primary-700 shadow-sm">
               전화 돌리기 전에, 지금 할 수 있는 것부터
             </p>
             <h1 className="mt-4 max-w-3xl break-keep text-4xl font-black leading-[1.13] tracking-tight text-slate-950 sm:text-5xl lg:text-[3.45rem]">
               카드 분실·배송 안 옴·<span className="whitespace-nowrap">가전 고장,</span>
               <br className="hidden sm:block" />
-              <span className="text-blue-700 underline decoration-blue-200 decoration-[0.16em] underline-offset-[0.12em]">
+              <span className="text-primary-700 underline decoration-primary-200 decoration-[0.16em] underline-offset-[0.12em]">
                 지금 할 일만 바로
               </span>
             </h1>
@@ -125,7 +125,7 @@ export default function Home() {
               긴 고객센터 설명을 뒤지지 마세요. 문제를 검색하면
               <strong className="font-black text-slate-900"> 공식 처리 메뉴</strong>,
               <strong className="font-black text-slate-900"> 현실적인 순서</strong>,
-              <strong className="font-black text-blue-700"> 꼭 필요할 때만 연락처</strong>까지
+              <strong className="font-black text-primary-700"> 꼭 필요할 때만 연락처</strong>까지
               한 화면에 정리해 드립니다.
             </p>
 
@@ -141,10 +141,10 @@ export default function Home() {
           <aside className="rounded-3xl border border-white/80 bg-white/90 p-4 shadow-[0_24px_70px_-32px_rgba(15,23,42,0.4)] backdrop-blur sm:p-5">
             <div className="flex items-center justify-between gap-4">
               <div>
-                <p className="text-xs font-black tracking-wide text-blue-700">바로 시작하기</p>
+                <p className="text-xs font-black tracking-wide text-primary-700">바로 시작하기</p>
                 <h2 className="mt-1 text-xl font-black text-slate-950">지금 급한 문제인가요?</h2>
               </div>
-              <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-bold text-blue-700">
+              <span className="rounded-full bg-primary-50 px-3 py-1 text-xs font-bold text-primary-700">
                 많이 찾는 해결
               </span>
             </div>
@@ -158,7 +158,7 @@ export default function Home() {
                   <Link prefetch={false}
                     key={`${task.companySlug}-${task.serviceSlug}`}
                     href={servicePath(task.companySlug, task.serviceSlug)}
-                    className="group flex items-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 transition hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-md"
+                    className="group flex items-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 transition hover:-translate-y-0.5 hover:border-primary-300 hover:shadow-md"
                   >
                     <span
                       aria-hidden="true"
@@ -174,7 +174,7 @@ export default function Home() {
                         {task.answer}
                       </span>
                     </span>
-                    <span aria-hidden="true" className="font-bold text-blue-700 transition group-hover:translate-x-0.5">
+                    <span aria-hidden="true" className="font-bold text-primary-700 transition group-hover:translate-x-0.5">
                       →
                     </span>
                   </Link>
@@ -188,9 +188,9 @@ export default function Home() {
       <section id="quick-start" className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-12">
         <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="text-sm font-bold text-blue-700">상황별 빠른 해결</p>
+            <p className="text-sm font-bold text-primary-700">상황별 빠른 해결</p>
             <h2 className="mt-1 break-keep text-2xl font-black text-slate-950 sm:text-3xl">
-              내 상황과 <span className="text-blue-700">같은 문장부터</span> 누르세요
+              내 상황과 <span className="text-primary-700">같은 문장부터</span> 누르세요
             </h2>
           </div>
           <p className="text-sm text-slate-500">긴 설명 대신 필요한 행동부터 보여드립니다.</p>
@@ -211,7 +211,7 @@ export default function Home() {
                   <span className="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-bold text-slate-600">
                     {task.category} · {item.company.name}
                   </span>
-                  <span aria-hidden="true" className="font-bold text-blue-700 transition group-hover:translate-x-0.5">
+                  <span aria-hidden="true" className="font-bold text-primary-700 transition group-hover:translate-x-0.5">
                     →
                   </span>
                 </div>
@@ -233,7 +233,7 @@ export default function Home() {
             ["03", "전화는 마지막에", "온라인으로 끝낼 수 없는 마지막 단계에서만 맞는 번호를 보여드립니다."],
           ].map(([number, title, description]) => (
             <div key={number} className="flex gap-3">
-              <span className="font-black text-blue-400">{number}</span>
+              <span className="font-black text-primary-400">{number}</span>
               <div>
                 <h2 className="font-bold">{title}</h2>
                 <p className="mt-1 break-keep text-sm leading-6 text-slate-400">{description}</p>

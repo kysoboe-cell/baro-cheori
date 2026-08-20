@@ -10,7 +10,7 @@ export default function InformationPolicyPage() {
   return (
     <main className="bg-gray-50">
       <article className="mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16">
-        <p className="text-sm font-bold text-blue-700">정보 관리 원칙</p>
+        <p className="text-sm font-bold text-primary-700">정보 관리 원칙</p>
         <h1 className="mt-2 text-4xl font-black tracking-tight">쉽게 쓰되, 출처는 공식 정보로 확인합니다</h1>
         <p className="mt-6 text-lg leading-8 text-gray-700">
           바로처리는 사용자가 실제로 다음 행동을 할 수 있도록 긴 안내를 짧은 순서로 정리합니다. 마지막 확인은 언제나 해당 업체의 공식 페이지에서 할 수 있게 연결합니다.

@@ -93,7 +93,7 @@ export default function HomeSearch() {
       <label htmlFor="task-search" className="sr-only">
         회사명 또는 처리할 업무
       </label>
-      <div className="flex overflow-hidden rounded-2xl border border-slate-300 bg-white shadow-[0_14px_35px_-18px_rgba(15,23,42,0.45)] focus-within:border-blue-600 focus-within:ring-4 focus-within:ring-blue-100">
+      <div className="flex overflow-hidden rounded-2xl border border-slate-300 bg-white shadow-[0_14px_35px_-18px_rgba(15,23,42,0.45)] focus-within:border-primary-600 focus-within:ring-4 focus-within:ring-primary-100">
         <input
           id="task-search"
           type="search"
@@ -116,7 +116,7 @@ export default function HomeSearch() {
         <button
           type="button"
           onClick={runSearch}
-          className="shrink-0 bg-blue-700 px-5 font-bold text-white transition hover:bg-blue-800 sm:px-8"
+          className="shrink-0 bg-accent px-5 font-bold text-white transition hover:bg-accent-dark sm:px-8"
         >
           검색
         </button>
@@ -138,7 +138,7 @@ export default function HomeSearch() {
               onClick={() => selectSuggestion(item)}
               className={`flex w-full items-start gap-3 border-b border-slate-100 px-4 py-3 text-left last:border-b-0 sm:px-5 ${
                 activeIndex === index
-                  ? "bg-blue-50"
+                  ? "bg-primary-50"
                   : "bg-white hover:bg-slate-50"
               }`}
             >
@@ -149,7 +149,7 @@ export default function HomeSearch() {
                 →
               </span>
               <span className="min-w-0 flex-1">
-                <span className="block text-xs font-bold text-blue-700">
+                <span className="block text-xs font-bold text-primary-700">
                   {item.company.name}
                 </span>
                 <span className="mt-0.5 block font-bold text-slate-950">

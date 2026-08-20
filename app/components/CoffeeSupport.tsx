@@ -27,7 +27,7 @@ export default function CoffeeSupport() {
         aria-expanded={isOpen}
         aria-controls="coffee-support-panel"
         onClick={() => setIsOpen((current) => !current)}
-        className="flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-3 text-sm font-bold shadow-[0_12px_32px_-12px_rgba(15,23,42,0.35)] transition hover:-translate-y-0.5 hover:border-blue-300 hover:text-blue-700"
+        className="flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-3 text-sm font-bold shadow-[0_12px_32px_-12px_rgba(15,23,42,0.35)] transition hover:-translate-y-0.5 hover:border-primary-300 hover:text-primary-700"
       >
         <span
           aria-hidden="true"

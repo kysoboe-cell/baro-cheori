@@ -11,7 +11,7 @@ export default function AboutPage() {
   return (
     <main className="bg-gray-50">
       <article className="mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16">
-        <p className="text-sm font-bold text-blue-700">서비스 소개</p>
+        <p className="text-sm font-bold text-primary-700">서비스 소개</p>
         <h1 className="mt-2 text-4xl font-black tracking-tight">바로처리는 왜 만들었나요?</h1>
         <p className="mt-6 text-lg leading-8 text-gray-700">
           반품이나 구독 해지 하나를 하려 해도 어디를 눌러야 하는지 몰라 여러 화면과 ARS를 헤매게 됩니다. 바로처리는 그 과정을 전화 없이 먼저 따라 할 수 있는 한 화면의 실행 순서로 바꿉니다.

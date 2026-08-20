@@ -59,8 +59,8 @@ export default function CategoryFinder() {
                 }
                 className={`flex min-w-0 items-center justify-center gap-1 rounded-xl border px-2 py-2.5 text-left text-xs font-bold transition sm:justify-between sm:gap-2 sm:px-3 sm:text-sm ${
                   isActive
-                    ? "border-blue-700 bg-blue-700 text-white shadow-sm"
-                    : "border-slate-200 bg-white text-slate-700 hover:border-blue-300 hover:bg-blue-50"
+                    ? "border-primary-700 bg-primary-700 text-white shadow-sm"
+                    : "border-slate-200 bg-white text-slate-700 hover:border-primary-300 hover:bg-primary-50"
                 }`}
               >
                 <span className="flex min-w-0 items-center gap-1 sm:gap-2">
@@ -111,10 +111,10 @@ export default function CategoryFinder() {
                 <Link prefetch={false}
                   key={company.slug}
                   href={companyPath(company.slug)}
-                  className="flex min-h-14 items-center justify-between gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm font-bold transition hover:border-blue-400 hover:bg-white"
+                  className="flex min-h-14 items-center justify-between gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm font-bold transition hover:border-primary-400 hover:bg-white"
                 >
                   <span className="break-keep">{company.name}</span>
-                  <span aria-hidden="true" className="shrink-0 text-blue-600">
+                  <span aria-hidden="true" className="shrink-0 text-primary-600">
                     →
                   </span>
                 </Link>

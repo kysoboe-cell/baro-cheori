@@ -11,6 +11,33 @@
   --color-foreground: var(--foreground);
   --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
     "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", sans-serif;
+
+  /*
+   * 시안 2 "틸 & 코랄" 컬러 시스템. primary-* 는 실제 Tailwind teal 스케일과
+   * 같은 값이라 bg-primary-700, text-primary-700 같은 클래스가 기존
+   * bg-blue-700 자리를 그대로 대체합니다. 다음에 색을 또 바꿀 때는 이 값들만
+   * 고치면 사이트 전체에 반영됩니다.
+   */
+  --color-primary-50: #f0fdfa;
+  --color-primary-100: #ccfbf1;
+  --color-primary-200: #99f6e4;
+  --color-primary-300: #5eead4;
+  --color-primary-400: #2dd4bf;
+  --color-primary-500: #14b8a6;
+  --color-primary-600: #0d9488;
+  --color-primary-700: #0f766e;
+  --color-primary-800: #115e59;
+  --color-primary-900: #134e4a;
+  --color-primary-950: #042f2e;
+
+  /*
+   * 코랄 포인트 컬러. 화면당 1~2곳(검색 버튼, "가장 먼저" 강조)에만 씁니다.
+   * accent-dark는 스펙에 없어 accent를 약 15% 어둡게 계산한 hover 톤입니다.
+   */
+  --color-accent: #e85d3f;
+  --color-accent-dark: #c8492f;
+  --color-accent-soft: #fff1ec;
+  --color-accent-line: #ffd2c2;
 }
 
 html {
@@ -28,7 +55,7 @@ body {
 }
 
 ::selection {
-  background: #dbeafe;
+  background: #ccfbf1;
   color: #0f172a;
 }
 
@@ -39,7 +66,7 @@ input {
 }
 
 :focus-visible {
-  outline: 3px solid #60a5fa;
+  outline: 3px solid #14b8a6;
   outline-offset: 3px;
 }
 
