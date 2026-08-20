@@ -10,7 +10,7 @@ export default function PrivacyPage() {
   return (
     <main className="bg-gray-50">
       <article className="mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16">
-        <p className="text-sm font-bold text-blue-700">개인정보 안내</p>
+        <p className="text-sm font-bold text-primary-700">개인정보 안내</p>
         <h1 className="mt-2 text-4xl font-black tracking-tight">현재 바로처리는 개인정보를 직접 입력받지 않습니다</h1>
         <div className="mt-8 space-y-5 leading-7 text-gray-700">
           <section className="rounded-2xl border border-gray-200 bg-white p-6">

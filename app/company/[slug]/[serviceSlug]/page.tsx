@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import BoldText from "../../../components/BoldText";
 import PhoneActions from "../../../components/PhoneActions";
 import { allServices, getService } from "../../../data/services";
 import {
@@ -127,6 +129,22 @@ export default async function ServicePage({ params }: ServicePageProps) {
           })),
         }
       : null;
+  const howToJsonLd =
+    service.screenshotGuide && service.screenshotGuide.steps.length > 0
+      ? {
+          "@context": "https://schema.org",
+          "@type": "HowTo",
+          name: `${company.name} ${service.title}`,
+          step: service.screenshotGuide.steps.map((step, index) => ({
+            "@type": "HowToStep",
+            position: index + 1,
+            text: step.caption.replace(/\*\*/g, ""),
+            image: absoluteUrl(
+              `/images/guides/${service.screenshotGuide!.folder}/${step.image}`
+            ),
+          })),
+        }
+      : null;
 
   return (
     <main className="bg-slate-50">
@@ -141,6 +159,14 @@ export default async function ServicePage({ params }: ServicePageProps) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(faqJsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
+      )}
+      {howToJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(howToJsonLd).replace(/</g, "\\u003c"),
           }}
         />
       )}
@@ -162,19 +188,19 @@ export default async function ServicePage({ params }: ServicePageProps) {
         </nav>
 
         <header className="mt-4 border-b border-slate-200 pb-5">
-          <p className="inline-flex rounded-full bg-blue-100 px-3 py-1 text-sm font-bold text-blue-800">
+          <p className="inline-flex rounded-full bg-primary-100 px-3 py-1 text-sm font-bold text-primary-800">
             {company.name} 업무 안내
           </p>
           <h1 className="mt-1 break-keep text-3xl font-black tracking-tight sm:text-4xl">
             {company.name}{" "}
-            <span className="text-blue-700">{service.title}</span> 처리 방법
+            <span className="text-primary-700">{service.title}</span> 처리 방법
           </h1>
           <div className="mt-3 flex flex-col gap-2 text-gray-600 sm:flex-row sm:items-center sm:justify-between">
             <p className="break-keep leading-7">
               {isCustomerCenter ? (
                 <>전화해야 할 때 필요한 <strong className="font-black text-slate-900">번호와 준비할 말</strong>만 짧게 모았어요.</>
               ) : (
-                <>위에서 아래로 따라가세요. <strong className="font-black text-blue-700 underline decoration-blue-300 decoration-4 underline-offset-4">파란 핵심 단계</strong>는 꼭 확인하세요.</>
+                <>위에서 아래로 따라가세요. <strong className="font-black text-primary-700 underline decoration-primary-300 decoration-4 underline-offset-4">강조된 핵심 단계</strong>는 꼭 확인하세요.</>
               )}
             </p>
             {service.lastChecked && (
@@ -188,8 +214,8 @@ export default async function ServicePage({ params }: ServicePageProps) {
         <div className="mt-5 grid items-start gap-4 lg:grid-cols-[minmax(0,1.5fr)_minmax(18rem,0.78fr)]">
           <div className="space-y-4">
             {service.quickSummary && service.quickSummary.length > 0 && (
-              <section className="rounded-2xl border border-blue-200 border-l-4 border-l-blue-700 bg-blue-50 p-4 sm:p-5">
-                <h2 className="text-lg font-black text-blue-950">
+              <section className="rounded-2xl border border-primary-200 border-l-4 border-l-primary-700 bg-primary-50 p-4 sm:p-5">
+                <h2 className="text-lg font-black text-primary-950">
                   지금 이것부터 하세요
                 </h2>
                 <ul className="mt-2 space-y-2">
@@ -198,7 +224,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
                       key={summary}
                       className={`flex items-start gap-2.5 rounded-xl leading-6 text-gray-900 ${
                         index === 0
-                          ? "bg-white/80 px-3 py-3 text-base font-black text-blue-950 shadow-sm"
+                          ? "bg-white/80 px-3 py-3 text-base font-black text-primary-950 shadow-sm"
                           : "px-1 py-1 text-sm sm:text-base"
                       }`}
                     >
@@ -206,8 +232,8 @@ export default async function ServicePage({ params }: ServicePageProps) {
                         aria-hidden="true"
                         className={`mt-0.5 flex shrink-0 items-center justify-center font-black ${
                           index === 0
-                            ? "h-6 rounded-full bg-blue-700 px-2 text-[11px] text-white"
-                            : "h-5 w-5 text-blue-700"
+                            ? "h-6 rounded-full bg-accent px-2 text-[11px] text-white"
+                            : "h-5 w-5 text-primary-700"
                         }`}
                       >
                         {index === 0 ? "먼저" : "✓"}
@@ -215,7 +241,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
                       <span
                         className={
                           index === 0
-                            ? "underline decoration-blue-300 decoration-4 underline-offset-4"
+                            ? "underline decoration-accent-line decoration-4 underline-offset-4"
                             : undefined
                         }
                       >
@@ -233,7 +259,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
                   <div>
                     <p className="text-xs font-bold text-gray-500">처리 순서</p>
                     <h2 className="mt-1 text-xl font-bold">
-                      순서대로 하되, 파란 단계는 꼭 보세요
+                      순서대로 하되, 강조 표시된 단계는 꼭 보세요
                     </h2>
                   </div>
                   <p className="shrink-0 text-xs text-gray-400">
@@ -249,24 +275,32 @@ export default async function ServicePage({ params }: ServicePageProps) {
                         key={step}
                         className={`flex items-start gap-3 rounded-xl p-3 ${
                           isKeyStep
-                            ? "border border-blue-200 bg-blue-50"
+                            ? "border border-primary-200 bg-primary-50"
                             : "border border-transparent"
                         }`}
                       >
                         <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-black text-white ${
-                          isKeyStep ? "bg-blue-700" : "bg-slate-950"
+                          isKeyStep
+                            ? index === 0
+                              ? "bg-accent"
+                              : "bg-primary-700"
+                            : "bg-slate-950"
                         }`}>
                           {index + 1}
                         </span>
                         <div className="min-w-0 flex-1">
                           {isKeyStep && (
-                            <p className="mb-0.5 text-xs font-black text-blue-700">
+                            <p className={`mb-0.5 text-xs font-black ${
+                              index === 0 ? "text-accent-dark" : "text-primary-700"
+                            }`}>
                               {index === 0 ? "가장 먼저" : "꼭 확인"}
                             </p>
                           )}
                           <p className={`break-keep text-sm leading-7 sm:text-base ${
                             isKeyStep
-                              ? "font-black text-slate-950 underline decoration-blue-300 decoration-4 underline-offset-4"
+                              ? `font-black text-slate-950 underline decoration-4 underline-offset-4 ${
+                                  index === 0 ? "decoration-accent-line" : "decoration-primary-300"
+                                }`
                               : "text-gray-800"
                           }`}>
                             {step}
@@ -275,6 +309,90 @@ export default async function ServicePage({ params }: ServicePageProps) {
                       </li>
                     );
                   })}
+                </ol>
+              </section>
+            )}
+
+            {service.screenshotGuide && service.screenshotGuide.steps.length > 0 && (
+              <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <div>
+                    <p className="text-xs font-bold text-gray-500">
+                      화면 그대로 따라하기
+                    </p>
+                    <h2 className="mt-1 text-xl font-bold">모바일 앱 캡처로 보기</h2>
+                  </div>
+                  {(service.guideCheckedAt ?? service.lastChecked) && (
+                    <p className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-semibold text-slate-500">
+                      {(service.guideCheckedAt ?? service.lastChecked)!.replace(
+                        /(\d{4})-(\d{2})-(\d{2})/,
+                        "$1년 $2월 $3일"
+                      )}{" "}
+                      · {service.screenshotGuide.platform}
+                    </p>
+                  )}
+                </div>
+
+                <ol className="mt-4 space-y-5">
+                  {service.screenshotGuide.steps.map((step, index) => (
+                    <li key={step.image}>
+                      <figure
+                        className={`overflow-hidden rounded-2xl border ${
+                          step.emphasize
+                            ? "border-primary-300 bg-primary-50"
+                            : "border-gray-200 bg-white"
+                        }`}
+                      >
+                        <div className="relative">
+                          <Image
+                            src={`/images/guides/${service.screenshotGuide!.folder}/${step.image}`}
+                            alt={step.alt}
+                            width={step.width}
+                            height={step.height}
+                            loading={index === 0 ? "eager" : "lazy"}
+                            sizes="(min-width: 1024px) 28rem, 100vw"
+                            className="w-full"
+                          />
+                          <span
+                            aria-hidden="true"
+                            className="absolute left-3 top-3 flex h-7 w-7 items-center justify-center rounded-full bg-slate-950/85 text-sm font-black text-white"
+                          >
+                            {index + 1}
+                          </span>
+                        </div>
+                        <figcaption
+                          className={`p-4 text-sm leading-6 ${
+                            step.emphasize
+                              ? "font-bold text-primary-950"
+                              : "text-gray-800"
+                          }`}
+                        >
+                          <BoldText
+                            text={step.caption}
+                            strongClassName={
+                              step.emphasize
+                                ? "font-black text-primary-700"
+                                : "font-black text-slate-950"
+                            }
+                          />
+                        </figcaption>
+                      </figure>
+
+                      {step.warningAfter && (
+                        <div className="mt-3 rounded-xl border border-amber-200 bg-amber-50 p-3.5">
+                          <p className="text-sm font-semibold leading-6 text-amber-950">
+                            <span aria-hidden="true" className="mr-1 font-black text-amber-700">
+                              ⚠️
+                            </span>
+                            <BoldText
+                              text={step.warningAfter}
+                              strongClassName="font-black text-amber-950"
+                            />
+                          </p>
+                        </div>
+                      )}
+                    </li>
+                  ))}
                 </ol>
               </section>
             )}
@@ -392,7 +510,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
                     >
                       <span
                         aria-hidden="true"
-                        className="font-black text-blue-700"
+                        className="font-black text-primary-700"
                       >
                         ✓
                       </span>
@@ -428,7 +546,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
                         ? "전화할 때 이것만 확인"
                         : "직접 해결이 막혔을 때"}
                     </h2>
-                    <span className="rounded-full bg-blue-50 px-2.5 py-1 text-xs font-bold text-blue-700">
+                    <span className="rounded-full bg-primary-50 px-2.5 py-1 text-xs font-bold text-primary-700">
                       마지막 수단
                     </span>
                   </div>
@@ -442,7 +560,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
                         href={usefulOfficialUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex w-full justify-center rounded-xl bg-blue-700 px-4 py-3 text-center text-sm font-bold text-white hover:bg-blue-800"
+                        className="flex w-full justify-center rounded-xl bg-primary-700 px-4 py-3 text-center text-sm font-bold text-white hover:bg-primary-800"
                       >
                         {officialActionLabel} ↗
                       </a>
@@ -482,7 +600,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
                           <ol className="mt-2 space-y-2 text-sm font-semibold leading-6 text-slate-800">
                             {phoneGuide.map((guide, index) => (
                               <li key={guide} className="flex items-start gap-2">
-                                <span className="font-black text-blue-700">
+                                <span className="font-black text-primary-700">
                                   {index + 1}.
                                 </span>
                                 <span>{guide}</span>
@@ -510,7 +628,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
         {(relatedCompanyServices.length > 0 ||
           relatedSameTaskServices.length > 0) && (
           <section className="mt-5 rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-            <p className="text-xs font-bold text-blue-700">관련 업무</p>
+            <p className="text-xs font-bold text-primary-700">관련 업무</p>
             <h2 className="mt-1 text-xl font-bold">
               이어서 필요한 안내도 확인하세요
             </h2>

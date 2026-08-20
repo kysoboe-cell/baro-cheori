@@ -39,13 +39,13 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
   return (
     <main className="bg-slate-50">
       <section className="mx-auto min-h-[60vh] max-w-5xl px-4 py-8 sm:px-6 sm:py-12">
-        <Link prefetch={false} href="/" className="text-sm font-bold text-slate-600 hover:text-blue-700">
+        <Link prefetch={false} href="/" className="text-sm font-bold text-slate-600 hover:text-primary-700">
           ← 다시 검색
         </Link>
 
         <h1 className="mt-6 break-words text-3xl font-black text-slate-950 sm:text-4xl">
           {query ? (
-            <><span className="text-blue-700">“{query}”</span> 검색 결과</>
+            <><span className="text-primary-700">“{query}”</span> 검색 결과</>
           ) : (
             "검색어를 입력해주세요"
           )}
@@ -60,9 +60,9 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                 <Link prefetch={false}
                   key={`${company.slug}-${service.slug}`}
                   href={servicePath(company.slug, service.slug)}
-                  className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-md sm:p-6"
+                  className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-primary-300 hover:shadow-md sm:p-6"
                 >
-                  <p className="text-sm font-bold text-blue-700">{company.name}</p>
+                  <p className="text-sm font-bold text-primary-700">{company.name}</p>
                   <h2 className="mt-1 break-keep text-xl font-black text-slate-950">
                     {service.title}
                   </h2>
@@ -71,7 +71,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                   </p>
                   <div className="mt-4 flex flex-wrap gap-2 text-xs font-bold">
                     {service.officialUrl && (
-                      <span className="rounded-full bg-blue-50 px-2.5 py-1 text-blue-700">
+                      <span className="rounded-full bg-primary-50 px-2.5 py-1 text-primary-700">
                         전화 전에 공식 메뉴 확인
                       </span>
                     )}
@@ -81,7 +81,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                       </span>
                     )}
                   </div>
-                  <p className="mt-5 text-sm font-black text-slate-950 group-hover:text-blue-700">
+                  <p className="mt-5 text-sm font-black text-slate-950 group-hover:text-primary-700">
                     이대로 해결하기 →
                   </p>
                 </Link>
@@ -95,7 +95,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                 이 문장과 똑같은 안내는 아직 없어요
               </p>
               <p className="mt-2 break-keep leading-7 text-slate-700">
-                전화부터 하지 마세요. <strong className="font-black text-blue-700">회사 이름을 붙여 다시 검색</strong>하거나,
+                전화부터 하지 마세요. <strong className="font-black text-primary-700">회사 이름을 붙여 다시 검색</strong>하거나,
                 아래에서 가장 비슷한 상황을 먼저 눌러보세요.
               </p>
               <p className="mt-3 text-sm font-bold text-slate-600">
@@ -105,14 +105,14 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
 
             <div className="mt-8 flex items-end justify-between gap-4">
               <div>
-                <p className="text-sm font-black text-blue-700">바로 해결할 수 있는 문제</p>
+                <p className="text-sm font-black text-primary-700">바로 해결할 수 있는 문제</p>
                 <h2 className="mt-1 text-2xl font-black text-slate-950">
                   많이 찾는 상황부터 확인하세요
                 </h2>
               </div>
               <Link prefetch={false}
                 href="/#services"
-                className="hidden text-sm font-bold text-slate-600 hover:text-blue-700 sm:block"
+                className="hidden text-sm font-bold text-slate-600 hover:text-primary-700 sm:block"
               >
                 업체 목록 보기 →
               </Link>
@@ -122,9 +122,9 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                 <Link prefetch={false}
                   key={`${company.slug}-${service.slug}`}
                   href={servicePath(company.slug, service.slug)}
-                  className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-blue-300 hover:shadow-md"
+                  className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-primary-300 hover:shadow-md"
                 >
-                  <p className="text-xs font-bold text-blue-700">{company.name}</p>
+                  <p className="text-xs font-bold text-primary-700">{company.name}</p>
                   <p className="mt-1 text-lg font-black text-slate-950">
                     {service.title}
                   </p>
