@@ -27,14 +27,14 @@ export default function PhoneActions({ phone }: PhoneActionsProps) {
     <div className="flex flex-wrap gap-2">
       <a
         href={`tel:${telNumber}`}
-        className="min-h-12 rounded-xl bg-black px-5 py-3.5 text-base font-bold text-white hover:bg-gray-800 sm:text-sm sm:font-semibold"
+        className="flex min-h-12 items-center rounded-[10px] bg-ink-900 px-5 text-button text-white hover:bg-black"
       >
         전화 걸기
       </a>
       <button
         type="button"
         onClick={copyPhone}
-        className="min-h-12 rounded-xl border border-gray-300 bg-white px-5 py-3.5 text-sm font-semibold hover:bg-gray-50"
+        className="flex min-h-12 items-center rounded-[10px] border border-line bg-white px-5 text-body-sm font-semibold text-ink-800 hover:bg-line-soft"
       >
         {copyStatus === "copied"
           ? "복사됨 ✓"

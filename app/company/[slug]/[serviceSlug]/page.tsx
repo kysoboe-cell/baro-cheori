@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import BoldText from "../../../components/BoldText";
+import FixedBottomCTA from "../../../components/FixedBottomCTA";
 import PhoneActions from "../../../components/PhoneActions";
+import ScreenshotGuide from "../../../components/ScreenshotGuide";
+import StepText from "../../../components/StepText";
 import { allServices, getService } from "../../../data/services";
 import {
   getCustomerCenterFallback,
@@ -23,8 +24,6 @@ import {
 type ServicePageProps = {
   params: Promise<{ slug: string; serviceSlug: string }>;
 };
-
-
 
 export function generateStaticParams() {
   return allServices.map(({ company, service }) => ({
@@ -83,6 +82,8 @@ export default async function ServicePage({ params }: ServicePageProps) {
   const officialNextStep =
     service.officialNextStep ?? getOfficialNextStep(company.categoryId);
   const path = servicePath(company.slug, service.slug);
+  const guide = service.screenshotGuide;
+  const guideSteps = guide?.steps ?? [];
   const relatedCompanyServices = company.services
     .filter(
       (item) =>
@@ -130,24 +131,31 @@ export default async function ServicePage({ params }: ServicePageProps) {
         }
       : null;
   const howToJsonLd =
-    service.screenshotGuide && service.screenshotGuide.steps.length > 0
+    guide && service.steps && service.steps.length > 0
       ? {
           "@context": "https://schema.org",
           "@type": "HowTo",
           name: `${company.name} ${service.title}`,
-          step: service.screenshotGuide.steps.map((step, index) => ({
-            "@type": "HowToStep",
-            position: index + 1,
-            text: step.caption.replace(/\*\*/g, ""),
-            image: absoluteUrl(
-              `/images/guides/${service.screenshotGuide!.folder}/${step.image}`
-            ),
-          })),
+          step: service.steps.map((text, index) => {
+            const linkedImage = guideSteps.find(
+              (guideStep) =>
+                guideStep.howToImage && guideStep.linkedStep === index + 1
+            );
+
+            return {
+              "@type": "HowToStep",
+              position: index + 1,
+              text: text.replace(/\*\*/g, ""),
+              ...(linkedImage
+                ? { image: absoluteUrl(linkedImage.img) }
+                : {}),
+            };
+          }),
         }
       : null;
 
   return (
-    <main className="bg-slate-50">
+    <main className="bg-white">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -171,141 +179,154 @@ export default async function ServicePage({ params }: ServicePageProps) {
         />
       )}
 
-      <article className="mx-auto max-w-[90rem] px-4 py-6 sm:px-6 sm:py-8">
+      <article className="mx-auto max-w-7xl px-4 py-6 pb-24 sm:px-6 sm:py-8 lg:pb-8">
         <nav
           aria-label="현재 위치"
-          className="flex flex-wrap gap-2 text-sm text-ink-600"
+          className="flex flex-wrap gap-2 text-caption text-ink-600"
         >
-          <Link prefetch={false} href="/" className="hover:text-black">
+          <Link prefetch={false} href="/" className="hover:text-ink-900">
             홈
           </Link>
           <span aria-hidden="true">/</span>
-          <Link prefetch={false} href={companyPath(company.slug)} className="hover:text-black">
+          <Link
+            prefetch={false}
+            href={companyPath(company.slug)}
+            className="hover:text-ink-900"
+          >
             {company.name}
           </Link>
           <span aria-hidden="true">/</span>
           <span>{service.title}</span>
         </nav>
 
-        <header className="mt-4 border-b border-slate-200 pb-5">
-          <p className="inline-flex rounded-full bg-primary-100 px-3 py-1 text-sm font-bold text-primary-800">
-            {company.name} 업무 안내
-          </p>
-          <h1 className="mt-1 break-keep text-3xl font-bold tracking-tight sm:text-4xl">
-            {company.name}{" "}
-            <span className="text-primary-700">{service.title}</span> 처리 방법
+        <header className="mt-4">
+          <h1 className="break-keep text-h1 text-ink-900 md:text-h1-md">
+            {company.name} {service.title} 처리 방법
           </h1>
-          <div className="mt-3 flex flex-col gap-2 text-gray-600 sm:flex-row sm:items-center sm:justify-between">
-            <p className="break-keep leading-7">
-              {isCustomerCenter ? (
-                <>전화해야 할 때 필요한 <strong className="font-bold text-slate-900">번호와 준비할 말</strong>만 짧게 모았어요.</>
-              ) : (
-                <>위에서 아래로 따라가세요. <strong className="font-bold text-primary-700 underline decoration-primary-300 decoration-4 underline-offset-4">강조된 핵심 단계</strong>는 꼭 확인하세요.</>
-              )}
-            </p>
-            {service.lastChecked && (
-              <p className="shrink-0 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-caption font-semibold text-ink-600">
+          {service.lastChecked && (
+            <p className="mt-3">
+              <span className="tnum inline-flex items-center rounded-full border border-line px-3 py-1 text-caption text-ink-600">
                 정보 확인일 {service.lastChecked}
-              </p>
-            )}
-          </div>
+              </span>
+            </p>
+          )}
         </header>
 
-        <div className="mt-5 grid items-start gap-4 lg:grid-cols-[minmax(0,1.5fr)_minmax(18rem,0.78fr)]">
-          <div className="min-w-0 space-y-4">
+        <div className="mt-6 grid items-start gap-8 lg:grid-cols-[minmax(0,42.5rem)_minmax(18rem,1fr)] lg:gap-12">
+          <div className="min-w-0 space-y-8 md:space-y-12">
             {service.quickSummary && service.quickSummary.length > 0 && (
-              <section className="rounded-2xl border border-primary-200 border-l-4 border-l-primary-700 bg-primary-50 p-4 sm:p-5">
-                <h2 className="text-lg font-bold text-primary-950">
+              <section className="border-l-4 border-primary pl-4">
+                <p className="text-caption font-semibold text-primary">
                   지금 이것부터 하세요
-                </h2>
-                <ul className="mt-2 space-y-2">
-                  {service.quickSummary.map((summary, index) => (
-                    <li
-                      key={summary}
-                      className={`flex items-start gap-2.5 rounded-xl leading-6 text-gray-900 ${
-                        index === 0
-                          ? "bg-white/80 px-3 py-3 text-base font-bold text-primary-950 shadow-sm"
-                          : "px-1 py-1 text-sm sm:text-base"
-                      }`}
-                    >
-                      <span
-                        aria-hidden="true"
-                        className={`mt-0.5 flex shrink-0 items-center justify-center font-bold ${
-                          index === 0
-                            ? "h-6 rounded-full bg-accent px-2 text-caption text-white"
-                            : "h-5 w-5 text-primary-700"
-                        }`}
+                </p>
+                <p className="mt-1 break-keep text-h3 text-ink-900 md:text-h3-md">
+                  <StepText text={service.quickSummary[0]} />
+                </p>
+                {service.quickSummary.length > 1 && (
+                  <ul className="mt-2 space-y-1">
+                    {service.quickSummary.slice(1).map((summary) => (
+                      <li
+                        key={summary}
+                        className="flex items-start gap-2 break-keep text-body-sm text-ink-700"
                       >
-                        {index === 0 ? "먼저" : "✓"}
-                      </span>
-                      <span
-                        className={
-                          index === 0
-                            ? "underline decoration-accent-line decoration-4 underline-offset-4"
-                            : undefined
-                        }
-                      >
-                        {summary}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
+                        <span
+                          aria-hidden="true"
+                          className="mt-0.5 shrink-0 font-semibold text-success"
+                        >
+                          ✓
+                        </span>
+                        <span>
+                          <StepText text={summary} />
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </section>
             )}
 
+            <section className="lg:hidden" aria-label="시작 전 준비물">
+              <div className="flex flex-wrap gap-2">
+                {preparations.map((preparation) => (
+                  <span
+                    key={preparation}
+                    className="inline-flex items-center gap-1.5 rounded-full border border-line px-3 py-1.5 text-caption text-ink-700"
+                  >
+                    <span aria-hidden="true" className="text-success">
+                      ✓
+                    </span>
+                    {preparation}
+                  </span>
+                ))}
+              </div>
+            </section>
+
             {service.steps && service.steps.length > 0 && (
-              <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-                <div className="flex items-end justify-between gap-3">
-                  <div>
-                    <p className="text-caption font-bold text-ink-600">처리 순서</p>
-                    <h2 className="mt-1 text-xl font-bold">
-                      순서대로 하되, 강조 표시된 단계는 꼭 보세요
-                    </h2>
-                  </div>
-                  <p className="shrink-0 text-caption text-ink-600">
-                    총 {service.steps.length}단계
-                  </p>
-                </div>
-                <ol className="mt-4 space-y-3">
+              <section aria-label="처리 순서">
+                <h2 className="text-h2 text-ink-900 md:text-h2-md">
+                  처리 순서
+                </h2>
+                <ol className="mt-4">
                   {service.steps.map((step, index) => {
                     const isKeyStep = keyStepIndexes.has(index);
+                    const linkedGuideStep = guideSteps.find(
+                      (guideStep) => guideStep.linkedStep === index + 1
+                    );
+                    const isLast = index === service.steps!.length - 1;
 
                     return (
                       <li
                         key={step}
-                        className={`flex items-start gap-3 rounded-xl p-3 ${
-                          isKeyStep
-                            ? "border border-primary-200 bg-primary-50"
-                            : "border border-transparent"
-                        }`}
+                        className="relative py-4 pl-[52px]"
                       >
-                        <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white ${
-                          isKeyStep
-                            ? index === 0
-                              ? "bg-accent"
-                              : "bg-primary-700"
-                            : "bg-slate-950"
-                        }`}>
+                        {!isLast && (
+                          <span
+                            aria-hidden="true"
+                            className="absolute bottom-[-20px] left-[17px] top-[56px] w-px bg-line"
+                          />
+                        )}
+                        <span
+                          aria-hidden="true"
+                          className={`tnum absolute left-0 top-4 flex h-9 w-9 items-center justify-center rounded-full text-body font-bold ${
+                            isKeyStep
+                              ? "bg-accent text-white"
+                              : "border border-line bg-white text-ink-800"
+                          }`}
+                        >
                           {index + 1}
                         </span>
-                        <div className="min-w-0 flex-1">
-                          {isKeyStep && (
-                            <p className={`mb-0.5 text-caption font-bold ${
-                              index === 0 ? "text-accent-dark" : "text-primary-700"
-                            }`}>
+                        {isKeyStep && (
+                          <p className="mb-1">
+                            <span className="inline-flex rounded-full bg-accent-soft px-2.5 py-0.5 text-caption font-semibold text-accent">
                               {index === 0 ? "가장 먼저" : "꼭 확인"}
-                            </p>
-                          )}
-                          <p className={`break-keep text-sm leading-7 sm:text-base ${
-                            isKeyStep
-                              ? `font-bold text-slate-950 underline decoration-4 underline-offset-4 ${
-                                  index === 0 ? "decoration-accent-line" : "decoration-primary-300"
-                                }`
-                              : "text-gray-800"
-                          }`}>
-                            {step}
+                            </span>
                           </p>
-                        </div>
+                        )}
+                        <p
+                          className={`break-keep text-body md:text-body-md ${
+                            isKeyStep
+                              ? "font-bold text-ink-900"
+                              : "text-ink-700"
+                          }`}
+                        >
+                          <StepText
+                            text={step}
+                            strongClassName={
+                              isKeyStep
+                                ? "font-bold text-ink-900"
+                                : "font-semibold text-ink-900"
+                            }
+                          />
+                          {linkedGuideStep && (
+                            <button
+                              type="button"
+                              data-guide-open={linkedGuideStep.n}
+                              className="-my-2 ml-1.5 inline-flex min-h-11 items-center px-1.5 align-middle text-caption font-semibold text-primary underline decoration-1 underline-offset-4 hover:decoration-2"
+                            >
+                              화면 보기
+                            </button>
+                          )}
+                        </p>
                       </li>
                     );
                   })}
@@ -313,88 +334,27 @@ export default async function ServicePage({ params }: ServicePageProps) {
               </section>
             )}
 
-            {service.screenshotGuide && service.screenshotGuide.steps.length > 0 && (
-              <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <div>
-                    <p className="text-caption font-bold text-ink-600">
-                      화면 그대로 따라하기
-                    </p>
-                    <h2 className="mt-1 text-xl font-bold">모바일 앱 캡처로 보기</h2>
-                  </div>
-                  {(service.guideCheckedAt ?? service.lastChecked) && (
-                    <p className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-caption font-semibold text-ink-600">
-                      {(service.guideCheckedAt ?? service.lastChecked)!.replace(
-                        /(\d{4})-(\d{2})-(\d{2})/,
-                        "$1년 $2월 $3일"
-                      )}{" "}
-                      · {service.screenshotGuide.platform}
-                    </p>
-                  )}
-                </div>
-
-                <ol className="mt-4 space-y-5">
-                  {service.screenshotGuide.steps.map((step, index) => (
-                    <li key={step.image}>
-                      <figure
-                        className={`overflow-hidden rounded-2xl border sm:flex sm:items-center ${
-                          step.emphasize
-                            ? "border-primary-300 bg-primary-50"
-                            : "border-gray-200 bg-white"
-                        }`}
-                      >
-                        <div className="sm:w-[340px] sm:max-w-[340px] sm:flex-none">
-                          <Image
-                            src={`/images/guides/${service.screenshotGuide!.folder}/${step.image}`}
-                            alt={step.alt}
-                            width={step.width}
-                            height={step.height}
-                            loading={index === 0 ? "eager" : "lazy"}
-                            sizes="(min-width: 640px) 340px, 100vw"
-                            className="w-full"
-                          />
-                        </div>
-                        <figcaption
-                          className={`break-keep p-4 text-sm leading-6 sm:flex-1 sm:px-6 sm:py-5 sm:text-base sm:leading-7 ${
-                            step.emphasize
-                              ? "font-bold text-primary-950"
-                              : "text-gray-800"
-                          }`}
-                        >
-                          <span
-                            aria-hidden="true"
-                            className="mb-2.5 hidden h-8 w-8 items-center justify-center rounded-full bg-accent text-sm font-bold text-white sm:flex"
-                          >
-                            {index + 1}
-                          </span>
-                          <BoldText
-                            text={step.caption}
-                            strongClassName={
-                              step.emphasize
-                                ? "font-bold text-primary-700"
-                                : "font-bold text-slate-950"
-                            }
-                          />
-                        </figcaption>
-                      </figure>
-
-                      {step.warningAfter && (
-                        <div className="mt-3 rounded-xl border border-amber-200 bg-amber-50 p-3.5">
-                          <p className="text-sm font-semibold leading-6 text-amber-950">
-                            <span aria-hidden="true" className="mr-1 font-bold text-amber-700">
-                              ⚠️
-                            </span>
-                            <BoldText
-                              text={step.warningAfter}
-                              strongClassName="font-bold text-amber-950"
-                            />
-                          </p>
-                        </div>
-                      )}
+            {service.tips && service.tips.length > 0 && (
+              <section
+                className="rounded-lg border-l-4 border-warn-line bg-warn-bg p-4 lg:hidden"
+                aria-label="주의"
+              >
+                <h2 className="text-body font-bold text-warn-text">주의</h2>
+                <ul className="mt-2 space-y-2">
+                  {service.tips.map((tip) => (
+                    <li
+                      key={tip}
+                      className="break-keep text-body-sm text-warn-text"
+                    >
+                      {tip}
                     </li>
                   ))}
-                </ol>
+                </ul>
               </section>
+            )}
+
+            {guide && guide.steps.length > 0 && (
+              <ScreenshotGuide guide={guide} />
             )}
 
             {service.priceTable && service.priceTable.length > 0 && (() => {
@@ -402,92 +362,88 @@ export default async function ServicePage({ params }: ServicePageProps) {
               const hasVisitFee = priceTable.some((row) => row.visitFee);
 
               return (
-              <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-                <p className="text-caption font-bold text-ink-600">
-                  {service.priceTableHeading?.label ?? "수리비 참고"}
-                </p>
-                <h2 className="mt-1 text-xl font-bold">
-                  {service.priceTableHeading?.title ??
-                    "품목별 대략 수리비 참고표"}
-                </h2>
-                <p className="mt-2 break-keep text-caption leading-5 text-ink-600">
-                  {service.priceTableNote ??
-                    "아래 금액은 부품 종류·모델·지역에 따라 달라지는 대략적인 참고 범위입니다. 정확한 금액은 방문 점검 후 견적으로 확정돼요."}
-                </p>
-                <div className="mt-4 overflow-x-auto">
-                  <table className="w-full min-w-[32rem] border-collapse text-sm">
-                    <thead>
-                      <tr className="border-b border-gray-200 text-left text-caption font-bold text-ink-600">
-                        <th scope="col" className="py-2 pr-3">
-                          {service.priceTableHeading?.columns?.item ?? "제품"}
-                        </th>
-                        <th scope="col" className="py-2 pr-3">
-                          {service.priceTableHeading?.columns?.issue ??
-                            "흔한 고장 유형"}
-                        </th>
-                        {hasVisitFee && (
-                          <th scope="col" className="py-2 pr-3">
-                            {service.priceTableHeading?.columns?.visitFee ??
-                              "출장비(참고)"}
+                <section aria-label="참고 비용표">
+                  <h2 className="text-h2 text-ink-900 md:text-h2-md">
+                    {service.priceTableHeading?.title ??
+                      "품목별 대략 수리비 참고표"}
+                  </h2>
+                  <p className="mt-2 break-keep text-caption text-ink-600">
+                    {service.priceTableNote ??
+                      "아래 금액은 부품 종류·모델·지역에 따라 달라지는 대략적인 참고 범위입니다. 정확한 금액은 방문 점검 후 견적으로 확정돼요."}
+                  </p>
+                  <div className="mt-4 overflow-x-auto">
+                    <table className="tnum w-full min-w-[32rem] border-collapse text-body-sm">
+                      <thead>
+                        <tr className="border-b border-line text-left text-caption text-ink-600">
+                          <th scope="col" className="py-2 pr-3 font-medium">
+                            {service.priceTableHeading?.columns?.item ?? "제품"}
                           </th>
-                        )}
-                        <th scope="col" className="py-2">
-                          {service.priceTableHeading?.columns?.priceRange ??
-                            "수리비 대략 범위(참고)"}
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {priceTable.map((row) => (
-                        <tr
-                          key={`${row.item}-${row.issue}`}
-                          className="border-b border-gray-100 align-top"
-                        >
-                          <td className="py-2.5 pr-3 font-bold text-slate-900">
-                            {row.item}
-                          </td>
-                          <td className="py-2.5 pr-3 text-gray-700">
-                            {row.issue}
-                          </td>
+                          <th scope="col" className="py-2 pr-3 font-medium">
+                            {service.priceTableHeading?.columns?.issue ??
+                              "흔한 고장 유형"}
+                          </th>
                           {hasVisitFee && (
-                            <td className="py-2.5 pr-3 text-gray-700">
-                              {row.visitFee}
-                            </td>
+                            <th scope="col" className="py-2 pr-3 font-medium">
+                              {service.priceTableHeading?.columns?.visitFee ??
+                                "출장비(참고)"}
+                            </th>
                           )}
-                          <td className="py-2.5 text-gray-700">
-                            {row.priceRange}
-                          </td>
+                          <th scope="col" className="py-2 font-medium">
+                            {service.priceTableHeading?.columns?.priceRange ??
+                              "수리비 대략 범위(참고)"}
+                          </th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </section>
+                      </thead>
+                      <tbody>
+                        {priceTable.map((row) => (
+                          <tr
+                            key={`${row.item}-${row.issue}`}
+                            className="border-b border-line-soft align-top"
+                          >
+                            <td className="py-2.5 pr-3 font-semibold text-ink-900">
+                              {row.item}
+                            </td>
+                            <td className="py-2.5 pr-3 text-ink-700">
+                              {row.issue}
+                            </td>
+                            {hasVisitFee && (
+                              <td className="py-2.5 pr-3 text-ink-700">
+                                {row.visitFee}
+                              </td>
+                            )}
+                            <td className="py-2.5 text-ink-700">
+                              {row.priceRange}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </section>
               );
             })()}
 
             {service.faq && service.faq.length > 0 && (
-              <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-                <p className="text-caption font-bold text-ink-600">자주 묻는 질문</p>
-                <h2 className="mt-1 text-xl font-bold">
-                  이런 것도 궁금하실 거예요
+              <section aria-label="자주 묻는 질문">
+                <h2 className="text-h2 text-ink-900 md:text-h2-md">
+                  자주 묻는 질문
                 </h2>
-                <div className="mt-4 space-y-2">
+                <div className="mt-2 border-t border-line-soft">
                   {service.faq.map((item) => (
                     <details
                       key={item.question}
-                      className="group rounded-xl border border-gray-200 bg-gray-50 p-4 open:bg-white"
+                      className="group border-b border-line-soft"
                     >
-                      <summary className="flex cursor-pointer list-none items-start justify-between gap-3 font-bold text-slate-900 marker:content-none">
-                        <span>Q. {item.question}</span>
+                      <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-3 py-2 text-body font-semibold text-ink-900 marker:content-none">
+                        <span className="break-keep">{item.question}</span>
                         <span
                           aria-hidden="true"
-                          className="mt-0.5 shrink-0 text-ink-600 transition-transform group-open:rotate-180"
+                          className="shrink-0 text-ink-500 transition-transform group-open:rotate-180"
                         >
                           ⌄
                         </span>
                       </summary>
-                      <p className="mt-3 border-t border-gray-100 pt-3 text-sm leading-6 text-gray-700">
+                      <p className="break-keep pb-4 text-body text-ink-700">
                         {item.answer}
                       </p>
                     </details>
@@ -498,152 +454,152 @@ export default async function ServicePage({ params }: ServicePageProps) {
           </div>
 
           <div className="min-w-0 space-y-4 lg:col-start-2">
-            <div className="space-y-4">
-              <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-                <p className="text-caption font-bold text-ink-600">시작 전 준비</p>
-                <h2 className="mt-1 text-xl font-bold">이것만 챙기세요</h2>
-                <ul className="mt-3 space-y-2">
-                  {preparations.map((preparation) => (
-                    <li
-                      key={preparation}
-                      className="flex items-start gap-2 rounded-xl bg-gray-50 px-3 py-2.5 text-sm font-bold leading-6 text-slate-800"
+            <section className="hidden rounded-xl border border-line bg-white p-5 lg:block">
+              <h2 className="text-h3 text-ink-900">시작 전 준비</h2>
+              <ul className="mt-3 space-y-2">
+                {preparations.map((preparation) => (
+                  <li
+                    key={preparation}
+                    className="flex items-start gap-2 break-keep text-body-sm text-ink-700"
+                  >
+                    <span
+                      aria-hidden="true"
+                      className="mt-0.5 font-semibold text-success"
                     >
-                      <span
-                        aria-hidden="true"
-                        className="font-bold text-primary-700"
-                      >
-                        ✓
-                      </span>
-                      <span>{preparation}</span>
+                      ✓
+                    </span>
+                    <span>{preparation}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+
+            {service.tips && service.tips.length > 0 && (
+              <section className="hidden rounded-xl border-l-4 border-warn-line bg-warn-bg p-5 lg:block">
+                <h2 className="text-h3 text-warn-text">주의</h2>
+                <ul className="mt-2 space-y-2">
+                  {service.tips.map((tip) => (
+                    <li
+                      key={tip}
+                      className="break-keep text-body-sm text-warn-text"
+                    >
+                      {tip}
                     </li>
                   ))}
                 </ul>
               </section>
+            )}
 
-              {service.tips && service.tips.length > 0 && (
-                <section className="rounded-2xl border border-amber-200 bg-amber-50 p-5">
-                  <h2 className="font-bold">💡 이것만 주의하세요</h2>
-                  <ul className="mt-3 space-y-2.5 text-sm leading-6 text-gray-700">
-                    {service.tips.map((tip) => (
-                      <li key={tip} className="flex items-start gap-2">
-                        <span aria-hidden="true" className="font-bold text-amber-700">!</span>
-                        <span className="font-semibold text-amber-950">
-                          {tip}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </section>
-              )}
-            </div>
+            {(phone || hours || usefulOfficialUrl) && (
+              <section
+                id="contact-block"
+                className="rounded-xl border border-line bg-white p-5"
+              >
+                <div className="flex items-center justify-between gap-3">
+                  <h2 className="text-h3 text-ink-900">
+                    {isCustomerCenter
+                      ? "전화할 때 이것만 확인"
+                      : "직접 해결이 막혔을 때"}
+                  </h2>
+                  <span className="shrink-0 rounded-full bg-primary-soft px-2.5 py-1 text-caption font-semibold text-primary">
+                    마지막 수단
+                  </span>
+                </div>
 
-            <aside>
-              {(phone || hours || usefulOfficialUrl) && (
-                <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-                  <div className="flex items-center justify-between gap-3">
-                    <h2 className="text-lg font-bold">
-                      {isCustomerCenter
-                        ? "전화할 때 이것만 확인"
-                        : "직접 해결이 막혔을 때"}
-                    </h2>
-                    <span className="rounded-full bg-primary-50 px-2.5 py-1 text-caption font-bold text-primary-700">
-                      마지막 수단
-                    </span>
+                {!isCustomerCenter && usefulOfficialUrl && (
+                  <div className="mt-4 border-t border-line-soft pt-4">
+                    <p className="mb-3 text-caption text-ink-600">
+                      {officialLinkHeading}
+                    </p>
+                    <a
+                      href={usefulOfficialUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex min-h-12 w-full items-center justify-center rounded-[10px] bg-primary px-4 text-center text-button text-white hover:bg-primary-strong"
+                    >
+                      {officialActionLabel} ↗
+                    </a>
+                    <p className="mt-2 break-keep text-caption text-ink-600">
+                      {officialNextStep}
+                    </p>
                   </div>
+                )}
 
-                  {!isCustomerCenter && usefulOfficialUrl && (
-                    <div className="mt-4 border-t border-gray-100 pt-4">
-                      <p className="mb-3 text-sm font-semibold text-ink-600">
-                        {officialLinkHeading}
+                {phone && (
+                  <div className="mt-4 border-t border-line-soft pt-4">
+                    <p className="text-caption text-ink-600">
+                      {isCustomerCenter
+                        ? "안내 전화"
+                        : needsImmediateBlock
+                          ? "지금 바로 막아야 할 때"
+                          : usesCustomerCenterFallback
+                            ? "위 방법으로 해결되지 않을 때만"
+                            : "그래도 해결되지 않을 때만"}
+                    </p>
+                    <p className="tnum mt-1 text-h2 text-ink-900 md:text-h2-md">
+                      {phone.number}
+                    </p>
+                    {phone.feeNote && (
+                      <p className="mt-1 break-keep text-caption text-ink-600">
+                        {phone.feeNote}
                       </p>
-                      <a
-                        href={usefulOfficialUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex w-full justify-center rounded-xl bg-primary-700 px-4 py-3 text-center text-sm font-bold text-white hover:bg-primary-800"
-                      >
-                        {officialActionLabel} ↗
-                      </a>
-                      <p className="mt-2 text-caption leading-5 text-ink-600">
-                        {officialNextStep}
-                      </p>
+                    )}
+                    <div className="mt-3">
+                      <PhoneActions phone={phone.number} />
                     </div>
-                  )}
-
-                  {phone && (
-                    <div className="mt-4 border-t border-gray-100 pt-4">
-                      <p className="text-sm font-semibold text-ink-600">
-                        {isCustomerCenter
-                          ? "안내 전화"
-                          : needsImmediateBlock
-                            ? "지금 바로 막아야 할 때"
-                            : usesCustomerCenterFallback
-                              ? "위 방법으로 해결되지 않을 때만"
-                              : "그래도 해결되지 않을 때만"}
-                      </p>
-                      <p className="mt-1 text-2xl font-bold">
-                        {phone.number}
-                      </p>
-                      {phone.feeNote && (
-                        <p className="mt-1 text-caption leading-5 text-ink-600">
-                          {phone.feeNote}
+                    {phoneGuide && phoneGuide.length > 0 && (
+                      <div className="mt-4 rounded-lg bg-bg-soft p-3">
+                        <p className="text-caption font-semibold text-ink-800">
+                          전화해야 한다면 이렇게 하세요
                         </p>
-                      )}
-                      <div className="mt-3">
-                        <PhoneActions phone={phone.number} />
+                        <ol className="mt-2 space-y-2">
+                          {phoneGuide.map((guideLine, index) => (
+                            <li
+                              key={guideLine}
+                              className="flex items-start gap-2 break-keep text-body-sm text-ink-700"
+                            >
+                              <span className="tnum font-semibold text-primary">
+                                {index + 1}.
+                              </span>
+                              <span>{guideLine}</span>
+                            </li>
+                          ))}
+                        </ol>
                       </div>
-                      {phoneGuide && phoneGuide.length > 0 && (
-                        <div className="mt-4 rounded-xl bg-slate-50 p-3">
-                          <p className="text-caption font-bold text-slate-700">
-                            전화해야 한다면 이렇게 하세요
-                          </p>
-                          <ol className="mt-2 space-y-2 text-sm font-semibold leading-6 text-slate-800">
-                            {phoneGuide.map((guide, index) => (
-                              <li key={guide} className="flex items-start gap-2">
-                                <span className="font-bold text-primary-700">
-                                  {index + 1}.
-                                </span>
-                                <span>{guide}</span>
-                              </li>
-                            ))}
-                          </ol>
-                        </div>
-                      )}
-                      {hours && (
-                        <div className="mt-4 border-t border-gray-100 pt-4">
-                          <p className="text-sm font-semibold text-ink-600">
-                            상담 가능 시간
-                          </p>
-                          <p className="mt-1 font-bold leading-6">{hours}</p>
-                        </div>
-                      )}
-                    </div>
-                  )}
-                </section>
-              )}
-            </aside>
+                    )}
+                    {hours && (
+                      <div className="mt-4 border-t border-line-soft pt-4">
+                        <p className="text-caption text-ink-600">
+                          상담 가능 시간
+                        </p>
+                        <p className="tnum mt-1 break-keep text-body-sm font-semibold text-ink-800">
+                          {hours}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </section>
+            )}
           </div>
         </div>
 
         {(relatedCompanyServices.length > 0 ||
           relatedSameTaskServices.length > 0) && (
-          <section className="mt-5 rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-            <p className="text-caption font-bold text-primary-700">관련 업무</p>
-            <h2 className="mt-1 text-xl font-bold">
-              이어서 필요한 안내도 확인하세요
-            </h2>
-            <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <section className="mt-8 border-t border-line-soft pt-6 md:mt-12">
+            <h2 className="text-h2 text-ink-900 md:text-h2-md">관련 업무</h2>
+            <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
               {relatedCompanyServices.map((relatedService) => (
                 <Link prefetch={false}
                   key={`${company.slug}-${relatedService.slug}`}
                   href={servicePath(company.slug, relatedService.slug)}
-                  className="rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 transition hover:border-gray-500 hover:bg-white"
+                  className="rounded-xl border border-line bg-white px-4 py-3 transition hover:border-primary/40"
                 >
-                  <span className="text-caption font-semibold text-ink-600">
+                  <span className="block text-caption text-ink-600">
                     {company.name}
                   </span>
-                  <span className="mt-1 block font-bold">
-                    {relatedService.title} 처리 방법 →
+                  <span className="mt-0.5 block break-keep text-body-sm font-semibold text-ink-900">
+                    {relatedService.title} 처리 방법 ›
                   </span>
                 </Link>
               ))}
@@ -651,13 +607,13 @@ export default async function ServicePage({ params }: ServicePageProps) {
                 <Link prefetch={false}
                   key={`${related.company.slug}-${related.service.slug}`}
                   href={servicePath(related.company.slug, related.service.slug)}
-                  className="rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 transition hover:border-gray-500 hover:bg-white"
+                  className="rounded-xl border border-line bg-white px-4 py-3 transition hover:border-primary/40"
                 >
-                  <span className="text-caption font-semibold text-ink-600">
+                  <span className="block text-caption text-ink-600">
                     다른 업체 비교
                   </span>
-                  <span className="mt-1 block font-bold">
-                    {related.company.name} {related.service.title} →
+                  <span className="mt-0.5 block break-keep text-body-sm font-semibold text-ink-900">
+                    {related.company.name} {related.service.title} ›
                   </span>
                 </Link>
               ))}
@@ -665,13 +621,18 @@ export default async function ServicePage({ params }: ServicePageProps) {
           </section>
         )}
 
-        <section className="mt-5 rounded-2xl border border-gray-200 bg-white px-5 py-4 text-caption leading-5 text-gray-600">
-          <p>
-            <span className="font-bold text-gray-900">안내 범위 · </span>
-            바로처리는 {company.name}의 공식 서비스가 아니며 제휴·대행 관계가 없습니다. 업체 정책이나 화면은 정보 확인일 이후 변경될 수 있습니다.
-          </p>
-        </section>
+        <p className="mt-8 border-t border-line-soft pt-5 text-caption text-ink-600 md:mt-12">
+          <span className="font-semibold text-ink-800">안내 범위 · </span>
+          바로처리는 {company.name}의 공식 서비스가 아니며 제휴·대행 관계가
+          없습니다. 업체 정책이나 화면은 정보 확인일 이후 변경될 수 있습니다.
+        </p>
       </article>
+
+      <FixedBottomCTA
+        phone={phone?.number}
+        officialUrl={usefulOfficialUrl ?? undefined}
+        officialLabel="공식 페이지 열기"
+      />
     </main>
   );
 }
