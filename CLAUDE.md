@@ -82,6 +82,12 @@ Claude Code가 이 프로젝트에서 작업할 때 자동으로 읽는 지침 �
   - **로그인 표기 4곳 점검**: `lguplus.ts`의 `internet-trouble`·`slow-internet`(둘 다 `self-troubleshoot/home-device` 사용, U+ID 로그인으로 이동)과 `netflix.ts`의 `membership-cancel`(cancelplan)·`payment-method`(account) — 넷 다 `officialLinkType`이 아예 없어서 `"login"`을 추가(화면 표기가 "로그인 후 이어서 처리"로 바뀜). `netflix.ts`의 `charged-after-cancel`은 URL이 도움말 문서라 로그인 리다이렉트 대상이 아니므로 스펙의 "4곳"에서 제외.
   - **검증**: 빌드 152페이지 유지·lint 통과. 실사이트 — CJ `parcel-not-received` 새 주소 노출, 신한카드 `lost-card` 새 주소·새 라벨 노출·화석 URL 0건, 4곳 전부 "로그인 후 이어서 처리" 노출 확인. 앱 전체에서 실제로 렌더되는 화석 URL 0건(CJ `customer-center`의 죽은 데이터 1건만 예외, 스펙 범위 밖). 사이트맵 146개 URL 전부 200.
   - **실수 기록**: 커밋 메시지 제목에 이전 v9(11번가) 제목을 그대로 복붙해 내용과 안 맞았음 — 즉시 알아채고 `git commit --amend` + `push --force-with-lease`로 정정(직전 단일 커밋이라 안전하게 덮어씀 가능했음).
+- **스펙 v11 "애드센스 코드 삽입" 반영·배포·푸시(2026-08-21)**: `콘텐츠-초안/바로처리_애드센스코드_v11.md` 기준. 애드센스 계정 생성 완료(kysoboe 계정, 게시자 ID `ca-pub-6669238622556321`) → 심사 요청 전 필요한 사이트 소유 확인 수단 배포.
+  - `app/layout.tsx` head에 `adsbygoogle.js` 스크립트 태그 추가(`async`, `crossOrigin` — JSX라 대문자 O 주의). 이 스크립트는 심사 전엔 광고를 그리지 않음.
+  - `public/ads.txt` 신설(표준 형식 한 줄: `google.com, pub-6669238622556321, DIRECT, f08c47fec0942fa0`) — 소유 확인 수단 이중화.
+  - **`AdSlot`·`NEXT_PUBLIC_ADS` 플래그는 건드리지 않음 — 광고는 여전히 잠든 상태.** 배포 후 실사이트 6개 페이지에서 `data-ad-slot` 0건 재확인.
+  - **검증**: 빌드 152페이지 유지. 로컬(JS 실측, Browser pane 스크린샷은 이번에도 안 떠서 `javascript_tool`로 대체)에서 `data-ad-slot` 0·빈 박스 0·콘솔 오류 0 확인 후 배포. 실사이트 head에 pub ID 노출(홈·상세 양쪽), `/ads.txt`가 배포 직후 몇 차례 간헐 404였다가(엣지 전파 지연, 8연속 재요청으로 200 안정화 확인) 내용까지 정확히 일치. 사이트맵 146개 URL 전부 200.
+  - **다음은 애드센스 화면에서 유석 님/기획실장 몫**: [Verify] → [Request review]로 심사 시작. 클코 몫은 배포까지 끝.
 - 지금 단계: **색인 시작됨(2026-08-20 심야, 기획실장이 서치콘솔에서 직접 확인).** 홈 · `/company/coupang/wow-membership-cancel` · `/company/netflix/membership-cancel` · `/problem/subscription-cancel`(그날 만든 허브)까지 **Page is indexed**. `/company/samsung-electronics/repair-cost-warranty`와 `/problem/charged-after-cancel`은 색인 요청 접수 상태. → **애드센스 신청 방아쇠 조건은 이미 충족**됐고, v7 배포까지 끝났으므로 심사원이 보는 페이지(privacy·about)가 정리된 상태로 신청할 수 있음.
 - **다른 세션(Claude 웹 채팅, 기획실장)에서 병행 완료된 항목** — 기획노트.md 참고, 이 문서에도 동기화: `www.barocheori.com` DNS 리다이렉트 추가 완료, GA4 ↔ 구글 서치콘솔 도메인 속성(`sc-domain:barocheori.com`) 연동 완료. 아래 "남은 할 일"에서 제거함.
 
@@ -89,7 +95,7 @@ Claude Code가 이 프로젝트에서 작업할 때 자동으로 읽는 지침 �
 1. **콘텐츠 보강 계속**: 가전 4 + 쇼핑몰/구독/카드 14 + 쿠팡 와우·구독 해지 9 + 택배/카드/통신 14 = 41페이지 + 스크린샷 가이드 파일럿 1개 완료(`콘텐츠-초안` 폴더에 배치별 초안 보관 중, Tier2까지 소진). 다음은 Tier3(위약금·취소·교환·주문조회 등, 약 30개 안팎) — 관심도가 상대적으로 낮은 편이라 여기서 색인·트래픽 반응을 먼저 보고 이어갈지 판단하는 것도 방법. 스크린샷 가이드는 다음 파일럿 후보(넷플릭스 해지, 삼성/LG 수리비, 유튜브 프리미엄 해지)로 확장 가능.
 2. **서치콘솔에 `/problem/charged-after-cancel` URL 검사·색인 요청 1건**(허브 10개 대표로) — 스펙 v5 체크리스트의 마지막 남은 항목, 대시보드 작업이라 기획실장(웹 채팅) 쪽에서 처리
 3. 색인 확인 계속: `site:` 검색 + 서치콘솔/서치어드바이저 보고서(8/27 자동 점검 예약됨)
-4. **애드센스 신청 — 지금 바로 가능.** 방아쇠(색인 시작)는 8/20에 충족됐고 v7까지 배포 완료. 코드 쪽 사전 준비는 v6에서 전부 끝났고, 남은 건 유석 님 계정 작업 15분(스펙 v6 6장 체크리스트 참고 — kysoboe@gmail.com 계정 확인 → 사이트 추가 → 코드 스니펫 받아 클코에게 전달 → 검토 요청). **승인 후 클코가 할 일**: pub ID 코드를 `layout.tsx` 삽입 지점에 넣기 → `NEXT_PUBLIC_ADS=on` + AdSlot 4곳에 in-article 코드 반영(자동광고 말고 수동 배치부터) → ads.txt 생성
+4. **애드센스 심사 요청 — 지금 바로 가능.** 계정 생성 완료(2026-08-21, ca-pub-6669238622556321), v11에서 사이트 소유 확인 코드(head 스크립트 + ads.txt) 배포까지 끝남. 남은 건 애드센스 화면에서 [Verify] → [Request review] 클릭(유석 님/기획실장 몫). **승인 후 클코가 할 일**: `NEXT_PUBLIC_ADS=on` + AdSlot 4곳에 in-article 코드 반영(자동광고 말고 수동 배치부터)
 5. **공식 링크 전수 점검 완료(v10, 2026-08-21)** — 70개 중 44개 실브라우저 확인, 진짜 문제 2건(CJ대한통운·신한카드) 수정 완료. 미확인 잔여: `cs.11st.co.kr`·`kt.com/selfcare`·`mc.coupang.com` 주문목록·FAQ·네이버 help 7개(확장이 해당 도메인을 차단해 원격도 판단 불가) — 유석 님이 폰으로 한 번씩 눌러보면 확정됨
 6. 쿠팡파트너스/인터넷 가입 CPA 제휴 (콘텐츠 보강 후)
 7. ~~(선택) Playwright용 크롬 설치~~ → **해결됨(2026-08-20)**: `npx playwright install chromium`으로 관리자 권한 없이 설치 완료, CLI 스크린샷 검증 가능
