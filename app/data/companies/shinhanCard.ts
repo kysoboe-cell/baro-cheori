@@ -9,8 +9,7 @@ import {
 } from "../cardCommon";
 
 const homeUrl = "https://www.shinhancard.com/";
-const arsUrl =
-  "https://www.shinhancard.com/conts/store/customor_center/ars_gu/cardCounsel_voice.jsp";
+const arsUrl = "https://www.shinhancard.com/pconts/html/bridge/2012734_40832.html";
 
 export const shinhanCard: Company = {
   slug: "shinhan-card",
@@ -36,7 +35,7 @@ export const shinhanCard: Company = {
       steps: makeLostCardSteps("신한카드", "1544-7200"),
       tips: lostCardTips,
       officialUrl: arsUrl,
-      officialActionLabel: "신한카드 분실신고 ARS 안내 열기",
+      officialActionLabel: "신한카드 상담 안내 열기",
       faq: [
         {
           question: "분실신고 후 바로 재발급 신청까지 해야 하나요?",
@@ -59,7 +58,7 @@ export const shinhanCard: Company = {
             "카드 종류(개인·법인)에 따라 안내 번호가 다를 수 있어요. 카드 뒷면 번호를 확인하는 게 가장 정확해요.",
         },
       ],
-      lastChecked: "2026-08-20",
+      lastChecked: "2026-08-21",
     },
     {
       slug: "card-reissue",
@@ -174,8 +173,8 @@ export const shinhanCard: Company = {
         "해외에서 분실했다면 공식 홈페이지에서 해외 전용번호를 확인하세요.",
       ],
       officialUrl: arsUrl,
-      officialActionLabel: "신한카드 ARS 안내 열기",
-      lastChecked: "2026-08-18",
+      officialActionLabel: "신한카드 상담 안내 열기",
+      lastChecked: "2026-08-21",
     },
   ],
 };

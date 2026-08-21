@@ -37,6 +37,7 @@ export const netflix: Company = {
       ],
       officialUrl: "https://www.netflix.com/cancelplan",
       officialActionLabel: "넷플릭스 해지 화면 열기",
+      officialLinkType: "login",
       screenshotGuide: {
         checkedAt: "2026-08-20",
         basis: "넷플릭스 안드로이드 앱 화면 기준",
@@ -201,6 +202,7 @@ export const netflix: Company = {
       ],
       officialUrl: "https://www.netflix.com/account",
       officialActionLabel: "넷플릭스 계정 열기",
+      officialLinkType: "login",
       lastChecked: "2026-08-19",
     },
   ],

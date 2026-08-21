@@ -93,7 +93,7 @@ export const cjLogistics: Company = {
             "공동현관·택배함 CCTV는 관리사무소를 통해 확인 요청할 수 있어요. 개인이 직접 열람하는 건 제한될 수 있어 관리사무소 협조가 필요해요.",
         },
       ],
-      lastChecked: "2026-08-20",
+      lastChecked: "2026-08-21",
     },
     {
       slug: "return-reservation",

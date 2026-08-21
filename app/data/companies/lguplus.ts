@@ -355,6 +355,8 @@ export const lguplus: Company = {
 
       officialActionLabel: "U+ 인터넷/IPTV 간편진단 열기",
 
+      officialLinkType: "login",
+
       lastChecked: "2026-08-18",
     },
 
@@ -394,6 +396,8 @@ export const lguplus: Company = {
         "https://www.lguplus.com/support/self-troubleshoot/home-device",
 
       officialActionLabel: "U+ 인터넷/IPTV 간편진단 열기",
+
+      officialLinkType: "login",
 
       lastChecked: "2026-08-18",
     },
