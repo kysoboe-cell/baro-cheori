@@ -5,7 +5,7 @@
  */
 export default function BoldText({
   text,
-  strongClassName = "font-bold text-slate-950",
+  strongClassName = "font-bold text-ink-900",
 }: {
   text: string;
   strongClassName?: string;

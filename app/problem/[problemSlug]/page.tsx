@@ -69,12 +69,14 @@ export default async function ProblemPage({ params }: ProblemPageProps) {
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
+    // 화면 빵부스러기는 "홈 / 상황별 / …" 세 칸이지만, "상황별"은 홈과 같은
+    // URL이라 구조화 데이터에서는 두 단계로 둡니다(같은 URL이 두 번 들어가면
+    // 구글이 이상하게 봅니다).
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "홈", item: absoluteUrl("/") },
-      { "@type": "ListItem", position: 2, name: "상황별", item: absoluteUrl("/") },
       {
         "@type": "ListItem",
-        position: 3,
+        position: 2,
         name: problem.title,
         item: absoluteUrl(path),
       },

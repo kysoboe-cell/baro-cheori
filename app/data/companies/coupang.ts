@@ -326,6 +326,7 @@ export const coupang: Company = {
           {
             n: 1,
             img: "/images/guides/coupang-wow-cancel/step1-home.webp",
+            thumb: "/images/guides/coupang-wow-cancel/step1-home-thumb.webp",
             label: "마이쿠팡",
             caption:
               "쿠팡 앱을 열고 오른쪽 아래 **마이쿠팡**(사람 모양)을 누르세요.",
@@ -336,6 +337,7 @@ export const coupang: Company = {
           {
             n: 2,
             img: "/images/guides/coupang-wow-cancel/step2-mypage.webp",
+            thumb: "/images/guides/coupang-wow-cancel/step2-mypage-thumb.webp",
             label: "설정",
             caption: "오른쪽 위 **톱니바퀴(설정)** 아이콘을 누르세요.",
             alt: "마이쿠팡 화면 — 오른쪽 위 설정(톱니바퀴) 아이콘 위치 표시",
@@ -344,6 +346,7 @@ export const coupang: Company = {
           {
             n: 3,
             img: "/images/guides/coupang-wow-cancel/step3-myinfo.webp",
+            thumb: "/images/guides/coupang-wow-cancel/step3-myinfo-thumb.webp",
             label: "와우 멤버십",
             caption:
               "내정보관리 화면을 아래로 내려 멤버십 항목의 **와우 멤버십**을 누르세요.",
@@ -353,6 +356,7 @@ export const coupang: Company = {
           {
             n: 4,
             img: "/images/guides/coupang-wow-cancel/step4-wow-top.webp",
+            thumb: "/images/guides/coupang-wow-cancel/step4-wow-top-thumb.webp",
             label: "아래로 스크롤",
             caption: "와우 멤버십 화면이 열리면 **아래로 스크롤**하세요.",
             alt: "와우 멤버십 화면 상단 — 아래로 스크롤하라는 안내 표시",
@@ -361,6 +365,7 @@ export const coupang: Company = {
           {
             n: 5,
             img: "/images/guides/coupang-wow-cancel/step5-cancel-row.webp",
+            thumb: "/images/guides/coupang-wow-cancel/step5-cancel-row-thumb.webp",
             label: "해지하기",
             caption:
               "중간쯤 '월회비 결제수단' 바로 아래 **해지하기**를 누르세요.",
@@ -373,6 +378,7 @@ export const coupang: Company = {
           {
             n: 6,
             img: "/images/guides/coupang-wow-cancel/step6-retention.webp",
+            thumb: "/images/guides/coupang-wow-cancel/step6-retention-thumb.webp",
             label: "붙잡는 화면",
             caption:
               "\"혜택이 남았다\"며 붙잡는 화면이 나와도 그대로 **아래로 스크롤**하세요.",
@@ -382,6 +388,7 @@ export const coupang: Company = {
           {
             n: 7,
             img: "/images/guides/coupang-wow-cancel/step7-final.webp",
+            thumb: "/images/guides/coupang-wow-cancel/step7-final-thumb.webp",
             label: "해지 신청 완료",
             caption:
               "파란 큰 버튼은 **'유지하기'라서 누르면 해지가 안 됩니다.** 그 아래 흰색 **해지 신청 완료하기**를 눌러야 끝나요.",

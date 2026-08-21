@@ -8,31 +8,31 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <main className="bg-gray-50">
-      <article className="mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16">
-        <p className="text-sm font-bold text-primary-700">개인정보 안내</p>
-        <h1 className="mt-2 text-4xl font-bold tracking-tight">현재 바로처리는 개인정보를 직접 입력받지 않습니다</h1>
-        <div className="mt-8 space-y-5 leading-7 text-gray-700">
-          <section className="rounded-2xl border border-gray-200 bg-white p-6">
-            <h2 className="text-xl font-bold text-gray-950">사이트에서 받지 않는 정보</h2>
+    <main className="bg-bg-soft">
+      <article className="mx-auto max-w-[42.5rem] px-4 py-6 sm:px-6 sm:py-8">
+        <p className="text-caption font-semibold text-primary">개인정보 안내</p>
+        <h1 className="mt-2 break-keep text-h1 text-ink-900 md:text-h1-md">현재 바로처리는 개인정보를 직접 입력받지 않습니다</h1>
+        <div className="mt-6 space-y-3 break-keep text-body text-ink-700 md:text-body-md">
+          <section className="rounded-xl border border-line bg-white p-5">
+            <h2 className="text-h2 text-ink-900 md:text-h2-md">사이트에서 받지 않는 정보</h2>
             <p className="mt-3">
               회원가입, 문의 폼, 주문 대행 기능이 없으며 이름·전화번호·주문번호 같은 개인정보를 사이트에 입력받아 저장하지 않습니다. 방문 통계는 Google Analytics로 익명 집계만 하며, 이용자를 식별할 수 있는 정보와 연결하지 않습니다.
             </p>
           </section>
-          <section className="rounded-2xl border border-gray-200 bg-white p-6">
-            <h2 className="text-xl font-bold text-gray-950">호스팅 기술 기록</h2>
+          <section className="rounded-xl border border-line bg-white p-5">
+            <h2 className="text-h2 text-ink-900 md:text-h2-md">호스팅 기술 기록</h2>
             <p className="mt-3">
               사이트 운영과 보안을 위해 호스팅 제공자가 접속 시각, IP 주소, 브라우저 정보 같은 기술 기록을 처리할 수 있습니다. 이는 호스팅 제공자의 정책과 보관 기준을 따릅니다.
             </p>
           </section>
-          <section className="rounded-2xl border border-gray-200 bg-white p-6">
-            <h2 className="text-xl font-bold text-gray-950">외부 공식 링크와 전화</h2>
+          <section className="rounded-xl border border-line bg-white p-5">
+            <h2 className="text-h2 text-ink-900 md:text-h2-md">외부 공식 링크와 전화</h2>
             <p className="mt-3">
               공식 페이지로 이동하거나 전화를 걸면 해당 업체의 개인정보 처리방침과 이용 조건이 적용됩니다. 본인인증 정보는 반드시 연결된 공식 화면에서만 입력하세요.
             </p>
           </section>
-          <section className="rounded-2xl border border-gray-200 bg-white p-6">
-            <h2 className="text-xl font-bold text-gray-950">광고와 쿠키</h2>
+          <section className="rounded-xl border border-line bg-white p-5">
+            <h2 className="text-h2 text-ink-900 md:text-h2-md">광고와 쿠키</h2>
             <p className="mt-3">
               바로처리는 서비스 운영을 위해 Google AdSense 광고 게재를 준비하고 있습니다. 광고가 게재되는 경우:
             </p>
@@ -67,14 +67,14 @@ export default function PrivacyPage() {
               바로처리는 이 외에 이용자를 식별할 수 있는 개인정보를 직접 수집하지 않으며, 방문 통계는 Google Analytics를 통해 익명으로 집계됩니다.
             </p>
           </section>
-          <section className="rounded-2xl border border-gray-200 bg-white p-6">
-            <h2 className="text-xl font-bold text-gray-950">자발적 후원</h2>
+          <section className="rounded-xl border border-line bg-white p-5">
+            <h2 className="text-h2 text-ink-900 md:text-h2-md">자발적 후원</h2>
             <p className="mt-3">
               커피 후원은 계좌번호를 복사할 수 있게 제공하는 선택 기능입니다. 바로처리는 이 기능을 통해 후원자의 개인정보를 별도로 수집하거나 서비스 이용과 연결하지 않습니다.
             </p>
           </section>
         </div>
-        <p className="mt-8 text-sm text-ink-600">
+        <p className="mt-8 text-body-sm text-ink-600">
           문의:{" "}
           <a
             href="mailto:kysoboe@gmail.com"
@@ -83,7 +83,7 @@ export default function PrivacyPage() {
             kysoboe@gmail.com
           </a>
         </p>
-        <p className="mt-2 text-sm text-ink-600">시행일: 2026-08-21</p>
+        <p className="mt-2 text-caption text-ink-600">시행일: 2026-08-21</p>
       </article>
     </main>
   );

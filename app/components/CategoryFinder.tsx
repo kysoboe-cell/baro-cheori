@@ -95,7 +95,7 @@ export default function CategoryFinder({ variant }: CategoryFinderProps) {
               type="button"
               aria-label="업체 목록 닫기"
               onClick={() => setActiveCategory(null)}
-              className="fixed inset-0 z-40 cursor-default bg-slate-950/30 backdrop-blur-[1px]"
+              className="fixed inset-0 z-40 cursor-default bg-ink-900/30 backdrop-blur-[1px]"
             />
             <div
               id={panelId}
@@ -144,7 +144,7 @@ export default function CategoryFinder({ variant }: CategoryFinderProps) {
             type="button"
             aria-label="업체 목록 닫기"
             onClick={() => setActiveCategory(null)}
-            className="fixed inset-0 z-40 cursor-default bg-slate-950/30 backdrop-blur-[1px]"
+            className="fixed inset-0 z-40 cursor-default bg-ink-900/30 backdrop-blur-[1px]"
           />
         )}
 

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import ServiceCard from "../../components/ServiceCard";
 import { companies, getCompany } from "../../data/services";
 import { absoluteUrl, companyPath, servicePath } from "../../lib/site";
 
@@ -121,7 +122,7 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
   };
 
   return (
-    <main className="bg-gray-50">
+    <main className="bg-bg-soft">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -129,78 +130,79 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
         }}
       />
 
-      <section className="mx-auto max-w-5xl px-4 py-12 sm:px-6 sm:py-16">
-        <nav aria-label="현재 위치" className="text-sm text-ink-600">
-          <Link prefetch={false} href="/" className="hover:text-black">홈</Link>
-          <span aria-hidden="true"> / </span>
+      <section className="mx-auto max-w-5xl px-4 py-6 sm:px-6 sm:py-8">
+        <nav
+          aria-label="현재 위치"
+          className="flex flex-wrap items-center gap-2 text-caption text-ink-600"
+        >
+          <Link
+            prefetch={false}
+            href="/"
+            className="inline-flex min-h-12 items-center hover:text-ink-900"
+          >
+            홈
+          </Link>
+          <span aria-hidden="true">/</span>
           <span>{company.name}</span>
         </nav>
 
-        <p className="mt-8 text-sm font-bold text-primary-700">업체별 업무 안내</p>
-        <h1 className="mt-2 text-4xl font-bold tracking-tight sm:text-5xl">
+        <p className="mt-4 text-caption font-semibold text-primary">업체별 업무 안내</p>
+        <h1 className="mt-2 break-keep text-h1 text-ink-900 md:text-h1-md">
           {company.name}
         </h1>
-        <p className="mt-4 leading-7 text-gray-600">
-          처리하려는 업무를 선택하면 <strong className="font-bold text-slate-900">지금 누를 메뉴</strong>,
-          <strong className="font-bold text-primary-700"> 꼭 놓치면 안 되는 단계</strong>,
+        <p className="mt-4 break-keep text-body text-ink-700 md:text-body-md">
+          처리하려는 업무를 선택하면 <strong className="font-bold text-ink-900">지금 누를 메뉴</strong>,
+          <strong className="font-bold text-primary"> 꼭 놓치면 안 되는 단계</strong>,
           직접 해결이 막혔을 때만 연락처를 보여드려요.
         </p>
 
         {/* 모바일: 인기 상위 6개를 2열×3행 압축 그리드로 먼저 보여줍니다. */}
-        <div className="mt-10 grid grid-cols-2 gap-2 sm:hidden">
+        <div className="mt-8 grid grid-cols-2 gap-2 sm:hidden">
           {orderedServices.slice(0, 6).map((service) => (
-            <Link prefetch={false}
+            <ServiceCard
               key={`compact-${service.slug}`}
               href={servicePath(company.slug, service.slug)}
-              className="rounded-xl border border-line bg-white p-3 transition active:border-primary/40 active:bg-primary-soft/20"
-            >
-              <p className="line-clamp-2 break-keep text-body-sm font-bold leading-tight text-ink-900">
-                {service.title}
-              </p>
-              <p className="mt-1 line-clamp-1 break-keep text-caption text-ink-600">
-                {service.quickSummary?.[0] ?? "처리 방법 확인"}
-              </p>
-            </Link>
+              title={service.title}
+              summary={service.quickSummary?.[0] ?? "처리 방법 확인"}
+              variant="compact"
+            />
           ))}
         </div>
         {orderedServices.length > 6 && (
-          <div className="mt-3 flex flex-col gap-3 sm:hidden">
+          <div className="mt-2 flex flex-col gap-2 sm:hidden">
             {orderedServices.slice(6).map((service) => (
-              <Link prefetch={false}
+              <ServiceCard
                 key={`rest-${service.slug}`}
                 href={servicePath(company.slug, service.slug)}
-                className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-gray-400 hover:shadow-md"
-              >
-                <p className="text-xl font-bold">{service.title}</p>
-                <p className="mt-2 line-clamp-2 text-sm leading-6 text-gray-600">
-                  {service.quickSummary?.[0] ?? "처리 방법과 필요한 정보를 확인하세요."}
-                </p>
-                <p className="mt-6 text-sm font-bold">순서대로 확인하기 →</p>
-              </Link>
+                title={service.title}
+                summary={
+                  service.quickSummary?.[0] ??
+                  "처리 방법과 필요한 정보를 확인하세요."
+                }
+                variant="compact"
+              />
             ))}
           </div>
         )}
 
         {/* 데스크톱: 기존 전체 카드 그리드(모든 항목) */}
-        <div className="mt-10 hidden gap-4 sm:grid sm:grid-cols-2">
+        <div className="mt-8 hidden gap-3 sm:grid sm:grid-cols-2">
           {orderedServices.map((service) => (
-            <Link prefetch={false}
+            <ServiceCard
               key={service.slug}
               href={servicePath(company.slug, service.slug)}
-              className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-gray-400 hover:shadow-md"
-            >
-              <p className="text-xl font-bold">{service.title}</p>
-              <p className="mt-2 line-clamp-2 text-sm leading-6 text-gray-600">
-                {service.quickSummary?.[0] ?? "처리 방법과 필요한 정보를 확인하세요."}
-              </p>
-              <p className="mt-6 text-sm font-bold">순서대로 확인하기 →</p>
-            </Link>
+              title={service.title}
+              summary={
+                service.quickSummary?.[0] ??
+                "처리 방법과 필요한 정보를 확인하세요."
+              }
+            />
           ))}
         </div>
 
-        <div className="mt-10 rounded-2xl border border-primary-100 bg-primary-50 p-5 text-sm leading-6 text-gray-700">
+        <p className="mt-8 break-keep border-t border-line-soft pt-5 text-caption text-ink-600">
           바로처리는 {company.name}의 공식 서비스가 아닌 독립 안내 서비스입니다. 마지막 단계에서는 연결된 공식 페이지의 최신 조건을 확인하세요.
-        </div>
+        </p>
       </section>
     </main>
   );

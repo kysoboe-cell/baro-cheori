@@ -171,7 +171,7 @@ export default function ScreenshotGuide({ guide }: { guide: Guide }) {
       <dialog
         ref={dialogRef}
         aria-label="화면 캡처 크게 보기"
-        className="m-auto w-[min(92vw,30rem)] rounded-xl p-0 backdrop:bg-slate-950/70"
+        className="m-auto w-[min(92vw,30rem)] rounded-xl p-0 backdrop:bg-ink-900/70"
         onClick={(event) => {
           if (event.target === dialogRef.current) close();
         }}
