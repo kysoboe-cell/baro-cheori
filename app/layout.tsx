@@ -47,10 +47,16 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="ko">
       <head>
+        {/* Google AdSense — 사이트 소유 확인 + 승인 후 광고 로드 (v11) */}
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6669238622556321"
+          crossOrigin="anonymous"
+        />
         {/*
-          AdSense 코드 삽입 지점 — 신청 시 pub ID를 받으면 여기에 넣습니다.
-          ads.txt는 pub ID 없이는 의미가 없어 지금 만들지 않습니다
-          (공식: 코드 / 메타태그 / ads.txt 중 하나만 있으면 됨).
+          위 스크립트는 심사 전에는 광고를 그리지 않습니다(화면 변화 0).
+          실제 광고 자리는 AdSlot 컴포넌트가 담당하고 NEXT_PUBLIC_ADS=on일
+          때만 켜지므로, 승인 전에는 이 스크립트만 있고 여전히 잠든 상태입니다.
         */}
         {/* Pretendard Variable dynamic subset — 한글 웹폰트, SIL OFL 라이선스(상업 무료) */}
         <link
