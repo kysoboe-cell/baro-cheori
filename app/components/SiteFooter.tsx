@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { categories, getCompaniesByCategory } from "../data/services";
 import { companyPath } from "../lib/site";
+import SupportBlock from "./SupportBlock";
 
 export default function SiteFooter() {
   return (
@@ -52,6 +53,8 @@ export default function SiteFooter() {
             </div>
           ))}
         </nav>
+        <SupportBlock />
+
         <p className="mt-8 border-t border-gray-800 pt-6 text-caption text-gray-300">
           바로처리는 각 업체의 공식 서비스가 아니며 제휴·대행 관계가 없습니다. 실제 신청 조건과 비용은 연결된 공식 페이지에서 마지막으로 확인하세요.
         </p>

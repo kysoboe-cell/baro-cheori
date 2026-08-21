@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { SUPPORT_ACCOUNT, useAccountCopy } from "./useAccountCopy";
 
 /**
  * 커피 후원 — 스펙 v3 4-7: 플로팅 버튼은 모바일에서 제거하고,
@@ -8,22 +9,8 @@ import { useEffect, useRef, useState } from "react";
  */
 export default function CoffeeSupport() {
   const [isOpen, setIsOpen] = useState(false);
-  const [copyStatus, setCopyStatus] = useState<"idle" | "copied" | "error">(
-    "idle"
-  );
   const rootRef = useRef<HTMLDivElement>(null);
-  const accountNumber = "1002-053-103-089";
-
-  const copyAccount = async () => {
-    try {
-      await navigator.clipboard.writeText(accountNumber);
-      setCopyStatus("copied");
-    } catch {
-      setCopyStatus("error");
-    }
-
-    window.setTimeout(() => setCopyStatus("idle"), 1800);
-  };
+  const { copyAccount, copyLabel } = useAccountCopy();
 
   useEffect(() => {
     if (!isOpen) return;
@@ -73,20 +60,18 @@ export default function CoffeeSupport() {
           </p>
 
           <div className="mt-4 rounded-lg bg-bg-soft p-4">
-            <p className="text-caption text-ink-600">우리은행 · 예금주 김X석</p>
+            <p className="text-caption text-ink-600">
+              {SUPPORT_ACCOUNT.bank} · 예금주 {SUPPORT_ACCOUNT.holder}
+            </p>
             <p className="tnum mt-1 break-all text-body font-semibold text-ink-900">
-              {accountNumber}
+              {SUPPORT_ACCOUNT.number}
             </p>
             <button
               type="button"
               onClick={copyAccount}
               className="mt-3 flex min-h-12 w-full items-center justify-center rounded-lg border border-line bg-white px-3 text-body-sm font-semibold text-ink-800 hover:bg-line-soft"
             >
-              {copyStatus === "copied"
-                ? "계좌번호 복사됨 ✓"
-                : copyStatus === "error"
-                  ? "복사 실패 · 길게 눌러 복사"
-                  : "계좌번호 복사"}
+              {copyLabel}
             </button>
           </div>
 

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import StepText from "./StepText";
 
 /**
  * 업체 페이지의 업무 카드 — 스펙 v7 2-2.
@@ -11,6 +12,9 @@ import Link from "next/link";
  * variant는 밀도만 바꿉니다(줄 수·CTA 한 줄 유무). 테두리·모서리·배경·hover·
  * 타이포 토큰은 두 variant가 완전히 같습니다.
  * v3 방향에 맞춰 shadow, hover:-translate-y, hover:shadow-md는 쓰지 않습니다.
+ *
+ * summary는 상세 페이지와 같은 StepText로 렌더합니다(v8 2장) — 데이터의
+ * "→"를 " > "로 바꾸고 [대괄호]만 굵게. 문구 자체는 그대로 둡니다.
  */
 export default function ServiceCard({
   href,
@@ -45,7 +49,7 @@ export default function ServiceCard({
           isCompact ? "line-clamp-1" : "line-clamp-2"
         }`}
       >
-        {summary}
+        <StepText text={summary} />
       </p>
       {!isCompact && (
         <p className="mt-4 text-body-sm font-semibold text-ink-900">

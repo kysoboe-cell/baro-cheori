@@ -39,15 +39,26 @@ export default function FixedBottomCTA({
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // 연락처 블록(#contact-block)이나 푸터 후원 블록(#support)이 화면에 들어오면
+  // 숨습니다. 후원 블록을 가리면 모바일 후원 경로가 다시 막히기 때문입니다(v8).
   useEffect(() => {
-    const contactBlock = document.getElementById("contact-block");
-    if (!contactBlock) return;
+    const targets = ["contact-block", "support"]
+      .map((id) => document.getElementById(id))
+      .filter((element): element is HTMLElement => element !== null);
+    if (targets.length === 0) return;
 
+    const visible = new Set<Element>();
     const observer = new IntersectionObserver(
-      ([entry]) => setNearContact(entry.isIntersecting),
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) visible.add(entry.target);
+          else visible.delete(entry.target);
+        }
+        setNearContact(visible.size > 0);
+      },
       { rootMargin: "0px 0px -20% 0px" }
     );
-    observer.observe(contactBlock);
+    targets.forEach((target) => observer.observe(target));
     return () => observer.disconnect();
   }, []);
 

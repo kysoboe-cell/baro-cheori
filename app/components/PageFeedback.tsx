@@ -13,7 +13,8 @@ import { useState } from "react";
  * 둘 다 없으면 조용히 UI만 바뀐다(에러 없음).
  */
 export default function PageFeedback() {
-  const [sent, setSent] = useState(false);
+  // null = 아직 안 누름 / true = 도움됐어요 / false = 아쉬워요
+  const [sentHelpful, setSentHelpful] = useState<boolean | null>(null);
 
   function send(helpful: boolean) {
     if (typeof window !== "undefined") {
@@ -26,7 +27,7 @@ export default function PageFeedback() {
       }
     }
 
-    setSent(true);
+    setSentHelpful(helpful);
   }
 
   return (
@@ -36,8 +37,26 @@ export default function PageFeedback() {
       </p>
       {/* 클릭 후 같은 높이의 한 줄로 바뀌도록 min-h를 고정해 레이아웃 밀림을 막습니다. */}
       <div className="mt-3 flex min-h-12 flex-wrap items-center gap-2">
-        {sent ? (
-          <p className="text-body-sm text-ink-700">의견 감사합니다.</p>
+        {sentHelpful !== null ? (
+          <p className="break-keep text-body-sm text-ink-700">
+            의견 감사합니다.
+            {/*
+              후원 한 줄은 "도움됐어요"에만 붙입니다. 도움이 안 됐다는 사람에게
+              후원을 권하는 건 무례합니다. 새 창을 열지 않고 푸터 후원 블록으로
+              점프만 합니다.
+            */}
+            {sentHelpful && (
+              <>
+                {" "}
+                <a
+                  href="#support"
+                  className="-my-2.5 inline-flex min-h-12 items-center align-middle font-semibold text-primary underline decoration-1 underline-offset-4 hover:decoration-2"
+                >
+                  ☕ 커피 한잔 후원하기
+                </a>
+              </>
+            )}
+          </p>
         ) : (
           <>
             <button
