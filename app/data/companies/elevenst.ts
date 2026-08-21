@@ -50,11 +50,16 @@ export const elevenst: Company = {
       ],
 
       officialUrl:
-        "https://www.11st.co.kr/OrderDelvInfo.page",
+        "https://buy.11st.co.kr/my11st/order/OrderList.tam",
 
       officialActionLabel: "11번가 주문/배송조회 열기",
 
-      lastChecked: "2026-08-18",
+      officialLinkType: "login",
+
+      officialNextStep:
+        "로그인하면 주문 목록으로 이동합니다. 처리할 상품을 눌러 진행하세요.",
+
+      lastChecked: "2026-08-21",
     },
 
     {
@@ -82,9 +87,14 @@ export const elevenst: Company = {
       tips: shoppingReturnCommonTips,
 
       officialUrl:
-        "https://www.11st.co.kr/OrderDelvInfo.page",
+        "https://buy.11st.co.kr/my11st/order/OrderList.tam",
 
       officialActionLabel: "11번가 주문/배송조회 열기",
+
+      officialLinkType: "login",
+
+      officialNextStep:
+        "로그인하면 주문 목록으로 이동합니다. 처리할 상품을 눌러 진행하세요.",
 
       priceTableNote:
         "아래 소요기간은 일반적으로 알려진 참고용 대략치예요. 실제 처리 속도는 회수·검수 상황, 카드사 반영 시점에 따라 달라질 수 있어요.",
@@ -118,7 +128,7 @@ export const elevenst: Company = {
         },
       ],
 
-      lastChecked: "2026-08-20",
+      lastChecked: "2026-08-21",
     },
 
     {
@@ -149,11 +159,16 @@ export const elevenst: Company = {
       ],
 
       officialUrl:
-        "https://www.11st.co.kr/OrderDelvInfo.page",
+        "https://buy.11st.co.kr/my11st/order/OrderList.tam",
 
       officialActionLabel: "11번가 주문/배송조회 열기",
 
-      lastChecked: "2026-08-18",
+      officialLinkType: "login",
+
+      officialNextStep:
+        "로그인하면 주문 목록으로 이동합니다. 처리할 상품을 눌러 진행하세요.",
+
+      lastChecked: "2026-08-21",
     },
 
     {
@@ -185,11 +200,16 @@ export const elevenst: Company = {
       ],
 
       officialUrl:
-        "https://www.11st.co.kr/OrderDelvInfo.page",
+        "https://buy.11st.co.kr/my11st/order/OrderList.tam",
 
       officialActionLabel: "11번가 주문/배송조회 열기",
 
-      lastChecked: "2026-08-18",
+      officialLinkType: "login",
+
+      officialNextStep:
+        "로그인하면 주문 목록으로 이동합니다. 처리할 상품을 눌러 진행하세요.",
+
+      lastChecked: "2026-08-21",
     },
 
     {
@@ -220,11 +240,16 @@ export const elevenst: Company = {
         "판매자와 해결되지 않으면 11번가 고객센터 1599-0110에 주문번호와 기존 문의 내용을 알려주세요.",
       ],
 
-      officialUrl: "https://www.11st.co.kr/OrderDelvInfo.page",
+      officialUrl: "https://buy.11st.co.kr/my11st/order/OrderList.tam",
 
       officialActionLabel: "11번가 반품내역 열기",
 
-      lastChecked: "2026-08-18",
+      officialLinkType: "login",
+
+      officialNextStep:
+        "로그인하면 주문 목록으로 이동합니다. 처리할 상품을 눌러 진행하세요.",
+
+      lastChecked: "2026-08-21",
     },
 
     {
