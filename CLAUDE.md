@@ -76,6 +76,12 @@ Claude Code가 이 프로젝트에서 작업할 때 자동으로 읽는 지침 �
   - **`customer-center`의 `cs.11st.co.kr`은 손대지 않음** — 원격 확인에서 내용이 비어 보였지만 JS로 그려지는 최신형일 가능성이 높아 증거 없이 바꾸지 않는다는 스펙 방침. `lastChecked`도 2026-08-18 그대로. (이 페이지는 `getUsefulOfficialUrl`이 customer-center를 제외하므로 애초에 공식 버튼이 렌더되지도 않음.)
   - **검증**: 빌드 152페이지 유지·lint 통과, 빌드 산출 HTML에 화석 주소 **0건**·새 주소 5건. 실사이트 5개 페이지 전부 새 주소 1건·화석 0건·"로그인 후 이어서 처리" 표기·안내 문구 노출 확인. 앱 전체에 `OrderDelvInfo` 잔존 0건. **배포 직후 `delivery-not-received` 한 페이지가 잠깐 구버전을 서빙**했다가 재요청하니 바로 새 버전(`x-opennext-cache: HIT`) — 늘 있던 엣지 재검증 지연이므로 배포 직후 1회 결과로 판단하지 말 것.
   - **후속 예약**: 11번가에서 이런 게 나왔으면 다른 곳도 있을 수 있음 → 23개 업체 `officialUrl` 약 50개를 **실브라우저로** 여는 전수 점검을 다음 기획실장 세션에서 진행(원격 확인은 JS 사이트에서 오판함). 쇼핑몰·통신사처럼 옛 시스템 많은 곳부터. 발견분은 v10으로 묶음.
+- **스펙 v10 "링크 전수 점검" 반영·배포·푸시(2026-08-21)**: `콘텐츠-초안/바로처리_링크전수점검_스펙_v10.md` 기준. 기획실장이 유석 님 외출 중 공식 링크 70개(자동 추출 55 + 상수 선언 15)를 실브라우저로 전수 점검 — 실브라우저 44개·원격 보완 3개 확인, 11개는 이미 알던 문제(11번가·v9)이거나 접근 불가로 미확인. **진짜 문제 2건**을 수정.
+  - **CJ대한통운 `parcel-not-received`("배송완료인데 상품 없음")**: 스펙은 이 업무가 `ko/support/guide/parcel`(CJ가 택배 브랜드를 오네(O-NE)로 개편하며 B2B 사업소개로 변질된 주소)을 쓴다고 진단했으나, **코드를 직접 대조하니 이미 목표 주소(`ko/tool/parcel/tracking`)를 쓰고 있었음** — 그 화석 주소는 `customer-center`가 참조하는 별도 상수(`supportUrl`)였고, `getUsefulOfficialUrl`이 `customer-center`는 공식 버튼 자체를 안 그리므로(11번가 때와 같은 패턴) 실사이트에 노출되는 화석 링크가 없어 스펙 범위(`parcel-not-received`만 명시) 밖으로 두고 손대지 않음. `lastChecked`만 재검증일로 갱신.
+  - **신한카드 ARS 안내**: `www.shinhancard.com/.../cardCounsel_voice.jsp`(제목이 "가맹점ARS이용안내" — 카드 고객이 아니라 가맹점 사장님용)를 고객용 상담 페이지(`pconts/html/bridge/2012734_40832.html`, "상담하기 | 고객센터 | 신한카드")로 교체. 이 URL을 참조하는 상수(`arsUrl`)가 `lost-card`·`customer-center` **두 곳**에서 쓰이고 있어(스펙은 한 곳으로 추정) 둘 다 교체, 액션 라벨도 둘 다 "신한카드 상담 안내 열기"로 통일. `customer-center` 쪽은 위와 같은 이유로 버튼이 안 그려지지만 데이터 정합성을 위해 같이 맞춤.
+  - **로그인 표기 4곳 점검**: `lguplus.ts`의 `internet-trouble`·`slow-internet`(둘 다 `self-troubleshoot/home-device` 사용, U+ID 로그인으로 이동)과 `netflix.ts`의 `membership-cancel`(cancelplan)·`payment-method`(account) — 넷 다 `officialLinkType`이 아예 없어서 `"login"`을 추가(화면 표기가 "로그인 후 이어서 처리"로 바뀜). `netflix.ts`의 `charged-after-cancel`은 URL이 도움말 문서라 로그인 리다이렉트 대상이 아니므로 스펙의 "4곳"에서 제외.
+  - **검증**: 빌드 152페이지 유지·lint 통과. 실사이트 — CJ `parcel-not-received` 새 주소 노출, 신한카드 `lost-card` 새 주소·새 라벨 노출·화석 URL 0건, 4곳 전부 "로그인 후 이어서 처리" 노출 확인. 앱 전체에서 실제로 렌더되는 화석 URL 0건(CJ `customer-center`의 죽은 데이터 1건만 예외, 스펙 범위 밖). 사이트맵 146개 URL 전부 200.
+  - **실수 기록**: 커밋 메시지 제목에 이전 v9(11번가) 제목을 그대로 복붙해 내용과 안 맞았음 — 즉시 알아채고 `git commit --amend` + `push --force-with-lease`로 정정(직전 단일 커밋이라 안전하게 덮어씀 가능했음).
 - 지금 단계: **색인 시작됨(2026-08-20 심야, 기획실장이 서치콘솔에서 직접 확인).** 홈 · `/company/coupang/wow-membership-cancel` · `/company/netflix/membership-cancel` · `/problem/subscription-cancel`(그날 만든 허브)까지 **Page is indexed**. `/company/samsung-electronics/repair-cost-warranty`와 `/problem/charged-after-cancel`은 색인 요청 접수 상태. → **애드센스 신청 방아쇠 조건은 이미 충족**됐고, v7 배포까지 끝났으므로 심사원이 보는 페이지(privacy·about)가 정리된 상태로 신청할 수 있음.
 - **다른 세션(Claude 웹 채팅, 기획실장)에서 병행 완료된 항목** — 기획노트.md 참고, 이 문서에도 동기화: `www.barocheori.com` DNS 리다이렉트 추가 완료, GA4 ↔ 구글 서치콘솔 도메인 속성(`sc-domain:barocheori.com`) 연동 완료. 아래 "남은 할 일"에서 제거함.
 
@@ -84,7 +90,7 @@ Claude Code가 이 프로젝트에서 작업할 때 자동으로 읽는 지침 �
 2. **서치콘솔에 `/problem/charged-after-cancel` URL 검사·색인 요청 1건**(허브 10개 대표로) — 스펙 v5 체크리스트의 마지막 남은 항목, 대시보드 작업이라 기획실장(웹 채팅) 쪽에서 처리
 3. 색인 확인 계속: `site:` 검색 + 서치콘솔/서치어드바이저 보고서(8/27 자동 점검 예약됨)
 4. **애드센스 신청 — 지금 바로 가능.** 방아쇠(색인 시작)는 8/20에 충족됐고 v7까지 배포 완료. 코드 쪽 사전 준비는 v6에서 전부 끝났고, 남은 건 유석 님 계정 작업 15분(스펙 v6 6장 체크리스트 참고 — kysoboe@gmail.com 계정 확인 → 사이트 추가 → 코드 스니펫 받아 클코에게 전달 → 검토 요청). **승인 후 클코가 할 일**: pub ID 코드를 `layout.tsx` 삽입 지점에 넣기 → `NEXT_PUBLIC_ADS=on` + AdSlot 4곳에 in-article 코드 반영(자동광고 말고 수동 배치부터) → ads.txt 생성
-5. **공식 링크 전수 점검(v10 후보)** — 11번가에서 화석 링크가 나온 만큼 23개 업체 `officialUrl` 약 50개를 실브라우저로 여는 점검이 필요. 원격 fetch는 JS 렌더 사이트에서 오판하므로 브라우저 필수. 쇼핑몰·통신사처럼 옛 시스템 많은 곳부터. 기획실장 세션에서 진행 예약됨
+5. **공식 링크 전수 점검 완료(v10, 2026-08-21)** — 70개 중 44개 실브라우저 확인, 진짜 문제 2건(CJ대한통운·신한카드) 수정 완료. 미확인 잔여: `cs.11st.co.kr`·`kt.com/selfcare`·`mc.coupang.com` 주문목록·FAQ·네이버 help 7개(확장이 해당 도메인을 차단해 원격도 판단 불가) — 유석 님이 폰으로 한 번씩 눌러보면 확정됨
 6. 쿠팡파트너스/인터넷 가입 CPA 제휴 (콘텐츠 보강 후)
 7. ~~(선택) Playwright용 크롬 설치~~ → **해결됨(2026-08-20)**: `npx playwright install chromium`으로 관리자 권한 없이 설치 완료, CLI 스크린샷 검증 가능
 
