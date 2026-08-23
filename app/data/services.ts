@@ -25,41 +25,50 @@ import { disneyPlus } from "./companies/disneyPlus";
 import { samsungElectronics } from "./companies/samsungElectronics";
 import { lgElectronics } from "./companies/lgElectronics";
 
+import type { IconName } from "../components/AppIcon";
+
 export type { CategoryId, Company, ServiceTask } from "./types";
 
-export const categories = [
+export type Category = {
+  id: CategoryId;
+  name: string;
+  /** AppIcon 이름 — 이모지 대신 lucide SVG로 그립니다(v12). */
+  icon: IconName;
+};
+
+export const categories: Category[] = [
   {
     id: "shopping" as const,
     name: "쇼핑몰",
-    icon: "🛒",
+    icon: "shopping-cart",
   },
 
   {
     id: "telecom" as const,
     name: "통신사",
-    icon: "📱",
+    icon: "smartphone",
   },
 
   {
     id: "delivery" as const,
     name: "택배",
-    icon: "📦",
+    icon: "package",
   },
 
   {
     id: "card" as const,
     name: "카드",
-    icon: "💳",
+    icon: "credit-card",
   },
   {
     id: "subscription" as const,
     name: "구독",
-    icon: "▶️",
+    icon: "monitor-play",
   },
   {
     id: "electronics" as const,
     name: "전자·가전",
-    icon: "🔧",
+    icon: "wrench",
   },
 ];
 

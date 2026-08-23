@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import AppIcon from "./AppIcon";
 import { SUPPORT_ACCOUNT, useAccountCopy } from "./useAccountCopy";
 
 /**
@@ -44,7 +45,7 @@ export default function CoffeeSupport() {
         onClick={() => setIsOpen((current) => !current)}
         className="flex min-h-12 items-center gap-1.5 rounded-full border border-line px-3 text-caption font-semibold text-ink-700 hover:bg-line-soft"
       >
-        <span aria-hidden="true">☕</span>
+        <AppIcon name="coffee" size={20} />
         <span>커피 후원</span>
       </button>
 
@@ -53,7 +54,10 @@ export default function CoffeeSupport() {
           id="coffee-support-panel"
           className="absolute right-0 top-full z-50 mt-2 w-80 rounded-xl border border-line bg-white p-5 shadow-lg"
         >
-          <p className="font-semibold text-ink-900">개발자에게 커피 한잔 ☕</p>
+          <p className="flex items-center gap-1.5 font-semibold text-ink-900">
+            개발자에게 커피 한잔
+            <AppIcon name="coffee" size={16} />
+          </p>
           <p className="mt-2 text-body-sm text-ink-700">
             바로처리가 도움이 되셨다면 자발적으로 후원할 수 있어요. 후원 여부는
             서비스 이용에 아무 영향이 없습니다.

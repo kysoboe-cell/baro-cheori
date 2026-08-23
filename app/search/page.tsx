@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import AppIcon from "../components/AppIcon";
 import { redirect } from "next/navigation";
 import {
   findExactCompany,
@@ -69,9 +70,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                   href={problemPath(problem.slug)}
                   className="group flex min-h-14 items-center gap-3 rounded-xl border border-line bg-primary-soft px-5 py-3 transition hover:border-primary/40"
                 >
-                  <span aria-hidden="true" className="shrink-0 text-lg">
-                    {problem.icon}
-                  </span>
+                  <AppIcon name={problem.icon} size={20} />
                   <span className="min-w-0 flex-1 break-keep text-h3 text-ink-900 group-hover:text-primary">
                     {problem.title}
                     <span className="font-normal text-ink-600">

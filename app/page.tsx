@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import AppIcon, { type IconName } from "./components/AppIcon";
 import CategoryFinder from "./components/CategoryFinder";
 import HomeSearch from "./components/HomeSearch";
 import { getProblem } from "./data/problems";
@@ -23,7 +24,7 @@ type HomeEntry =
       serviceSlug: string;
       question: string;
       answer: string;
-      icon?: string;
+      icon?: IconName;
       category?: string;
     }
   | {
@@ -31,7 +32,7 @@ type HomeEntry =
       problemSlug: string;
       question: string;
       answer: string;
-      icon?: string;
+      icon?: IconName;
       category?: string;
     };
 
@@ -42,28 +43,28 @@ const quickStarts: HomeEntry[] = [
     serviceSlug: "wow-membership-cancel",
     question: "쿠팡 와우, 그만 쓰고 싶어요",
     answer: "다음 결제 전 해지 순서",
-    icon: "🛒",
+    icon: "shopping-cart",
   },
   {
     kind: "problem",
     problemSlug: "repair-cost",
     question: "가전 수리비, 부르기 전에 궁금해요",
     answer: "삼성·LG 중에서 고르세요",
-    icon: "🔧",
+    icon: "wrench",
   },
   {
     kind: "problem",
     problemSlug: "charged-after-cancel",
     question: "해지했는데 또 결제됐어요",
     answer: "결제된 곳부터 고르세요",
-    icon: "💸",
+    icon: "receipt-text",
   },
   {
     kind: "problem",
     problemSlug: "lost-card",
     question: "카드를 잃어버렸어요",
     answer: "카드사 고르고 즉시 정지",
-    icon: "🔒",
+    icon: "lock",
   },
 ];
 
@@ -222,9 +223,14 @@ export default function Home() {
                     className="rounded-xl border border-line bg-white p-4 transition hover:border-primary/40 hover:bg-primary-soft/30"
                   >
                     <p className="break-keep text-h3 text-ink-900 md:text-h3-md">
-                      <span aria-hidden="true" className="mr-1.5">
-                        {task.icon}
-                      </span>
+                      {task.icon && (
+                        <AppIcon
+                          name={task.icon}
+                          size={20}
+                          tone="primary"
+                          className="mr-1.5 inline-block align-[-0.2em]"
+                        />
+                      )}
                       {task.question}
                     </p>
                     <p className="mt-1 break-keep text-caption text-ink-600">

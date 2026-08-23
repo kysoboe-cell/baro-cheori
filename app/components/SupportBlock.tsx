@@ -1,6 +1,7 @@
 "use client";
 
 import { SUPPORT_ACCOUNT, useAccountCopy } from "./useAccountCopy";
+import AppIcon from "./AppIcon";
 
 /**
  * 푸터 후원 블록 — 스펙 v8 1장 ①.
@@ -22,8 +23,9 @@ export default function SupportBlock() {
       aria-label="개발자 후원"
       className="mt-8 scroll-mt-20 border-t border-gray-800 pt-6"
     >
-      <h2 className="text-h3 text-white">
-        <span aria-hidden="true">☕</span> 도움이 되셨다면 개발자에게 커피 한잔을
+      <h2 className="flex items-center gap-2 text-h3 text-white">
+        <AppIcon name="coffee" size={24} />
+        도움이 되셨다면 개발자에게 커피 한잔을
       </h2>
       <p className="mt-2 max-w-xl break-keep text-body-sm text-gray-300">
         바로처리는 광고 없이 무료로 운영됩니다. 후원 여부는 서비스 이용에 아무

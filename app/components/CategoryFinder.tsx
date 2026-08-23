@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import AppIcon from "./AppIcon";
 import {
   categories,
   getCompaniesByCategory,
@@ -62,7 +63,7 @@ export default function CategoryFinder({ variant }: CategoryFinderProps) {
             : "border-line bg-white text-ink-700 hover:bg-line-soft"
         }`}
       >
-        <span aria-hidden="true">{category.icon}</span>
+        <AppIcon name={category.icon} size={20} />
         <span className="whitespace-nowrap">{category.name}</span>
       </button>
     );
@@ -102,9 +103,10 @@ export default function CategoryFinder({ variant }: CategoryFinderProps) {
               className="fixed inset-x-0 bottom-0 z-50 max-h-[70vh] overflow-y-auto rounded-t-2xl border-t border-line bg-white p-4 pb-[calc(1rem+env(safe-area-inset-bottom))]"
             >
               <div className="flex items-center justify-between gap-4">
-                <h2 className="text-h3 text-ink-900">
-                  {activeData.icon} {activeData.name} 업체
-                </h2>
+                <h2 className="flex items-center gap-2 text-h3 text-ink-900">
+                <AppIcon name={activeData.icon} size={24} tone="primary" />
+                {activeData.name} 업체
+              </h2>
                 <button
                   type="button"
                   onClick={() => setActiveCategory(null)}
@@ -154,8 +156,9 @@ export default function CategoryFinder({ variant }: CategoryFinderProps) {
             className="absolute left-4 top-full z-50 mt-2 w-[40rem] max-w-[calc(100vw-2rem)] rounded-xl border border-line bg-white p-4 shadow-lg sm:left-6"
           >
             <div className="flex items-center justify-between gap-4">
-              <h2 className="text-h3 text-ink-900">
-                {activeData.icon} {activeData.name} 업체
+              <h2 className="flex items-center gap-2 text-h3 text-ink-900">
+                <AppIcon name={activeData.icon} size={24} tone="primary" />
+                {activeData.name} 업체
               </h2>
               <button
                 type="button"

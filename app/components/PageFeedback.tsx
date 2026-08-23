@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import AppIcon from "./AppIcon";
 
 /**
  * "도움이 됐나요?" 피드백 위젯 — 스펙 v6 2-2.
@@ -52,7 +53,8 @@ export default function PageFeedback() {
                   href="#support"
                   className="-my-2.5 inline-flex min-h-12 items-center align-middle font-semibold text-primary underline decoration-1 underline-offset-4 hover:decoration-2"
                 >
-                  ☕ 커피 한잔 후원하기
+                  <AppIcon name="coffee" size={20} tone="primary" className="mr-1" />
+                  커피 한잔 후원하기
                 </a>
               </>
             )}

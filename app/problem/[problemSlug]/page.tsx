@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import AppIcon from "../../components/AppIcon";
 import { notFound } from "next/navigation";
 import AdSlot from "../../components/AdSlot";
 import JumpNav, { type JumpItem } from "../../components/JumpNav";
@@ -157,11 +158,14 @@ export default async function ProblemPage({ params }: ProblemPageProps) {
         </nav>
 
         <header className="mt-4">
-          <h1 className="break-keep text-h1 text-ink-900 md:text-h1-md">
-            <span aria-hidden="true" className="mr-2">
-              {problem.icon}
-            </span>
-            {problem.heading}
+          <h1 className="flex items-start gap-2 break-keep text-h1 text-ink-900 md:text-h1-md">
+            <AppIcon
+              name={problem.icon}
+              size={24}
+              tone="primary"
+              className="mt-1 md:mt-2"
+            />
+            <span>{problem.heading}</span>
           </h1>
           <p className="mt-3">
             <span className="tnum inline-flex items-center rounded-full border border-line px-3 py-1 text-caption text-ink-600">
@@ -330,9 +334,7 @@ export default async function ProblemPage({ params }: ProblemPageProps) {
                     href={problemPath(related.slug)}
                     className="inline-flex min-h-12 items-center rounded-[10px] border border-line bg-white px-4 text-body-sm font-semibold text-ink-800 hover:border-primary/40 hover:text-primary"
                   >
-                    <span aria-hidden="true" className="mr-1.5">
-                      {related.icon}
-                    </span>
+                    <AppIcon name={related.icon} size={20} className="mr-1.5" />
                     {related.title} ›
                   </Link>
                 </li>

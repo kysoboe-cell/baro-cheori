@@ -1,4 +1,5 @@
 import Link from "next/link";
+import AppIcon from "./AppIcon";
 import { categories, getCompaniesByCategory } from "../data/services";
 import { companyPath } from "../lib/site";
 import SupportBlock from "./SupportBlock";
@@ -37,8 +38,9 @@ export default function SiteFooter() {
         >
           {categories.map((category) => (
             <div key={category.id} className="flex flex-wrap items-center gap-x-3 text-body-sm">
-              <p className="font-bold text-white">
-                {category.icon} {category.name}
+              <p className="flex items-center gap-1.5 font-bold text-white">
+                <AppIcon name={category.icon} size={16} />
+                {category.name}
               </p>
               {getCompaniesByCategory(category.id)
                 .map((company) => (
