@@ -39,10 +39,10 @@ export default function FixedBottomCTA({
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // 연락처 블록(#contact-block)이나 푸터 후원 블록(#support)이 화면에 들어오면
-  // 숨습니다. 후원 블록을 가리면 모바일 후원 경로가 다시 막히기 때문입니다(v8).
+  // 연락처 블록(#contact-block)이 화면에 들어오면 숨습니다. (후원 카드는 검수 개선
+  // 1차에서 본문 중간으로 옮겨져 더 이상 관찰 대상이 아닙니다.)
   useEffect(() => {
-    const targets = ["contact-block", "support"]
+    const targets = ["contact-block"]
       .map((id) => document.getElementById(id))
       .filter((element): element is HTMLElement => element !== null);
     if (targets.length === 0) return;

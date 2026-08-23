@@ -2,23 +2,23 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import AppIcon from "./AppIcon";
 import {
   categories,
   getCompaniesByCategory,
   type CategoryId,
 } from "../data/services";
 import { companyPath } from "../lib/site";
+import AppIcon from "./AppIcon";
 
-type CategoryFinderProps = {
-  /**
-   * bar: 데스크톱(sm 이상) 헤더 아래 칩 한 줄 — 스펙 v3 4-1.
-   * chips: 모바일(sm 미만) 히어로 안 가로 스크롤 칩 한 줄 + 바텀시트.
-   */
-  variant: "bar" | "chips";
-};
-
-export default function CategoryFinder({ variant }: CategoryFinderProps) {
+/**
+ * "업체로 바로 찾기" — 검수 개선 1차(B1).
+ *
+ * 예전엔 헤더 아래 고정 밴드(데스크톱) + 히어로 안 가로 스크롤 칩(모바일)으로
+ * 나뉘어 있어서 좁은 화면에서 간판 문구보다 업체 칩이 먼저 보였습니다.
+ * 이제는 히어로·카드 4개 **아래**의 독립 섹션 하나로 합치고, 칩을 누르면
+ * 오버레이 대신 칩 바로 아래에 업체 목록이 펼쳐집니다(모바일·PC 공통).
+ */
+export default function CategoryFinder() {
   const [activeCategory, setActiveCategory] = useState<CategoryId | null>(null);
   const activeData = categories.find(
     (category) => category.id === activeCategory
@@ -39,142 +39,79 @@ export default function CategoryFinder({ variant }: CategoryFinderProps) {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [activeCategory]);
 
-  const panelId = `company-list-${variant}`;
-
-  const chipButtons = categories.map((category) => {
-    const isActive = activeCategory === category.id;
-
-    return (
-      <button
-        key={category.id}
-        type="button"
-        aria-expanded={isActive}
-        aria-controls={panelId}
-        onClick={() =>
-          setActiveCategory((current) =>
-            current === category.id ? null : category.id
-          )
-        }
-        className={`flex shrink-0 items-center gap-1.5 rounded-lg border px-4 text-body-sm font-semibold transition ${
-          variant === "bar" ? "h-10" : "min-h-12 snap-start"
-        } ${
-          isActive
-            ? "border-primary/40 bg-primary-soft text-primary"
-            : "border-line bg-white text-ink-700 hover:bg-line-soft"
-        }`}
-      >
-        <AppIcon name={category.icon} size={20} />
-        <span className="whitespace-nowrap">{category.name}</span>
-      </button>
-    );
-  });
-
-  const companyLinks = activeCompanies.map((company) => (
-    <Link
-      prefetch={false}
-      key={company.slug}
-      href={companyPath(company.slug)}
-      className="flex min-h-12 items-center justify-between gap-2 rounded-lg border border-line bg-bg-soft px-3 text-body-sm font-semibold text-ink-800 transition hover:border-primary/40 hover:bg-white"
-    >
-      <span className="break-keep">{company.name}</span>
-      <span aria-hidden="true" className="shrink-0 text-ink-500">
-        ›
-      </span>
-    </Link>
-  ));
-
-  if (variant === "chips") {
-    return (
-      <div className="mt-4 sm:hidden">
-        <div className="-mx-4 flex snap-x gap-2 overflow-x-auto px-4 pb-1">
-          {chipButtons}
-        </div>
-
-        {activeData && (
-          <>
-            <button
-              type="button"
-              aria-label="업체 목록 닫기"
-              onClick={() => setActiveCategory(null)}
-              className="fixed inset-0 z-40 cursor-default bg-ink-900/30 backdrop-blur-[1px]"
-            />
-            <div
-              id={panelId}
-              className="fixed inset-x-0 bottom-0 z-50 max-h-[70vh] overflow-y-auto rounded-t-2xl border-t border-line bg-white p-4 pb-[calc(1rem+env(safe-area-inset-bottom))]"
-            >
-              <div className="flex items-center justify-between gap-4">
-                <h2 className="flex items-center gap-2 text-h3 text-ink-900">
-                <AppIcon name={activeData.icon} size={24} tone="primary" />
-                {activeData.name} 업체
-              </h2>
-                <button
-                  type="button"
-                  onClick={() => setActiveCategory(null)}
-                  className="flex min-h-12 items-center rounded-lg px-3 text-body-sm font-semibold text-ink-600 hover:bg-line-soft"
-                >
-                  닫기
-                </button>
-              </div>
-              <div className="mt-3 grid grid-cols-2 gap-2">{companyLinks}</div>
-            </div>
-          </>
-        )}
-      </div>
-    );
-  }
-
   return (
-    <section
-      id="services"
-      className="relative z-30 hidden scroll-mt-20 border-b border-line bg-white sm:block"
-    >
-      <div className="relative mx-auto flex max-w-7xl items-center gap-3 px-4 py-3 sm:px-6">
-        <p className="mr-1 shrink-0 text-body-sm font-semibold text-ink-700">
-          업체로 바로 찾기
-        </p>
-
-        <div className="relative z-50 flex min-w-0 flex-1 flex-wrap gap-2">
-          {chipButtons}
-        </div>
-
-        <p className="ml-auto hidden text-caption text-ink-600 xl:block">
+    <section id="services" className="scroll-mt-20" aria-label="업체로 바로 찾기">
+      <div className="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
+        <h2 className="text-h2 text-ink-900 md:text-h2-md">업체로 바로 찾기</h2>
+        <p className="text-caption text-ink-600">
           업체를 고르면 업무가 바로 보입니다
         </p>
-
-        {activeData && (
-          <button
-            type="button"
-            aria-label="업체 목록 닫기"
-            onClick={() => setActiveCategory(null)}
-            className="fixed inset-0 z-40 cursor-default bg-ink-900/30 backdrop-blur-[1px]"
-          />
-        )}
-
-        {activeData && (
-          <div
-            id={panelId}
-            className="absolute left-4 top-full z-50 mt-2 w-[40rem] max-w-[calc(100vw-2rem)] rounded-xl border border-line bg-white p-4 shadow-lg sm:left-6"
-          >
-            <div className="flex items-center justify-between gap-4">
-              <h2 className="flex items-center gap-2 text-h3 text-ink-900">
-                <AppIcon name={activeData.icon} size={24} tone="primary" />
-                {activeData.name} 업체
-              </h2>
-              <button
-                type="button"
-                onClick={() => setActiveCategory(null)}
-                className="flex min-h-12 items-center rounded-lg px-3 text-body-sm font-semibold text-ink-600 hover:bg-line-soft"
-              >
-                닫기
-              </button>
-            </div>
-
-            <div className="mt-3 grid max-h-[60vh] grid-cols-2 gap-2 overflow-y-auto sm:grid-cols-4">
-              {companyLinks}
-            </div>
-          </div>
-        )}
       </div>
+
+      <div className="mt-4 flex flex-wrap gap-2">
+        {categories.map((category) => {
+          const isActive = activeCategory === category.id;
+
+          return (
+            <button
+              key={category.id}
+              type="button"
+              aria-expanded={isActive}
+              aria-controls="company-list"
+              onClick={() =>
+                setActiveCategory((current) =>
+                  current === category.id ? null : category.id
+                )
+              }
+              className={`flex min-h-12 items-center gap-1.5 rounded-lg border px-4 text-body-sm font-semibold transition sm:min-h-10 ${
+                isActive
+                  ? "border-primary/40 bg-primary-soft text-primary"
+                  : "border-line bg-white text-ink-700 hover:bg-line-soft"
+              }`}
+            >
+              <AppIcon name={category.icon} size={20} />
+              <span className="whitespace-nowrap">{category.name}</span>
+            </button>
+          );
+        })}
+      </div>
+
+      {activeData && (
+        <div
+          id="company-list"
+          className="mt-3 rounded-xl border border-line bg-white p-4"
+        >
+          <div className="flex items-center justify-between gap-4">
+            <h3 className="flex items-center gap-2 text-h3 text-ink-900">
+              <AppIcon name={activeData.icon} size={24} tone="primary" />
+              {activeData.name} 업체
+            </h3>
+            <button
+              type="button"
+              onClick={() => setActiveCategory(null)}
+              className="flex min-h-12 items-center rounded-lg px-3 text-body-sm font-semibold text-ink-600 hover:bg-line-soft"
+            >
+              닫기
+            </button>
+          </div>
+
+          <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
+            {activeCompanies.map((company) => (
+              <Link
+                prefetch={false}
+                key={company.slug}
+                href={companyPath(company.slug)}
+                className="flex min-h-12 items-center justify-between gap-2 rounded-lg border border-line bg-bg-soft px-3 text-body-sm font-semibold text-ink-800 transition hover:border-primary/40 hover:bg-white"
+              >
+                <span className="break-keep">{company.name}</span>
+                <span aria-hidden="true" className="shrink-0 text-ink-500">
+                  ›
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
     </section>
   );
 }

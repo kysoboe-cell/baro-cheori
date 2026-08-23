@@ -6,6 +6,7 @@ import FixedBottomCTA from "../../../components/FixedBottomCTA";
 import JumpNav, { type JumpItem } from "../../../components/JumpNav";
 import PageFeedback from "../../../components/PageFeedback";
 import PhoneActions from "../../../components/PhoneActions";
+import SupportBlock from "../../../components/SupportBlock";
 import ScreenshotGuide, {
   ScreenshotGuideGrid,
 } from "../../../components/ScreenshotGuide";
@@ -18,6 +19,7 @@ import {
   getOfficialActionLabel,
   getOfficialLinkHeading,
   getOfficialNextStep,
+  getPartnerNote,
   getPreparations,
   getUsefulOfficialUrl,
 } from "../../../lib/service-content";
@@ -97,6 +99,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
     service.officialNextStep ?? getOfficialNextStep(company.categoryId);
   const path = servicePath(company.slug, service.slug);
   const guide = service.screenshotGuide;
+  const partnerNote = getPartnerNote(service.slug);
   const guideSteps = guide?.steps ?? [];
   const relatedCompanyServices = company.services
     .filter(
@@ -422,6 +425,23 @@ export default async function ServicePage({ params }: ServicePageProps) {
                 </ul>
               </section>
             )}
+
+            {partnerNote && (
+              <p className="border-l-8 border-line pl-4 text-body-sm text-ink-600">
+                {partnerNote.text}{" "}
+                <a
+                  href={partnerNote.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-primary underline decoration-1 underline-offset-4 hover:decoration-2"
+                >
+                  {partnerNote.label} ↗
+                </a>
+              </p>
+            )}
+
+            {/* 후원 카드 — 처리 순서가 끝난 자리(도움이 끝난 순간)에만 보여줍니다. */}
+            <SupportBlock />
 
             {/* 처리 순서 섹션이 끝난 경계 — 리스트 내부가 아니라 여기에만 둡니다. */}
             <AdSlot id="in-article-1" />

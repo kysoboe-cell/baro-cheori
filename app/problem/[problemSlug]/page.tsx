@@ -7,6 +7,7 @@ import JumpNav, { type JumpItem } from "../../components/JumpNav";
 import PageFeedback from "../../components/PageFeedback";
 import { getProblem, problems } from "../../data/problems";
 import { getService } from "../../data/services";
+import { getPartnerNote } from "../../lib/service-content";
 import {
   absoluteUrl,
   problemPath,
@@ -199,6 +200,32 @@ export default async function ProblemPage({ params }: ProblemPageProps) {
             ))}
           </ul>
         </section>
+
+        {getPartnerNote(problem.slug) && (
+
+          <p className="mt-6 border-l-8 border-line pl-4 text-body-sm text-ink-600">
+
+            {getPartnerNote(problem.slug)!.text}{" "}
+
+            <a
+
+              href={getPartnerNote(problem.slug)!.href}
+
+              target="_blank"
+
+              rel="noopener noreferrer"
+
+              className="font-semibold text-primary underline decoration-1 underline-offset-4 hover:decoration-2"
+
+            >
+
+              {getPartnerNote(problem.slug)!.label} ↗
+
+            </a>
+
+          </p>
+
+        )}
 
         <div className="mt-6">
           <JumpNav items={jumpItems} />

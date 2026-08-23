@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import SupportBlock from "../components/SupportBlock";
 
 export const metadata: Metadata = {
   title: "서비스 소개",
@@ -58,6 +59,13 @@ export default function AboutPage() {
             </dl>
           </section>
         </div>
+
+        <div className="mt-8">
+
+          <SupportBlock />
+
+        </div>
+
 
         <div className="mt-8 flex flex-wrap gap-2">
           <Link

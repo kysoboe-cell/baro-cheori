@@ -24,7 +24,7 @@ export function ScreenshotGuideGrid({ guide }: { guide: Guide }) {
           aria-label={`${item.n}단계 화면 크게 보기: ${item.label}`}
           className="group text-left"
         >
-          <span className="relative block overflow-hidden rounded-lg border border-line transition group-hover:border-primary/50">
+          <span className="relative block overflow-hidden rounded-lg border border-line bg-line-soft transition group-hover:border-primary/50">
             <Image
               src={item.thumb ?? item.img}
               alt={item.alt}
@@ -60,7 +60,17 @@ export function ScreenshotGuideGrid({ guide }: { guide: Guide }) {
 export default function ScreenshotGuide({ guide }: { guide: Guide }) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const touchStartX = useRef<number | null>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
   const [current, setCurrent] = useState(0);
+  // 격자 자리표시(검수 개선 1차 C2): 로드되기 전엔 회색 펄스 배경, 로드되면 멈춤
+  const [loadedThumbs, setLoadedThumbs] = useState<Set<number>>(() => new Set());
+  const markLoaded = (index: number) =>
+    setLoadedThumbs((prev) => {
+      if (prev.has(index)) return prev;
+      const next = new Set(prev);
+      next.add(index);
+      return next;
+    });
   const steps = guide.steps;
   const step = steps[current];
 
@@ -81,6 +91,14 @@ export default function ScreenshotGuide({ guide }: { guide: Guide }) {
     () => setCurrent((value) => (value < steps.length - 1 ? value + 1 : 0)),
     [steps.length]
   );
+
+  // 캐시돼 있어 React가 붙기 전에 로드가 끝난 썸네일은 onLoad가 오지 않으므로 여기서 정리
+  useEffect(() => {
+    const images = gridRef.current?.querySelectorAll("img") ?? [];
+    images.forEach((image, index) => {
+      if (image.complete && image.naturalWidth > 0) markLoaded(index);
+    });
+  }, []);
 
   // 텍스트 단계 리스트의 "화면 보기" 버튼(data-guide-open) 위임 처리
   useEffect(() => {
@@ -133,7 +151,10 @@ export default function ScreenshotGuide({ guide }: { guide: Guide }) {
         </p>
       </div>
 
-      <div className="mt-4 grid grid-cols-3 gap-2 sm:grid-cols-4 lg:grid-cols-[repeat(auto-fit,minmax(150px,1fr))]">
+      <div
+        ref={gridRef}
+        className="mt-4 grid grid-cols-3 gap-2 sm:grid-cols-4 lg:grid-cols-[repeat(auto-fit,minmax(150px,1fr))]"
+      >
         {steps.map((item, index) => (
           <button
             key={item.img}
@@ -142,13 +163,18 @@ export default function ScreenshotGuide({ guide }: { guide: Guide }) {
             aria-label={`${item.n}단계 화면 크게 보기: ${item.label}`}
             className="group text-left"
           >
-            <span className="relative block overflow-hidden rounded-lg border border-line transition group-hover:border-primary/50">
+            <span
+              className={`relative block overflow-hidden rounded-lg border border-line bg-line-soft transition group-hover:border-primary/50 ${
+                loadedThumbs.has(index) ? "" : "animate-pulse"
+              }`}
+            >
               <Image
                 src={item.thumb ?? item.img}
                 alt={item.alt}
                 width={480}
                 height={600}
-                loading="lazy"
+                loading={index < 4 ? "eager" : "lazy"}
+                onLoad={() => markLoaded(index)}
                 sizes="(min-width: 1024px) 160px, (min-width: 640px) 25vw, 33vw"
                 className={`aspect-[4/5] w-full object-cover ${
                   item.thumb ? "" : "object-top"

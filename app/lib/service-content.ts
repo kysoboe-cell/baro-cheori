@@ -298,3 +298,23 @@ const officialNextStepByCategory: Record<CategoryId, string> = {
 export function getOfficialNextStep(categoryId: CategoryId) {
   return officialNextStepByCategory[categoryId];
 }
+
+/**
+ * 폐업플래너(pyeupplan.com) 상호 링크 — 검수 개선 1차(C4).
+ * 어울리는 주제(해지 위약금)에만 한 줄 넣고, 남용하지 않습니다.
+ * 업무 slug와 상황 허브 slug가 같은 이름을 쓰므로 한 표로 둘 다 처리합니다.
+ */
+const partnerNoteBySlug: Record<
+  string,
+  { text: string; href: string; label: string }
+> = {
+  "termination-fee": {
+    text: "가게를 정리하면서 인터넷·전화를 해지하는 중이라면",
+    href: "https://pyeupplan.com",
+    label: "폐업 순서표 pyeupplan.com",
+  },
+};
+
+export function getPartnerNote(slug: string) {
+  return partnerNoteBySlug[slug] ?? null;
+}

@@ -77,10 +77,10 @@ export default function PrivacyPage() {
         <p className="mt-8 text-body-sm text-ink-600">
           문의:{" "}
           <a
-            href="mailto:kysoboe@gmail.com"
+            href="mailto:contact@barocheori.com"
             className="-my-2.5 inline-flex min-h-12 items-center align-middle font-semibold text-primary-700 underline underline-offset-4"
           >
-            kysoboe@gmail.com
+            contact@barocheori.com
           </a>
         </p>
         <p className="mt-2 text-caption text-ink-600">시행일: 2026-08-21</p>

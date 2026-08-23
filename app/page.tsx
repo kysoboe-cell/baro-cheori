@@ -173,8 +173,6 @@ export default function Home() {
         }}
       />
 
-      <CategoryFinder variant="bar" />
-
       <section className="overflow-hidden border-b border-line bg-[linear-gradient(180deg,#f0fdfa_0%,#ffffff_100%)]">
         <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:py-14">
           <div className="max-w-2xl">
@@ -197,8 +195,6 @@ export default function Home() {
               {companies.length}개 업체 · {allServices.length}개 실제 업무 · 공식
               링크·확인일 표시
             </p>
-
-            <CategoryFinder variant="chips" />
           </div>
 
           <div className="mt-8 sm:mt-12">
@@ -244,7 +240,16 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="quick-start" className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12">
+      {/* 업체로 바로 찾기 — 히어로·카드 4개 아래 독립 섹션(검수 개선 1차 B1) */}
+
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12">
+
+        <CategoryFinder />
+
+      </div>
+
+
+      <section id="quick-start" className="mx-auto max-w-7xl border-t border-line-soft px-4 py-8 sm:px-6 sm:py-12">
         <div className="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
           <h2 className="break-keep text-h2 text-ink-900 md:text-h2-md">
             내 상황과 <span className="text-primary">같은 문장부터</span> 누르세요
