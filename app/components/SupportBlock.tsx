@@ -1,6 +1,6 @@
 "use client";
 
-import { SUPPORT_ACCOUNT, useAccountCopy } from "./useAccountCopy";
+import { SUPPORT_ACCOUNT, SUPPORT_COPY, useAccountCopy } from "./useAccountCopy";
 import AppIcon from "./AppIcon";
 
 /**
@@ -11,7 +11,7 @@ import AppIcon from "./AppIcon";
  * 푸터에는 '커피 후원' 텍스트 링크 한 줄만 남기고, 그 링크가 이 카드(#support)로
  * 옵니다. PageFeedback의 "커피 한잔 후원하기"도 같은 곳으로 점프합니다.
  *
- * 복사 로직은 헤더 pill(CoffeeSupport)과 같은 useAccountCopy 훅을 씁니다.
+ * 복사 로직·후원 문구(SUPPORT_COPY)는 헤더 pill(CoffeeSupport)과 공유합니다.
  */
 export default function SupportBlock() {
   const { copyAccount, copyLabel } = useAccountCopy();
@@ -24,11 +24,10 @@ export default function SupportBlock() {
     >
       <h2 className="flex items-center gap-2 text-h3 text-ink-900">
         <AppIcon name="coffee" size={24} tone="primary" />
-        도움이 되셨다면 개발자에게 커피 한잔을
+        {SUPPORT_COPY.title}
       </h2>
       <p className="mt-2 max-w-xl break-keep text-body-sm text-ink-700">
-        바로처리는 무료로 운영됩니다. 후원 여부는 서비스 이용에 아무 영향이
-        없어요.
+        {SUPPORT_COPY.description}
       </p>
 
       <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-end">
@@ -48,6 +47,10 @@ export default function SupportBlock() {
           {copyLabel}
         </button>
       </div>
+
+      <p className="mt-3 max-w-xl break-keep text-caption text-ink-600">
+        {SUPPORT_COPY.disclaimer}
+      </p>
     </section>
   );
 }

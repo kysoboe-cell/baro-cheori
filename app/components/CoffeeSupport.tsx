@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import AppIcon from "./AppIcon";
-import { SUPPORT_ACCOUNT, useAccountCopy } from "./useAccountCopy";
+import { SUPPORT_ACCOUNT, SUPPORT_COPY, useAccountCopy } from "./useAccountCopy";
 
 /**
  * 커피 후원 — 스펙 v3 4-7: position:fixed로 콘텐츠 위에 떠 있는 플로팅
@@ -61,12 +61,11 @@ export default function CoffeeSupport() {
           className="absolute right-0 top-full z-50 mt-2 w-80 rounded-xl border border-line bg-white p-5 shadow-lg"
         >
           <p className="flex items-center gap-1.5 font-semibold text-ink-900">
-            개발자에게 커피 한잔
-            <AppIcon name="coffee" size={16} />
+            <AppIcon name="coffee" size={16} tone="primary" />
+            {SUPPORT_COPY.title}
           </p>
           <p className="mt-2 text-body-sm text-ink-700">
-            바로처리가 도움이 되셨다면 자발적으로 후원할 수 있어요. 후원 여부는
-            서비스 이용에 아무 영향이 없습니다.
+            {SUPPORT_COPY.description}
           </p>
 
           <div className="mt-4 rounded-lg bg-bg-soft p-4">
@@ -84,6 +83,10 @@ export default function CoffeeSupport() {
               {copyLabel}
             </button>
           </div>
+
+          <p className="mt-3 text-caption text-ink-600">
+            {SUPPORT_COPY.disclaimer}
+          </p>
 
           <button
             type="button"
