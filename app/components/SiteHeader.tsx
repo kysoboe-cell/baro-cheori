@@ -32,7 +32,7 @@ export default function SiteHeader() {
           <Link
             prefetch={false}
             href="/#services"
-            className="hidden min-h-12 items-center px-2 hover:text-primary sm:flex"
+            className="flex min-h-12 items-center px-2 hover:text-primary"
           >
             업체 찾기
           </Link>

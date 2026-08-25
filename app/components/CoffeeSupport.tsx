@@ -5,8 +5,13 @@ import AppIcon from "./AppIcon";
 import { SUPPORT_ACCOUNT, useAccountCopy } from "./useAccountCopy";
 
 /**
- * 커피 후원 — 스펙 v3 4-7: 플로팅 버튼은 모바일에서 제거하고,
- * 데스크톱은 헤더 우측 작은 텍스트 pill로만 노출합니다.
+ * 커피 후원 — 스펙 v3 4-7: position:fixed로 콘텐츠 위에 떠 있는 플로팅
+ * 버튼은 금지, 대신 헤더 바 안의 정적 요소로 둡니다(스크롤과 같이 움직임).
+ *
+ * v13: 예전엔 이 컴포넌트 루트가 `hidden sm:block`이라 640px 미만에서
+ * 버튼째로 사라져 모바일에서 후원 진입점이 통째로 없었습니다(버그).
+ * 이제 버튼은 항상 보이고, "커피 후원" 글자만 sm 이상에서 붙습니다
+ * — 모바일은 아이콘만 있는 pill, 데스크톱은 아이콘+글자 pill.
  */
 export default function CoffeeSupport() {
   const [isOpen, setIsOpen] = useState(false);
@@ -37,16 +42,17 @@ export default function CoffeeSupport() {
   }, [isOpen]);
 
   return (
-    <div ref={rootRef} className="relative hidden sm:block">
+    <div ref={rootRef} className="relative">
       <button
         type="button"
         aria-expanded={isOpen}
         aria-controls="coffee-support-panel"
         onClick={() => setIsOpen((current) => !current)}
-        className="flex min-h-12 items-center gap-1.5 rounded-full border border-line px-3 text-caption font-semibold text-ink-700 hover:bg-line-soft"
+        aria-label="커피 후원"
+        className="flex min-h-12 min-w-12 items-center justify-center gap-1.5 rounded-full border border-line px-3 text-caption font-semibold text-ink-700 hover:bg-line-soft"
       >
         <AppIcon name="coffee" size={20} />
-        <span>커피 후원</span>
+        <span className="hidden sm:inline">커피 후원</span>
       </button>
 
       {isOpen && (
