@@ -11,7 +11,7 @@ const trackingUrl =
   "https://lotteglogis.com/home/reservation/tracking/index";
 const returnUrl =
   "https://www.lotteglogis.com/home/reservation/return/memberForm";
-const supportUrl = "https://lotteglogis.com/";
+const supportUrl = "https://www.lotteglogis.com/";
 
 export const lotteDelivery: Company = {
   slug: "lotte-delivery",
@@ -156,6 +156,7 @@ export const lotteDelivery: Company = {
       ],
       officialUrl: supportUrl,
       officialActionLabel: "롯데택배 공식 홈페이지 열기",
+      showOfficialButtonOnCustomerCenter: true,
       lastChecked: "2026-08-18",
     },
   ],

@@ -77,7 +77,8 @@ export const naverSmartstore: Company = {
       ],
 
       steps: makeShoppingReturnSteps(
-        "Npay 결제내역"
+        "Npay 결제내역",
+        "반품요청"
       ),
 
       tips: shoppingReturnCommonTips,

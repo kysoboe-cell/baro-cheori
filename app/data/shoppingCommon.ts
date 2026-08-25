@@ -1,6 +1,9 @@
-export function makeShoppingReturnSteps(orderMenuName: string) {
+export function makeShoppingReturnSteps(
+  orderMenuName: string,
+  returnButtonLabel: string = "반품 신청"
+) {
   return [
-    `${orderMenuName}에서 반품할 상품을 열고 [반품 신청]을 누릅니다.`,
+    `${orderMenuName}에서 반품할 상품을 열고 [${returnButtonLabel}]을 누릅니다.`,
     "반품 사유를 고르고 방문수거가 가능하면 선택합니다.",
     "상품을 박스·비닐에 다시 담고 테이프로 막습니다.",
     "포장 겉면에 '반품'이라고 크게 적습니다.",

@@ -286,8 +286,13 @@ export const elevenst: Company = {
         "전화하기 전에 주문번호와 상품명을 확인해두면 상담이 편해요.",
       ],
 
-      officialUrl:
-        "https://cs.11st.co.kr/",
+      officialUrl: "https://www.11st.co.kr/",
+
+      officialActionLabel: "11번가 공식 사이트 열기",
+
+      officialNextStep: "로그인 후 나의11번가에서 주문번호를 확인하세요.",
+
+      showOfficialButtonOnCustomerCenter: true,
 
       lastChecked: "2026-08-18",
     },

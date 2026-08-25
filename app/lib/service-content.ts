@@ -132,7 +132,27 @@ const preparationsBySlug: Record<string, string[]> = {
   ],
 };
 
-export function getPreparations(service: ServiceTask) {
+/**
+ * customer-center의 기본 준비물("카드·주문번호…")은 쇼핑몰·택배 문의에는
+ * 맞지만 통신사 고객센터엔 안 맞습니다(카드·주문번호를 물어보지 않음).
+ * 카테고리별로 정말 다른 값이 필요할 때만 여기에 예외를 추가합니다 —
+ * 확인 안 된 카테고리 문구를 지어내지 않기 위해 최소로 둡니다.
+ */
+const customerCenterPreparationsByCategory: Partial<
+  Record<CategoryId, string[]>
+> = {
+  telecom: [
+    "본인 확인 정보(이름·생년월일)와 상담 받을 휴대폰 번호(가입 회선)",
+    "문제 상황을 한 문장으로 정리한 메모",
+  ],
+};
+
+export function getPreparations(service: ServiceTask, categoryId?: CategoryId) {
+  if (service.slug === "customer-center" && categoryId) {
+    const override = customerCenterPreparationsByCategory[categoryId];
+    if (override) return override;
+  }
+
   return preparationsBySlug[service.slug] ?? [
     "로그인 또는 본인인증 수단",
     "관련 주문번호나 가입 정보",
@@ -256,11 +276,18 @@ const blockedOfficialUrls = new Set([
 
 /**
  * 홈페이지 첫 화면, ARS 설명처럼 바로처리의 설명보다 도움이 적은 링크는
- * 버튼으로 노출하지 않습니다. 고객센터 페이지도 일반 홈페이지 버튼을
- * 만들지 않습니다.
+ * 버튼으로 노출하지 않습니다. 고객센터 페이지도 기본적으로 일반 홈페이지
+ * 버튼을 만들지 않되, showOfficialButtonOnCustomerCenter로 표시한 예외는
+ * 보여줍니다(전화 전에 먼저 확인할 화면이 있는 경우).
  */
 export function getUsefulOfficialUrl(service: ServiceTask) {
-  if (!service.officialUrl || service.slug === "customer-center") return null;
+  if (!service.officialUrl) return null;
+  if (
+    service.slug === "customer-center" &&
+    !service.showOfficialButtonOnCustomerCenter
+  ) {
+    return null;
+  }
 
   const normalizedUrl = service.officialUrl.trim();
   const lowerUrl = normalizedUrl.toLowerCase();

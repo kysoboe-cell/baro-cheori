@@ -210,9 +210,11 @@ export const kt: Company = {
         "온라인 신청이 멈추면 100에 ‘온라인 홈상품 해지 중 막혔고, 해지와 장비 회수를 함께 접수하고 싶습니다’라고 말하세요.",
       ],
 
-      officialUrl: "https://m.kt.com/",
+      officialUrl: "https://my.kt.com/myproduct/NonSignTerminationInfo.do",
 
       officialActionLabel: "KT 홈상품 해지신청 열기",
+
+      officialLinkType: "login",
 
       lastChecked: "2026-08-19",
     },

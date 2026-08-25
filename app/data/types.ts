@@ -32,6 +32,14 @@ export type ServiceTask = {
   /** 링크를 연 뒤 사용자가 해야 할 다음 행동입니다. */
   officialNextStep?: string;
 
+  /**
+   * customer-center 업무는 기본적으로 공식 화면 버튼을 그리지 않습니다(전화가
+   * 목적이라 홈페이지 버튼은 도움이 적다는 판단). 다만 "전화 전에 여기부터
+   * 보라"고 안내하는 문장이 있는 페이지는 그 화면으로 가는 버튼이 있는 게
+   * 낫습니다 — 그런 예외에만 true로 켭니다.
+   */
+  showOfficialButtonOnCustomerCenter?: boolean;
+
   /** 전화가 꼭 필요할 때 들을 메뉴나 상담원에게 말할 문장입니다. */
   phoneGuide?: string[];
 

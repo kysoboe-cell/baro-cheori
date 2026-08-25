@@ -79,7 +79,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
   if (!item) notFound();
 
   const { company, service } = item;
-  const preparations = getPreparations(service);
+  const preparations = getPreparations(service, company.categoryId);
   const customerCenter = getCustomerCenterFallback(company.services);
   const phone = service.phone ?? customerCenter?.phone;
   const hours = service.hours ?? customerCenter?.hours;
@@ -110,7 +110,9 @@ export default async function ServicePage({ params }: ServicePageProps) {
   const relatedSameTaskServices = allServices
     .filter(
       (item) =>
-        item.company.slug !== company.slug && item.service.slug === service.slug
+        item.company.slug !== company.slug &&
+        item.company.categoryId === company.categoryId &&
+        item.service.slug === service.slug
     )
     .slice(0, 4);
   const hasContactBlock = Boolean(phone || hours || usefulOfficialUrl);
@@ -621,7 +623,9 @@ export default async function ServicePage({ params }: ServicePageProps) {
                   </span>
                 </div>
 
-                {!isCustomerCenter && usefulOfficialUrl && (
+                {(!isCustomerCenter ||
+                  service.showOfficialButtonOnCustomerCenter) &&
+                  usefulOfficialUrl && (
                   <div className="mt-4 border-t border-line-soft pt-4">
                     <p className="mb-3 text-caption text-ink-600">
                       {officialLinkHeading}

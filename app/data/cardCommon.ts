@@ -24,6 +24,18 @@ export function makeCardReissueSteps(
   ];
 }
 
+/**
+ * 전화번호(숫자로 끝남)에 붙는 조사 "로/으로"를 자동으로 고릅니다.
+ * 전화번호는 숫자를 하나씩 읽으므로(예: "8900" → "팔구공공"), 마지막 자리
+ * 숫자의 한글 발음 받침으로 판단합니다 — 받침이 없거나 'ㄹ'이면 "로",
+ * 그 외 받침이 있으면 "으로"(0공·3삼·6육처럼 받침 있는 숫자가 대상).
+ */
+function withRoParticle(number: string) {
+  const lastDigit = number.trim().slice(-1);
+  const needsEuro = new Set(["0", "3", "6"]);
+  return `${number}${needsEuro.has(lastDigit) ? "으로" : "로"}`;
+}
+
 export function makeUnrecognizedChargeSteps(
   appName: string,
   customerCenterName: string,
@@ -32,7 +44,7 @@ export function makeUnrecognizedChargeSteps(
   return [
     `${appName}에서 결제 금액, 시간, 가게 이름을 확인하고 화면을 저장합니다.`,
     "가족이 썼는지, 정기구독이나 간편결제 이름이 다르게 표시된 것은 아닌지 확인합니다.",
-    `그래도 모르는 결제라면 ${lostReportName}로 카드를 먼저 정지합니다.`,
+    `그래도 모르는 결제라면 ${withRoParticle(lostReportName)} 카드를 먼저 정지합니다.`,
     `${customerCenterName}에 "제가 하지 않은 결제입니다"라고 말하고 [이의신청]을 접수합니다.`,
     "접수번호, 문자, 앱 결제내역은 결과가 나올 때까지 지우지 않습니다.",
   ];

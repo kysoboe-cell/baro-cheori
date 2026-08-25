@@ -50,10 +50,11 @@ export const gmarket: Company = {
         "취소 완료 후 계좌 환불은 영업일 기준 시간이 더 걸릴 수 있어요.",
       ],
 
-      officialUrl:
-        "https://help.gmarket.co.kr/Tcs/Faq/FaqCategorizationType?code=C105",
+      officialUrl: "https://www.gmarket.co.kr/",
 
-      officialActionLabel: "G마켓 취소 도움말 열기",
+      officialActionLabel: "G마켓 공식 사이트 열기",
+
+      officialNextStep: "로그인 후 마이지마켓(MYG)에서 주문내역을 확인하세요.",
 
       lastChecked: "2026-08-18",
     },
@@ -83,10 +84,11 @@ export const gmarket: Company = {
 
       tips: shoppingReturnCommonTips,
 
-      officialUrl:
-        "https://help.gmarket.co.kr/Tcs/Faq/FaqCategorizationType?code=C105",
+      officialUrl: "https://www.gmarket.co.kr/",
 
-      officialActionLabel: "G마켓 반품 도움말 열기",
+      officialActionLabel: "G마켓 공식 사이트 열기",
+
+      officialNextStep: "로그인 후 마이지마켓(MYG)에서 주문내역을 확인하세요.",
 
       priceTableNote:
         "아래 소요기간은 일반적으로 알려진 참고용 대략치예요. 실제 처리 속도는 판매자 확인, 카드사 반영 시점에 따라 달라질 수 있어요.",
@@ -221,9 +223,11 @@ export const gmarket: Company = {
         "판매자 답변이 없거나 재수거가 잡히지 않으면 G마켓 고객센터 1566-5701의 반품·교환 메뉴로 문의하세요.",
       ],
 
-      officialUrl: "https://help.gmarket.co.kr/Tcs/Faq/FaqCategorizationType?code=C105",
+      officialUrl: "https://www.gmarket.co.kr/",
 
-      officialActionLabel: "G마켓 반품 도움말 열기",
+      officialActionLabel: "G마켓 공식 사이트 열기",
+
+      officialNextStep: "로그인 후 마이지마켓(MYG)에서 주문내역을 확인하세요.",
 
       lastChecked: "2026-08-18",
     },
