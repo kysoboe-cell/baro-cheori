@@ -10,12 +10,12 @@
 1. 이 ZIP 파일을 바탕화면에 저장합니다.
    파일명: baro-cheori-delivery-v7-20260818.zip
 
-2. VS Code에서 D:\Projects\baro-cheori 폴더를 엽니다.
+2. VS Code에서 C:\Projects\baro-cheori 폴더를 엽니다.
 
 3. VS Code 터미널에 아래 명령을 한 줄씩 붙여넣습니다.
 
-cd D:\Projects\baro-cheori
-Expand-Archive -Path "$env:USERPROFILE\Desktop\baro-cheori-delivery-v7-20260818.zip" -DestinationPath "D:\Projects\baro-cheori" -Force
+cd C:\Projects\baro-cheori
+Expand-Archive -Path "$env:USERPROFILE\Desktop\baro-cheori-delivery-v7-20260818.zip" -DestinationPath "C:\Projects\baro-cheori" -Force
 npm run lint
 npm run build
 
@@ -30,5 +30,5 @@ git push
 
 문제가 생겼을 때
 - ZIP이 바탕화면에 없다면 먼저 다운로드한 위치를 확인하세요.
-- PowerShell 명령은 반드시 D:\Projects\baro-cheori 터미널에서 실행하세요.
+- PowerShell 명령은 반드시 C:\Projects\baro-cheori 터미널에서 실행하세요.
 - build가 실패하면 빨간 글씨의 마지막 부분이 보이도록 캡처해 보내주세요.

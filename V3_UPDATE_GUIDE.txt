@@ -2,18 +2,18 @@
 =========================================
 
 적용 전 조건
-- 현재 프로젝트 위치: D:\Projects\baro-cheori
+- 현재 프로젝트 위치: C:\Projects\baro-cheori
 - 이전 화면 최적화 V2가 적용된 상태에서 사용합니다.
 
 1. 내려받은 ZIP 파일을 바탕화면에 놓습니다.
 
 2. VS Code 터미널에 아래 한 줄을 그대로 붙여넣고 Enter를 누릅니다.
 
-Expand-Archive -Path "$env:USERPROFILE\Desktop\baro-cheori-content-seo-v3-20260818.zip" -DestinationPath "D:\Projects\baro-cheori" -Force
+Expand-Archive -Path "$env:USERPROFILE\Desktop\baro-cheori-content-seo-v3-20260818.zip" -DestinationPath "C:\Projects\baro-cheori" -Force
 
 3. 이어서 아래 명령어를 한 줄씩 실행합니다.
 
-cd D:\Projects\baro-cheori
+cd C:\Projects\baro-cheori
 npm run lint
 npm run build
 git add .

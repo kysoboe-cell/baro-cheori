@@ -1,9 +1,9 @@
 바로처리 V15 적용 방법
 
-이번 ZIP 파일을 D:\Projects\baro-cheori 폴더 안에 넣으세요.
+이번 ZIP 파일을 C:\Projects\baro-cheori 폴더 안에 넣으세요.
 VS Code에서 바로처리 프로젝트를 연 뒤 PowerShell 터미널에 아래 명령을 위에서부터 한 줄씩 실행하세요.
 
-cd D:\Projects\baro-cheori
+cd C:\Projects\baro-cheori
 Expand-Archive -Path ".\baro-cheori-electronics-v15-20260819.zip" -DestinationPath "." -Force
 npm run lint
 npm run build

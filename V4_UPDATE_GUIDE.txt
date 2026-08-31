@@ -2,16 +2,16 @@
 =====================
 
 이번 ZIP은 프로젝트 전체가 아니라 변경된 파일만 들어 있습니다.
-기존 D:\Projects\baro-cheori 폴더에 덮어쓰면 됩니다.
+기존 C:\Projects\baro-cheori 폴더에 덮어쓰면 됩니다.
 
 1. 받은 ZIP 파일 이름을 아래와 똑같이 바꿉니다.
    baro-cheori-action-v4-20260818.zip
 
-2. ZIP 파일을 D:\Projects\baro-cheori 폴더 안으로 옮깁니다.
+2. ZIP 파일을 C:\Projects\baro-cheori 폴더 안으로 옮깁니다.
 
 3. VS Code 터미널에서 아래 명령을 위에서부터 한 줄씩 실행합니다.
 
-cd D:\Projects\baro-cheori
+cd C:\Projects\baro-cheori
 Expand-Archive -LiteralPath ".\baro-cheori-action-v4-20260818.zip" -DestinationPath "." -Force
 Remove-Item -LiteralPath ".\baro-cheori-action-v4-20260818.zip"
 npm run lint

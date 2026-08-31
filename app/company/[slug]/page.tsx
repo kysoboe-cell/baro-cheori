@@ -156,6 +156,19 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
           직접 해결이 막혔을 때만 연락처를 보여드려요.
         </p>
 
+        {company.overview && company.overview.length > 0 && (
+          <div className="mt-4 space-y-3">
+            {company.overview.map((paragraph, index) => (
+              <p
+                key={index}
+                className="break-keep text-body-sm leading-7 text-ink-700"
+              >
+                {paragraph}
+              </p>
+            ))}
+          </div>
+        )}
+
         {/* 모바일: 인기 상위 6개를 2열×3행 압축 그리드로 먼저 보여줍니다. */}
         <div className="mt-8 grid grid-cols-2 gap-2 sm:hidden">
           {orderedServices.slice(0, 6).map((service) => (
@@ -200,9 +213,6 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
           ))}
         </div>
 
-        <p className="mt-8 break-keep border-t border-line-soft pt-5 text-caption text-ink-600">
-          바로처리는 {company.name}의 공식 서비스가 아닌 독립 안내 서비스입니다. 마지막 단계에서는 연결된 공식 페이지의 최신 조건을 확인하세요.
-        </p>
       </section>
     </main>
   );

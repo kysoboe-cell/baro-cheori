@@ -201,6 +201,19 @@ export default async function ProblemPage({ params }: ProblemPageProps) {
           </ul>
         </section>
 
+        {problem.overview && problem.overview.length > 0 && (
+          <div className="mt-6 space-y-3">
+            {problem.overview.map((paragraph, index) => (
+              <p
+                key={index}
+                className="break-keep text-body-sm leading-7 text-ink-700"
+              >
+                {paragraph}
+              </p>
+            ))}
+          </div>
+        )}
+
         {getPartnerNote(problem.slug) && (
 
           <p className="mt-6 border-l-8 border-line pl-4 text-body-sm text-ink-600">
@@ -342,12 +355,6 @@ export default async function ProblemPage({ params }: ProblemPageProps) {
           <PageFeedback />
         </div>
 
-        {/* 면책 한 줄 — 관련 링크 위. 박스 치지 않습니다. */}
-        <p className="mt-8 break-keep text-caption text-ink-600">
-          이 안내는 이해를 돕기 위한 정리이며, 실제 신청·처리는 연결된 공식
-          화면의 최신 조건 기준입니다.
-        </p>
-
         {relatedProblems.length > 0 && (
           <section className="mt-6 border-t border-line-soft pt-6">
             <h2 className="text-h2 text-ink-900 md:text-h2-md">
@@ -370,11 +377,6 @@ export default async function ProblemPage({ params }: ProblemPageProps) {
           </section>
         )}
 
-        <p className="mt-8 border-t border-line-soft pt-5 text-caption text-ink-600">
-          <span className="font-semibold text-ink-800">안내 범위 · </span>
-          바로처리는 위 업체들의 공식 서비스가 아니며 제휴·대행 관계가 없습니다.
-          업체 정책이나 화면은 정보 확인일 이후 변경될 수 있습니다.
-        </p>
       </article>
     </main>
   );

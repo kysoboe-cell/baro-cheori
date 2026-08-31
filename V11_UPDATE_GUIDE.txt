@@ -1,9 +1,9 @@
 바로처리 V11 적용 방법
 
 이번 압축파일은 전체 프로젝트가 아니라 바뀐 파일만 들어 있습니다.
-ZIP 파일을 D:\Projects\baro-cheori 폴더 안에 넣은 뒤 아래 명령을 그대로 실행하세요.
+ZIP 파일을 C:\Projects\baro-cheori 폴더 안에 넣은 뒤 아래 명령을 그대로 실행하세요.
 
-cd D:\Projects\baro-cheori
+cd C:\Projects\baro-cheori
 Expand-Archive -Path ".\baro-cheori-subscription-v11-20260819.zip" -DestinationPath "." -Force
 Remove-Item ".\baro-cheori-subscription-v11-20260819.zip"
 npm run lint

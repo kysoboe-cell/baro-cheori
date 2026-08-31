@@ -5,12 +5,12 @@
 1. 실행 중인 개발 서버를 Ctrl+C로 종료합니다.
 
 2. ZIP 안의 모든 파일과 폴더를 아래 프로젝트 폴더 안에 붙여넣습니다.
-   D:\Projects\baro-cheori
+   C:\Projects\baro-cheori
 
 3. 같은 이름의 파일이 있다는 메시지가 나오면 덮어쓰기를 선택합니다.
 
 4. VS Code 터미널이 아래 위치인지 확인합니다.
-   PS D:\Projects\baro-cheori>
+   PS C:\Projects\baro-cheori>
 
 5. 아래 명령을 한 줄씩 실행합니다.
    npm run lint

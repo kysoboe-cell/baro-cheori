@@ -2,16 +2,16 @@
 =====================
 
 이번 ZIP은 프로젝트 전체가 아니라 변경된 파일만 들어 있습니다.
-기존 D:\Projects\baro-cheori 폴더에 덮어쓰면 됩니다.
+기존 C:\Projects\baro-cheori 폴더에 덮어쓰면 됩니다.
 
 1. 받은 ZIP 파일 이름이 아래와 같은지 확인합니다.
    baro-cheori-content-v5-20260818.zip
 
-2. ZIP 파일을 D:\Projects\baro-cheori 폴더 안으로 옮깁니다.
+2. ZIP 파일을 C:\Projects\baro-cheori 폴더 안으로 옮깁니다.
 
 3. VS Code 터미널에서 아래 명령을 위에서부터 한 줄씩 실행합니다.
 
-cd D:\Projects\baro-cheori
+cd C:\Projects\baro-cheori
 Expand-Archive -LiteralPath ".\baro-cheori-content-v5-20260818.zip" -DestinationPath "." -Force
 Remove-Item -LiteralPath ".\baro-cheori-content-v5-20260818.zip"
 npm run lint
@@ -52,7 +52,7 @@ https://baro-cheori.netlify.app/sitemap.xml
 
 문제 확인
 
-- Expand-Archive에서 경로 오류가 나면 ZIP이 D:\Projects\baro-cheori 안에 있는지 확인합니다.
+- Expand-Archive에서 경로 오류가 나면 ZIP이 C:\Projects\baro-cheori 안에 있는지 확인합니다.
 - git commit에서 nothing to commit이 나오면 압축이 프로젝트 폴더에 덮어써지지 않은 것입니다.
 - build가 52개 정적 페이지를 만들고 종료되면 정상입니다.
 - Remove-Item은 압축 해제가 끝난 V5 ZIP만 지우며 코드 파일은 지우지 않습니다.

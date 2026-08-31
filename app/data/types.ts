@@ -129,4 +129,11 @@ export type Company = {
   categoryId: CategoryId;
   aliases: string[];
   services: ServiceTask[];
+
+  /**
+   * 업체 허브 페이지(/company/<slug>)의 업무 목록 위에 들어가는 개요 본문
+   * 2~3문단입니다(애드센스 개선 지시서 4단계). 이 업체의 실제 상세 페이지
+   * 내용에서만 뽑은 사실로 구성 — 새 사실을 창작하지 않습니다.
+   */
+  overview?: string[];
 };

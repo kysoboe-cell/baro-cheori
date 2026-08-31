@@ -3,11 +3,11 @@
 
 1. baro-cheori-ux-v9-20260818.zip 파일을 아래 폴더 안으로 옮깁니다.
 
-D:\Projects\baro-cheori
+C:\Projects\baro-cheori
 
 2. VS Code 터미널에서 아래 명령을 위에서부터 차례로 실행합니다.
 
-cd D:\Projects\baro-cheori
+cd C:\Projects\baro-cheori
 Expand-Archive -Path ".\baro-cheori-ux-v9-20260818.zip" -DestinationPath "." -Force
 Remove-Item ".\baro-cheori-ux-v9-20260818.zip"
 

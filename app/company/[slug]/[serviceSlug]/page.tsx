@@ -297,20 +297,35 @@ export default async function ServicePage({ params }: ServicePageProps) {
 
             <JumpNav items={jumpItems} />
 
-            <section className="lg:hidden" aria-label="시작 전 준비물">
-              <div className="flex flex-wrap gap-2">
+            {/*
+              모바일=칩, 데스크톱=카드형 리스트로 보이지만 DOM에는 한 번만
+              렌더링합니다(반응형 CSS로만 분기 — 예전엔 이 섹션이 lg:hidden /
+              hidden lg:block 두 벌로 따로 있어 구글이 보는 소스에 준비물
+              문장이 그대로 2번씩 찍혔습니다. 애드센스 개선 지시서 2단계).
+            */}
+            <section
+              aria-label="시작 전 준비물"
+              className="lg:rounded-xl lg:border lg:border-line lg:bg-white lg:p-5"
+            >
+              <h2 className="hidden text-h3 text-ink-900 lg:block">
+                시작 전 준비
+              </h2>
+              <ul className="flex flex-wrap gap-2 lg:mt-3 lg:flex-col lg:flex-nowrap lg:gap-2">
                 {preparations.map((preparation) => (
-                  <span
+                  <li
                     key={preparation}
-                    className="inline-flex items-center gap-1.5 rounded-full border border-line px-3 py-1.5 text-caption text-ink-700"
+                    className="inline-flex items-center gap-1.5 rounded-full border border-line px-3 py-1.5 text-caption text-ink-700 lg:flex lg:items-start lg:gap-2 lg:rounded-none lg:border-0 lg:px-0 lg:py-0 lg:text-body-sm"
                   >
-                    <span aria-hidden="true" className="text-success">
+                    <span
+                      aria-hidden="true"
+                      className="text-success lg:mt-0.5 lg:font-semibold"
+                    >
                       ✓
                     </span>
-                    {preparation}
-                  </span>
+                    <span>{preparation}</span>
+                  </li>
                 ))}
-              </div>
+              </ul>
             </section>
 
             {service.steps && service.steps.length > 0 && (
@@ -409,12 +424,15 @@ export default async function ServicePage({ params }: ServicePageProps) {
               </>
             )}
 
+            {/* 모바일=작은 카드, 데스크톱=넓은 카드지만 DOM엔 한 번만(2단계 참고). */}
             {service.tips && service.tips.length > 0 && (
               <section
-                className="rounded-lg border-l-4 border-warn-line bg-warn-bg p-4 lg:hidden"
+                className="rounded-lg border-l-4 border-warn-line bg-warn-bg p-4 lg:rounded-xl lg:p-5"
                 aria-label="주의"
               >
-                <h2 className="text-body font-bold text-warn-text">주의</h2>
+                <h2 className="text-body font-bold text-warn-text lg:text-h3">
+                  주의
+                </h2>
                 <ul className="mt-2 space-y-2">
                   {service.tips.map((tip) => (
                     <li
@@ -571,42 +589,6 @@ export default async function ServicePage({ params }: ServicePageProps) {
               </details>
             )}
 
-            <section className="hidden rounded-xl border border-line bg-white p-5 lg:block">
-              <h2 className="text-h3 text-ink-900">시작 전 준비</h2>
-              <ul className="mt-3 space-y-2">
-                {preparations.map((preparation) => (
-                  <li
-                    key={preparation}
-                    className="flex items-start gap-2 break-keep text-body-sm text-ink-700"
-                  >
-                    <span
-                      aria-hidden="true"
-                      className="mt-0.5 font-semibold text-success"
-                    >
-                      ✓
-                    </span>
-                    <span>{preparation}</span>
-                  </li>
-                ))}
-              </ul>
-            </section>
-
-            {service.tips && service.tips.length > 0 && (
-              <section className="hidden rounded-xl border-l-4 border-warn-line bg-warn-bg p-5 lg:block">
-                <h2 className="text-h3 text-warn-text">주의</h2>
-                <ul className="mt-2 space-y-2">
-                  {service.tips.map((tip) => (
-                    <li
-                      key={tip}
-                      className="break-keep text-body-sm text-warn-text"
-                    >
-                      {tip}
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            )}
-
             {(phone || hours || usefulOfficialUrl) && (
               <section
                 id="contact-block"
@@ -706,12 +688,6 @@ export default async function ServicePage({ params }: ServicePageProps) {
           </div>
         </div>
 
-        {/* 면책 한 줄 — 관련 링크 위. 박스 치지 않습니다. */}
-        <p className="mt-8 break-keep text-caption text-ink-600 md:mt-12">
-          이 안내는 이해를 돕기 위한 정리이며, 실제 신청·처리는 연결된 공식
-          화면의 최신 조건 기준입니다.
-        </p>
-
         {(relatedCompanyServices.length > 0 ||
           relatedSameTaskServices.length > 0 ||
           parentProblem) && (
@@ -761,11 +737,6 @@ export default async function ServicePage({ params }: ServicePageProps) {
           </section>
         )}
 
-        <p className="mt-8 border-t border-line-soft pt-5 text-caption text-ink-600 md:mt-12">
-          <span className="font-semibold text-ink-800">안내 범위 · </span>
-          바로처리는 {company.name}의 공식 서비스가 아니며 제휴·대행 관계가
-          없습니다. 업체 정책이나 화면은 정보 확인일 이후 변경될 수 있습니다.
-        </p>
       </article>
 
       <FixedBottomCTA

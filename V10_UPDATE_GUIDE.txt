@@ -1,9 +1,9 @@
 바로처리 V10 적용 방법
 
-1. 받은 ZIP 파일을 D:\Projects\baro-cheori 폴더 안에 넣습니다.
+1. 받은 ZIP 파일을 C:\Projects\baro-cheori 폴더 안에 넣습니다.
 2. VS Code PowerShell에서 아래 명령어를 위에서부터 실행합니다.
 
-cd D:\Projects\baro-cheori
+cd C:\Projects\baro-cheori
 Expand-Archive -Path ".\baro-cheori-search-v10-20260818.zip" -DestinationPath "." -Force
 Remove-Item ".\baro-cheori-search-v10-20260818.zip"
 

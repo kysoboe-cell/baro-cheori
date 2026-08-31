@@ -1,11 +1,11 @@
 바로처리 V12 적용 방법
 
 1. baro-cheori-app-billing-v12-20260819.zip 파일을 아래 폴더 안에 넣으세요.
-   D:\Projects\baro-cheori
+   C:\Projects\baro-cheori
 
 2. VS Code 터미널에 아래 명령을 위에서부터 한 줄씩 실행하세요.
 
-cd D:\Projects\baro-cheori
+cd C:\Projects\baro-cheori
 Expand-Archive -Path ".\baro-cheori-app-billing-v12-20260819.zip" -DestinationPath "." -Force
 Remove-Item ".\baro-cheori-app-billing-v12-20260819.zip"
 npm run lint
