@@ -1,6 +1,9 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
-	"main": ".open-next/worker.js",
+	// worker-entry.js가 opennextjs-cloudflare 산출물(.open-next/worker.js)을 감싸서
+	// 응답 캐시 헤더를 고칩니다(재배포 후 옛 화면이 오래 남는 문제 대응). 상세 이유는
+	// worker-entry.js 상단 주석 참고.
+	"main": "worker-entry.js",
 	"name": "baro-cheori",
 	"workers_dev": false,
 	"compatibility_date": "2026-08-18",
