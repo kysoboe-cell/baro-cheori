@@ -262,6 +262,19 @@ export default async function ServicePage({ params }: ServicePageProps) {
           )}
         </header>
 
+        {service.intro && service.intro.length > 0 && (
+          <div className="mt-5 max-w-[42.5rem] space-y-3">
+            {service.intro.map((paragraph, index) => (
+              <p
+                key={index}
+                className="break-keep text-body-sm leading-7 text-ink-700"
+              >
+                <StepText text={paragraph} />
+              </p>
+            ))}
+          </div>
+        )}
+
         <div className="mt-6 grid items-start gap-8 lg:grid-cols-[minmax(0,42.5rem)_minmax(18rem,1fr)] lg:gap-12">
           <div className="min-w-0 space-y-8 md:space-y-12">
             {service.quickSummary && service.quickSummary.length > 0 && (

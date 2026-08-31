@@ -298,6 +298,39 @@ export default function Home() {
         옮겼습니다.
       */}
 
+      {/*
+        애드센스 재심사 대비 지시서 2, 3단계 — 홈이 링크판으로만 보이는 인상을
+        줄이기 위한 사용법 안내. 히어로(1뷰) 아래, 상황별 목록 다음에 둬서
+        첫 화면 스크롤량은 그대로 유지합니다.
+      */}
+      <section className="border-t border-line-soft bg-bg-soft py-8 sm:py-12">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6">
+          <h2 className="text-h2 text-ink-900 md:text-h2-md">
+            바로처리 이렇게 쓰세요
+          </h2>
+          <div className="mt-4 space-y-3">
+            <p className="break-keep text-body-sm leading-7 text-ink-700">
+              지금 겪는 문제를 그대로 검색창에 입력하면 관련 페이지로 바로
+              연결됩니다. 예를 들어 검색창에 &lsquo;쿠팡 와우 해지&rsquo;를
+              입력하면 쿠팡 와우 멤버십 해지 페이지로 바로 이동해, 지금 눌러야
+              할 메뉴부터 확인할 수 있어요.
+            </p>
+            <p className="break-keep text-body-sm leading-7 text-ink-700">
+              아직 어느 업체인지 정하지 않았다면 위의 &lsquo;다들 이것부터
+              찾아요&rsquo;나 아래 상황별 목록에서 지금 상황과 같은 문장을
+              먼저 고르세요. 업체 목록이 나오면 그중 하나를 선택해 처리
+              순서로 넘어갑니다.
+            </p>
+            <p className="break-keep text-body-sm leading-7 text-ink-700">
+              각 페이지는 지금 눌러야 할 메뉴 → 처리 순서 → 화면으로 안 될
+              때 연락할 곳 순서로 정리돼 있어, 전화를 걸기 전에 먼저 시도해볼
+              수 있습니다. &lsquo;화면 그대로 따라하기&rsquo;가 있는 페이지는
+              실제 화면 캡처를 보며 따라 할 수 있어요.
+            </p>
+          </div>
+        </div>
+      </section>
+
       <section className="bg-white py-8 sm:py-12">
         <div className="mx-auto flex max-w-5xl flex-col gap-5 px-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
           <div>

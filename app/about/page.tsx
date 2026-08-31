@@ -35,6 +35,23 @@ export default function AboutPage() {
               <li>• 공식 화면에서 확정해야 할 비용이나 처리 결과를 보장하지 않습니다.</li>
             </ul>
           </section>
+          {/* 애드센스 재심사 대비 지시서 2, 3단계 — 신뢰 신호(운영·검증 방식)를 명시. 전부 이미 사실인 내용만. */}
+          <section className="rounded-xl border border-line bg-white p-5">
+            <h2 className="text-h2 text-ink-900 md:text-h2-md">누가, 어떻게 만드나요</h2>
+            <p className="mt-3 break-keep text-body text-ink-700">
+              바로처리는 한 사람이 운영하는 독립 서비스입니다. 각 업체가 공식 홈페이지와
+              앱에 올려둔 안내를 직접 열어 확인한 내용만 정리해서 보여드리며, 그래서 페이지마다
+              언제 마지막으로 확인했는지 &lsquo;정보 확인일&rsquo;을 표시해 둡니다. 화면 구성이
+              바뀌어 안내와 실제가 다르거나 오류를 발견하셨다면{" "}
+              <a
+                href="mailto:contact@barocheori.com"
+                className="font-semibold text-primary underline decoration-1 underline-offset-4 hover:decoration-2"
+              >
+                contact@barocheori.com
+              </a>
+              으로 알려주세요.
+            </p>
+          </section>
           {/* 홈 다크 밴드(01/02/03)에 있던 3원칙을 v6 2-3에 따라 여기로 옮겼습니다. */}
           <section className="rounded-xl border border-line bg-white p-5">
             <h2 className="text-h2 text-ink-900 md:text-h2-md">바로처리가 일하는 방식</h2>

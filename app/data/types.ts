@@ -1,6 +1,15 @@
 export type ServiceTask = {
   slug: string;
   title: string;
+
+  /**
+   * h1 아래, "지금 이것부터 하세요" 박스 위에 들어가는 고유 도입부 1~2문단
+   * (애드센스 재심사 대비 지시서 2, 2단계). 이 페이지의 실제 처리 단계·주의사항·
+   * 함정에서만 뽑은 문장으로 구성 — 다른 업체·업무 페이지와 명사만 바꿔 돌려쓰지
+   * 않습니다. quickSummary(행동 유도 한 줄)와는 역할이 다릅니다.
+   */
+  intro?: string[];
+
   keywords: string[];
 
   quickSummary?: string[];
