@@ -6,6 +6,7 @@ import FixedBottomCTA from "../../../components/FixedBottomCTA";
 import JumpNav, { type JumpItem } from "../../../components/JumpNav";
 import PageFeedback from "../../../components/PageFeedback";
 import PhoneActions from "../../../components/PhoneActions";
+import { GuideLinkLine, Pitfalls } from "../../../components/Pitfalls";
 import SupportBlock from "../../../components/SupportBlock";
 import ScreenshotGuide, {
   ScreenshotGuideGrid,
@@ -13,6 +14,7 @@ import ScreenshotGuide, {
 import StepText from "../../../components/StepText";
 import { problems } from "../../../data/problems";
 import { allServices, getService } from "../../../data/services";
+import { resolveGuideLink } from "../../../lib/guide-links";
 import {
   getCustomerCenterFallback,
   getKeyStepIndexes,
@@ -100,6 +102,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
   const path = servicePath(company.slug, service.slug);
   const guide = service.screenshotGuide;
   const partnerNote = getPartnerNote(service.slug);
+  const guideLink = resolveGuideLink(service.guideLink);
   const guideSteps = guide?.steps ?? [];
   const relatedCompanyServices = company.services
     .filter(
@@ -126,6 +129,9 @@ export default async function ServicePage({ params }: ServicePageProps) {
       : []),
     ...(service.priceTable && service.priceTable.length > 0
       ? [{ href: "#price-table", label: "참고표" }]
+      : []),
+    ...(service.pitfalls && service.pitfalls.items.length > 0
+      ? [{ href: "#pitfalls", label: "주의할 경우" }]
       : []),
     ...(service.faq && service.faq.length > 0
       ? [{ href: "#faq", label: "자주 묻는 질문" }]
@@ -549,6 +555,10 @@ export default async function ServicePage({ params }: ServicePageProps) {
               );
             })()}
 
+            {service.pitfalls && service.pitfalls.items.length > 0 && (
+              <Pitfalls pitfalls={service.pitfalls} />
+            )}
+
             {service.faq && service.faq.length > 0 && (
               <section id="faq" aria-label="자주 묻는 질문" className="scroll-mt-20">
                 <h2 className="text-h2 text-ink-900 md:text-h2-md">
@@ -576,6 +586,14 @@ export default async function ServicePage({ params }: ServicePageProps) {
                   ))}
                 </div>
               </section>
+            )}
+
+            {guideLink && (
+              <GuideLinkLine
+                href={guideLink.href}
+                title={guideLink.title}
+                text={guideLink.text}
+              />
             )}
 
             {/* FAQ 섹션이 끝난 경계 */}

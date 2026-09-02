@@ -90,6 +90,28 @@ export type ServiceTask = {
   }[];
 
   /**
+   * 많이 읽히는 페이지에만 붙이는 "이런 경우 주의하세요" 섹션입니다
+   * (2026-09-02 지시서 2장). tips가 한 줄짜리 경고라면, 이쪽은 실수·예외
+   * 하나를 제목과 설명으로 풀어 쓴 묶음입니다.
+   *
+   * heading은 페이지마다 다른 문구를 씁니다 — 같은 소제목이 여러 페이지에
+   * 반복되면 템플릿으로 찍어낸 인상이 다시 생깁니다.
+   */
+  pitfalls?: {
+    heading: string;
+    items: { title: string; body: string }[];
+  };
+
+  /**
+   * 이 업무와 이어지는 기둥 글(app/data/guides.ts) 한 편으로 보내는 줄입니다.
+   * slug가 실제 글인지는 lib/guide-links.ts의 assert가 빌드 때 검사합니다.
+   */
+  guideLink?: {
+    slug: string;
+    text: string;
+  };
+
+  /**
    * "화면 그대로 따라하기" 스크린샷 가이드 v2 — 격자 + 라이트박스(스펙 v3 5절).
    * 격자에는 thumb(4:5 크롭)만 로드하고, 탭하면 라이트박스에서 img 전체를
    * 보여줍니다. thumb가 없으면 격자에서 img를 4:5로 잘라(상단 기준) 표시합니다.
@@ -145,4 +167,22 @@ export type Company = {
    * 내용에서만 뽑은 사실로 구성 — 새 사실을 창작하지 않습니다.
    */
   overview?: string[];
+
+  /** 업체 허브에도 자주 묻는 질문을 둘 수 있습니다(2026-09-02 지시서 2장). */
+  faq?: {
+    question: string;
+    answer: string;
+  }[];
+
+  /** 업체 허브용 "이런 경우 주의하세요" — 소제목은 업체마다 다르게 씁니다. */
+  pitfalls?: {
+    heading: string;
+    items: { title: string; body: string }[];
+  };
+
+  /** 업체 허브에서 이어지는 기둥 글 한 편. */
+  guideLink?: {
+    slug: string;
+    text: string;
+  };
 };

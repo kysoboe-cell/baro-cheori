@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { GuideLinkLine, Pitfalls } from "../../components/Pitfalls";
 import ServiceCard from "../../components/ServiceCard";
 import { companies, getCompany } from "../../data/services";
+import { resolveGuideLink } from "../../lib/guide-links";
 import { absoluteUrl, companyPath, servicePath } from "../../lib/site";
 
 // 실제 검색 수요(콘텐츠_보강_우선순위.md의 구글 트렌드 조사) 기준 재정렬.
@@ -107,6 +109,19 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
         (servicePriority[a.slug] ?? 50) - (servicePriority[b.slug] ?? 50)
     );
   const path = companyPath(company.slug);
+  const guideLink = resolveGuideLink(company.guideLink);
+  const faqJsonLd =
+    company.faq && company.faq.length > 0
+      ? {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: company.faq.map((item) => ({
+            "@type": "Question",
+            name: item.question,
+            acceptedAnswer: { "@type": "Answer", text: item.answer },
+          })),
+        }
+      : null;
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -129,6 +144,14 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
           __html: JSON.stringify(breadcrumbJsonLd).replace(/</g, "\\u003c"),
         }}
       />
+      {faqJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(faqJsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
+      )}
 
       <section className="mx-auto max-w-5xl px-4 py-6 sm:px-6 sm:py-8">
         <nav
@@ -212,6 +235,55 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
             />
           ))}
         </div>
+
+        {company.pitfalls && company.pitfalls.items.length > 0 && (
+          <div className="mt-10 max-w-[42.5rem]">
+            <Pitfalls pitfalls={company.pitfalls} />
+          </div>
+        )}
+
+        {company.faq && company.faq.length > 0 && (
+          <section
+            id="faq"
+            aria-label="자주 묻는 질문"
+            className="mt-10 max-w-[42.5rem] scroll-mt-20"
+          >
+            <h2 className="text-h2 text-ink-900 md:text-h2-md">
+              자주 묻는 질문
+            </h2>
+            <div className="mt-2 border-t border-line-soft">
+              {company.faq.map((item) => (
+                <details
+                  key={item.question}
+                  className="group border-b border-line-soft"
+                >
+                  <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-3 py-2 text-body font-semibold text-ink-900 marker:content-none">
+                    <span className="break-keep">{item.question}</span>
+                    <span
+                      aria-hidden="true"
+                      className="shrink-0 text-ink-500 transition-transform group-open:rotate-180"
+                    >
+                      ⌄
+                    </span>
+                  </summary>
+                  <p className="break-keep pb-4 text-body text-ink-700">
+                    {item.answer}
+                  </p>
+                </details>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {guideLink && (
+          <div className="mt-8 max-w-[42.5rem]">
+            <GuideLinkLine
+              href={guideLink.href}
+              title={guideLink.title}
+              text={guideLink.text}
+            />
+          </div>
+        )}
 
       </section>
     </main>

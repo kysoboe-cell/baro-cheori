@@ -17,6 +17,7 @@ export default function SiteFooter() {
           </div>
           <div className="flex flex-col gap-1">
             <nav aria-label="하단 메뉴" className="flex flex-wrap gap-x-3 text-body-sm">
+              <Link prefetch={false} href="/guide" className="inline-flex min-h-12 items-center hover:text-white">알아두면 좋은 글</Link>
               <Link prefetch={false} href="/about" className="inline-flex min-h-12 items-center hover:text-white">서비스 소개</Link>
               <Link prefetch={false} href="/information-policy" className="inline-flex min-h-12 items-center hover:text-white">정보 원칙</Link>
               <Link prefetch={false} href="/privacy" className="inline-flex min-h-12 items-center hover:text-white">개인정보 안내</Link>

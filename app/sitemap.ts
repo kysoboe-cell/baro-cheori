@@ -1,9 +1,11 @@
 import type { MetadataRoute } from "next";
+import { guides } from "./data/guides";
 import { problems } from "./data/problems";
 import { allServices, companies } from "./data/services";
 import {
   absoluteUrl,
   companyPath,
+  guidePath,
   problemPath,
   servicePath,
 } from "./lib/site";
@@ -18,9 +20,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: absoluteUrl("/about"),
-      lastModified: "2026-08-18",
+      lastModified: "2026-09-02",
       changeFrequency: "monthly",
-      priority: 0.5,
+      priority: 0.6,
+    },
+    {
+      url: absoluteUrl("/guide"),
+      lastModified: "2026-09-02",
+      changeFrequency: "monthly",
+      priority: 0.8,
     },
     {
       url: absoluteUrl("/information-policy"),
@@ -42,6 +50,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: "weekly",
     priority: 0.9,
   }));
+  // 기둥 글은 업체 상세(0.7)보다 위, 상황 허브(0.9)보다 아래에 둡니다.
+  const guidePages: MetadataRoute.Sitemap = guides.map((guide) => ({
+    url: absoluteUrl(guidePath(guide.slug)),
+    lastModified: guide.updatedAt,
+    changeFrequency: "monthly",
+    priority: 0.8,
+  }));
   const companyPages: MetadataRoute.Sitemap = companies.map((company) => ({
     url: absoluteUrl(companyPath(company.slug)),
     lastModified:
@@ -59,5 +74,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })
   );
 
-  return [...staticPages, ...problemPages, ...companyPages, ...servicePages];
+  return [
+    ...staticPages,
+    ...problemPages,
+    ...guidePages,
+    ...companyPages,
+    ...servicePages,
+  ];
 }

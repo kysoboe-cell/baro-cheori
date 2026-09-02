@@ -3,9 +3,16 @@ import Link from "next/link";
 import AppIcon, { type IconName } from "./components/AppIcon";
 import CategoryFinder from "./components/CategoryFinder";
 import HomeSearch from "./components/HomeSearch";
+import { guides } from "./data/guides";
 import { getProblem } from "./data/problems";
 import { allServices, companies, getService } from "./data/services";
-import { SITE_NAME, SITE_URL, problemPath, servicePath } from "./lib/site";
+import {
+  SITE_NAME,
+  SITE_URL,
+  guidePath,
+  problemPath,
+  servicePath,
+} from "./lib/site";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
@@ -292,6 +299,50 @@ export default function Home() {
       </section>
 
       {/*
+        기둥 글 목록 — 2026-09-02 지시서 1장. 업무 페이지가 다루지 않는
+        "왜 그렇게 되어 있는지"를 길게 쓴 글로 들어가는 입구입니다.
+      */}
+      <section className="mx-auto max-w-7xl border-t border-line-soft px-4 py-8 sm:px-6 sm:py-12">
+        <div className="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
+          <h2 className="break-keep text-h2 text-ink-900 md:text-h2-md">
+            누르기 전에 <span className="text-primary">읽어두면 좋은 글</span>
+          </h2>
+          <Link
+            prefetch={false}
+            href="/guide"
+            className="inline-flex min-h-12 items-center text-caption font-semibold text-primary hover:underline"
+          >
+            글 전체 보기 ›
+          </Link>
+        </div>
+
+        <ul className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+          {guides.map((guide) => (
+            <li key={guide.slug}>
+              <Link
+                prefetch={false}
+                href={guidePath(guide.slug)}
+                className="group flex h-full flex-col rounded-xl border border-line bg-white p-4 transition hover:border-primary/40 hover:bg-primary-soft/30"
+              >
+                <span className="flex items-start gap-2 break-keep text-h3 text-ink-900 group-hover:text-primary">
+                  <AppIcon
+                    name={guide.icon}
+                    size={20}
+                    tone="primary"
+                    className="mt-0.5"
+                  />
+                  <span>{guide.title}</span>
+                </span>
+                <span className="mt-2 block break-keep text-caption leading-6 text-ink-600">
+                  {guide.description}
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {/*
         v6 2-3: 홈 다크 밴드(01/02/03 자기소개 선언문)는 삭제했습니다.
         잘되는 사이트(토스 고객센터·삼쩜삼)는 과업 흐름 중간에 회사 이야기를
         두지 않습니다. 세 항목의 내용은 /about "바로처리가 일하는 방식"으로
@@ -340,12 +391,20 @@ export default function Home() {
               실제 신청 전에는 연결된 공식 화면의 최신 조건을 다시 확인합니다.
             </p>
           </div>
-          <Link prefetch={false}
-            href="/information-policy"
-            className="inline-flex min-h-12 shrink-0 items-center justify-center rounded-[10px] border border-line px-5 text-body-sm font-semibold text-ink-800 hover:bg-bg-soft"
-          >
-            정보 관리 원칙 보기
-          </Link>
+          <div className="flex shrink-0 flex-wrap gap-2">
+            <Link prefetch={false}
+              href="/about"
+              className="inline-flex min-h-12 items-center justify-center rounded-[10px] border border-line px-5 text-body-sm font-semibold text-ink-800 hover:bg-bg-soft"
+            >
+              누가 만드나요
+            </Link>
+            <Link prefetch={false}
+              href="/information-policy"
+              className="inline-flex min-h-12 items-center justify-center rounded-[10px] border border-line px-5 text-body-sm font-semibold text-ink-800 hover:bg-bg-soft"
+            >
+              정보 관리 원칙 보기
+            </Link>
+          </div>
         </div>
       </section>
     </main>

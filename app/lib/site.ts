@@ -15,6 +15,10 @@ export function problemPath(problemSlug: string) {
   return `/problem/${problemSlug}`;
 }
 
+export function guidePath(guideSlug: string) {
+  return `/guide/${guideSlug}`;
+}
+
 export function absoluteUrl(path: string) {
   return `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;
 }
