@@ -8,9 +8,8 @@ import PageFeedback from "../../../components/PageFeedback";
 import PhoneActions from "../../../components/PhoneActions";
 import { GuideLinkLine, Pitfalls } from "../../../components/Pitfalls";
 import SupportBlock from "../../../components/SupportBlock";
-import ScreenshotGuide, {
-  ScreenshotGuideGrid,
-} from "../../../components/ScreenshotGuide";
+import { ScreenshotGuideGrid } from "../../../components/ScreenshotGuide";
+import StepScreenshot from "../../../components/StepScreenshot";
 import StepText from "../../../components/StepText";
 import { problems } from "../../../data/problems";
 import { allServices, getService } from "../../../data/services";
@@ -35,13 +34,6 @@ import {
 type ServicePageProps = {
   params: Promise<{ slug: string; serviceSlug: string }>;
 };
-
-const CIRCLED_NUMBERS = "①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳";
-
-/** 한 단계에 스샷이 2장 이상 붙었을 때 "화면 보기 ③"처럼 스샷 번호를 붙입니다. */
-function circledNumber(n: number) {
-  return CIRCLED_NUMBERS[n - 1] ?? String(n);
-}
 
 export function generateStaticParams() {
   return allServices.map(({ company, service }) => ({
@@ -124,14 +116,11 @@ export default async function ServicePage({ params }: ServicePageProps) {
     ...(service.steps && service.steps.length > 0
       ? [{ href: "#steps", label: "처리 순서" }]
       : []),
-    ...(guide && guide.steps.length > 0
-      ? [{ href: "#screens", label: "화면 따라하기" }]
+    ...(service.pitfalls && service.pitfalls.items.length > 0
+      ? [{ href: "#pitfalls", label: "주의할 경우" }]
       : []),
     ...(service.priceTable && service.priceTable.length > 0
       ? [{ href: "#price-table", label: "참고표" }]
-      : []),
-    ...(service.pitfalls && service.pitfalls.items.length > 0
-      ? [{ href: "#pitfalls", label: "주의할 경우" }]
       : []),
     ...(service.faq && service.faq.length > 0
       ? [{ href: "#faq", label: "자주 묻는 질문" }]
@@ -422,17 +411,13 @@ export default async function ServicePage({ params }: ServicePageProps) {
                             }
                           />
                           {linkedGuideSteps.map((linkedGuideStep) => (
-                            <button
+                            <StepScreenshot
                               key={linkedGuideStep.n}
-                              type="button"
-                              data-guide-open={linkedGuideStep.n}
-                              aria-label={`${linkedGuideStep.n}번 화면 보기`}
-                              className="-my-2.5 ml-1.5 inline-flex min-h-12 items-center px-1.5 align-middle text-caption font-semibold text-primary underline decoration-1 underline-offset-4 hover:decoration-2"
-                            >
-                              {linkedGuideSteps.length > 1
-                                ? `화면 보기 ${circledNumber(linkedGuideStep.n)}`
-                                : "화면 보기"}
-                            </button>
+                              step={linkedGuideStep}
+                              showNumber={linkedGuideSteps.length > 1}
+                              basis={guide!.basis}
+                              checkedAt={guide!.checkedAt}
+                            />
                           ))}
                         </p>
                       </li>
@@ -480,14 +465,15 @@ export default async function ServicePage({ params }: ServicePageProps) {
             )}
 
             {/* 후원 카드 — 처리 순서가 끝난 자리(도움이 끝난 순간)에만 보여줍니다. */}
+            {service.pitfalls && service.pitfalls.items.length > 0 && (
+              <Pitfalls pitfalls={service.pitfalls} />
+            )}
+
+            {/* 후원 카드 — 처리 순서·주의·조심할 경우까지 도움이 끝난 자리에 둡니다. */}
             <SupportBlock />
 
-            {/* 처리 순서 섹션이 끝난 경계 — 리스트 내부가 아니라 여기에만 둡니다. */}
+            {/* 본문 도움말이 끝난 경계 — 리스트 내부가 아니라 여기에만 둡니다. */}
             <AdSlot id="in-article-1" />
-
-            {guide && guide.steps.length > 0 && (
-              <ScreenshotGuide guide={guide} />
-            )}
 
             {service.priceTable && service.priceTable.length > 0 && (() => {
               const priceTable = service.priceTable;
@@ -554,10 +540,6 @@ export default async function ServicePage({ params }: ServicePageProps) {
                 </section>
               );
             })()}
-
-            {service.pitfalls && service.pitfalls.items.length > 0 && (
-              <Pitfalls pitfalls={service.pitfalls} />
-            )}
 
             {service.faq && service.faq.length > 0 && (
               <section id="faq" aria-label="자주 묻는 질문" className="scroll-mt-20">
