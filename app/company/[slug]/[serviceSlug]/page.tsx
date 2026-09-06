@@ -52,10 +52,17 @@ export async function generateMetadata({
 
   const { company, service } = item;
   const path = servicePath(company.slug, service.slug);
-  const description = `${company.name} ${service.title}: 지금 눌러야 할 메뉴, 실제 처리 순서, 안 될 때 고객센터를 확인하세요.`;
+  // 업무명 자체가 "고객센터"인 페이지는 기본 규칙("{업체} {업무} 방법·고객센터")을
+  // 쓰면 제목에 "고객센터"가 두 번 들어갑니다. 그 페이지만 따로 만듭니다.
+  const isCustomerCenterTitle = service.title.includes("고객센터");
+  const description = isCustomerCenterTitle
+    ? `${company.name} 고객센터 전화·처리 방법: 지금 눌러야 할 메뉴, 실제 처리 순서를 확인하세요.`
+    : `${company.name} ${service.title}: 지금 눌러야 할 메뉴, 실제 처리 순서, 안 될 때 고객센터를 확인하세요.`;
 
   return {
-    title: `${company.name} ${service.title} 방법·고객센터`,
+    title: isCustomerCenterTitle
+      ? `${company.name} 고객센터 전화·처리 방법`
+      : `${company.name} ${service.title} 방법·고객센터`,
     description,
     alternates: { canonical: path },
     openGraph: {

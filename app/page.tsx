@@ -375,8 +375,8 @@ export default function Home() {
             <p className="break-keep text-body-sm leading-7 text-ink-700">
               각 페이지는 지금 눌러야 할 메뉴 → 처리 순서 → 화면으로 안 될
               때 연락할 곳 순서로 정리돼 있어, 전화를 걸기 전에 먼저 시도해볼
-              수 있습니다. &lsquo;화면 그대로 따라하기&rsquo;가 있는 페이지는
-              실제 화면 캡처를 보며 따라 할 수 있어요.
+              수 있습니다. 화면 캡처가 있는 페이지는 실제 화면을 보며 따라 할
+              수 있어요.
             </p>
           </div>
         </div>

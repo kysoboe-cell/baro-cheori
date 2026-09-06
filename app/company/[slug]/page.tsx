@@ -109,6 +109,12 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
         (servicePriority[a.slug] ?? 50) - (servicePriority[b.slug] ?? 50)
     );
   const path = companyPath(company.slug);
+  // 고객센터 페이지는 위 목록에서 빠져 있어서, 업체 허브에서 그리로 가는 링크가
+  // 아예 없었습니다(사이트 안에서 클릭으로 못 가는 고아 페이지). 목록 맨 아래에
+  // 한 줄로 둡니다 — 고객센터 업무가 있는 업체에만 나옵니다.
+  const hasCustomerCenter = company.services.some(
+    (service) => service.slug === "customer-center"
+  );
   const guideLink = resolveGuideLink(company.guideLink);
   const faqJsonLd =
     company.faq && company.faq.length > 0
@@ -235,6 +241,23 @@ export default async function CompanyPage({ params }: CompanyPageProps) {
             />
           ))}
         </div>
+
+        {hasCustomerCenter && (
+          <div className="mt-3">
+            <Link
+              prefetch={false}
+              href={servicePath(company.slug, "customer-center")}
+              className="flex min-h-14 items-center justify-between gap-3 rounded-xl border border-line bg-white px-4 py-3 transition hover:border-primary/40 hover:bg-primary-soft/30"
+            >
+              <span className="break-keep text-body-sm font-semibold text-ink-900">
+                고객센터 전화·처리 방법
+              </span>
+              <span aria-hidden="true" className="shrink-0 text-ink-500">
+                ›
+              </span>
+            </Link>
+          </div>
+        )}
 
         {company.pitfalls && company.pitfalls.items.length > 0 && (
           <div className="mt-10 max-w-[42.5rem]">
