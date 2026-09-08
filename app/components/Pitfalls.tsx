@@ -2,6 +2,34 @@ import Link from "next/link";
 import StepText from "./StepText";
 
 /**
+ * 본문 문장 안에 "/guide/<슬러그>" 주소가 그대로 적혀 있으면 그 부분만 링크로
+ * 그립니다. 보이는 글자는 하나도 바뀌지 않고 주소가 눌리기만 합니다 — 문장을
+ * 고치지 않으면서 내부 링크를 살리기 위한 처리입니다.
+ */
+function PitfallBody({ text }: { text: string }) {
+  const parts = text.split(/(\/guide\/[a-z0-9-]+)/g);
+
+  return (
+    <>
+      {parts.map((part, index) =>
+        /^\/guide\/[a-z0-9-]+$/.test(part) ? (
+          <Link
+            key={index}
+            prefetch={false}
+            href={part}
+            className="font-semibold text-primary underline decoration-1 underline-offset-4 hover:decoration-2"
+          >
+            {part}
+          </Link>
+        ) : (
+          <StepText key={index} text={part} />
+        )
+      )}
+    </>
+  );
+}
+
+/**
  * "이런 경우 주의하세요" 섹션 — 2026-09-02 지시서 2장.
  *
  * 데이터의 `tips`가 한 줄짜리 경고라면 이쪽은 실수·예외 하나를 제목과 설명으로
@@ -23,7 +51,7 @@ export function Pitfalls({
           <div key={item.title} className="border-l-4 border-line pl-4">
             <p className="break-keep text-h3 text-ink-900">{item.title}</p>
             <p className="mt-1 break-keep text-body-sm leading-7 text-ink-700">
-              <StepText text={item.body} />
+              <PitfallBody text={item.body} />
             </p>
           </div>
         ))}

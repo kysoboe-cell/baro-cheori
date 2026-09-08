@@ -65,7 +65,11 @@ export async function generateMetadata({
   let title: string;
   let description: string;
 
-  if (isCustomerCenterTitle && customerCenterPhone) {
+  if (service.metaTitle && service.metaDescription) {
+    // 페이지별로 직접 정해둔 제목·설명이 있으면 규칙보다 우선합니다.
+    title = service.metaTitle;
+    description = service.metaDescription;
+  } else if (isCustomerCenterTitle && customerCenterPhone) {
     title = `${company.name} 고객센터 전화번호 ${customerCenterPhone} · 처리 방법`;
     description = `${company.name} 고객센터 대표번호 ${customerCenterPhone}. 전화 전에 눌러볼 메뉴와 상담 연결 순서를 정리했습니다.`;
   } else if (isCustomerCenterTitle) {
@@ -81,10 +85,11 @@ export async function generateMetadata({
     description,
     alternates: { canonical: path },
     openGraph: {
-      // 고객센터 페이지는 og:title도 같은 규칙을 씁니다.
-      title: isCustomerCenterTitle
-        ? title
-        : `${company.name} ${service.title} 처리 방법`,
+      // 고객센터 페이지와 제목을 직접 정해둔 페이지는 og:title도 같은 문구입니다.
+      title:
+        service.metaTitle || isCustomerCenterTitle
+          ? title
+          : `${company.name} ${service.title} 처리 방법`,
       description,
       url: path,
     },
@@ -503,6 +508,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
             {service.priceTable && service.priceTable.length > 0 && (() => {
               const priceTable = service.priceTable;
               const hasVisitFee = priceTable.some((row) => row.visitFee);
+              const hasIssue = priceTable.some((row) => row.issue);
 
               return (
                 <section id="price-table" aria-label="참고 비용표" className="scroll-mt-20">
@@ -521,10 +527,12 @@ export default async function ServicePage({ params }: ServicePageProps) {
                           <th scope="col" className="py-2 pr-3 font-medium">
                             {service.priceTableHeading?.columns?.item ?? "제품"}
                           </th>
-                          <th scope="col" className="py-2 pr-3 font-medium">
-                            {service.priceTableHeading?.columns?.issue ??
-                              "흔한 고장 유형"}
-                          </th>
+                          {hasIssue && (
+                            <th scope="col" className="py-2 pr-3 font-medium">
+                              {service.priceTableHeading?.columns?.issue ??
+                                "흔한 고장 유형"}
+                            </th>
+                          )}
                           {hasVisitFee && (
                             <th scope="col" className="py-2 pr-3 font-medium">
                               {service.priceTableHeading?.columns?.visitFee ??
@@ -540,15 +548,17 @@ export default async function ServicePage({ params }: ServicePageProps) {
                       <tbody>
                         {priceTable.map((row) => (
                           <tr
-                            key={`${row.item}-${row.issue}`}
+                            key={`${row.item}-${row.issue ?? row.priceRange}`}
                             className="border-b border-line-soft align-top"
                           >
                             <td className="py-2.5 pr-3 font-semibold text-ink-900">
                               {row.item}
                             </td>
-                            <td className="py-2.5 pr-3 text-ink-700">
-                              {row.issue}
-                            </td>
+                            {hasIssue && (
+                              <td className="py-2.5 pr-3 text-ink-700">
+                                {row.issue}
+                              </td>
+                            )}
                             {hasVisitFee && (
                               <td className="py-2.5 pr-3 text-ink-700">
                                 {row.visitFee}

@@ -12,6 +12,14 @@ export type ServiceTask = {
 
   keywords: string[];
 
+  /**
+   * 이 페이지만 쓰는 <title>·description입니다(2026-09-08 깊이 작업 지시서).
+   * 지정하면 업무 종류별 기본 규칙 대신 이 문구를 그대로 씁니다 — og:title도
+   * 같은 문구를 씁니다. h1은 건드리지 않습니다.
+   */
+  metaTitle?: string;
+  metaDescription?: string;
+
   quickSummary?: string[];
 
   phone?: {
@@ -60,7 +68,8 @@ export type ServiceTask = {
    */
   priceTable?: {
     item: string;
-    issue: string;
+    /** 값이 있는 행이 하나도 없으면 열 자체가 표에서 빠집니다(visitFee와 같음). */
+    issue?: string;
     visitFee?: string;
     priceRange: string;
   }[];
