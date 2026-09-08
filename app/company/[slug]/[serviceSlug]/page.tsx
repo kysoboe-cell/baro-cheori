@@ -55,18 +55,36 @@ export async function generateMetadata({
   // 업무명 자체가 "고객센터"인 페이지는 기본 규칙("{업체} {업무} 방법·고객센터")을
   // 쓰면 제목에 "고객센터"가 두 번 들어갑니다. 그 페이지만 따로 만듭니다.
   const isCustomerCenterTitle = service.title.includes("고객센터");
-  const description = isCustomerCenterTitle
-    ? `${company.name} 고객센터 전화·처리 방법: 지금 눌러야 할 메뉴, 실제 처리 순서를 확인하세요.`
-    : `${company.name} ${service.title}: 지금 눌러야 할 메뉴, 실제 처리 순서, 안 될 때 고객센터를 확인하세요.`;
+  // 검색창에 번호 자체를 넣는 사람이 많은데(서치콘솔에서 확인) 제목에 번호가
+  // 없어 클릭이 안 됐습니다. 그 페이지가 대표로 보여주는 번호를 제목·설명에
+  // 넣습니다. 데이터에 번호가 없으면 예전 규칙을 그대로 씁니다.
+  const customerCenterPhone = isCustomerCenterTitle
+    ? service.phone?.number
+    : undefined;
+
+  let title: string;
+  let description: string;
+
+  if (isCustomerCenterTitle && customerCenterPhone) {
+    title = `${company.name} 고객센터 전화번호 ${customerCenterPhone} · 처리 방법`;
+    description = `${company.name} 고객센터 대표번호 ${customerCenterPhone}. 전화 전에 눌러볼 메뉴와 상담 연결 순서를 정리했습니다.`;
+  } else if (isCustomerCenterTitle) {
+    title = `${company.name} 고객센터 전화·처리 방법`;
+    description = `${company.name} 고객센터 전화·처리 방법: 지금 눌러야 할 메뉴, 실제 처리 순서를 확인하세요.`;
+  } else {
+    title = `${company.name} ${service.title} 방법·고객센터`;
+    description = `${company.name} ${service.title}: 지금 눌러야 할 메뉴, 실제 처리 순서, 안 될 때 고객센터를 확인하세요.`;
+  }
 
   return {
-    title: isCustomerCenterTitle
-      ? `${company.name} 고객센터 전화·처리 방법`
-      : `${company.name} ${service.title} 방법·고객센터`,
+    title,
     description,
     alternates: { canonical: path },
     openGraph: {
-      title: `${company.name} ${service.title} 처리 방법`,
+      // 고객센터 페이지는 og:title도 같은 규칙을 씁니다.
+      title: isCustomerCenterTitle
+        ? title
+        : `${company.name} ${service.title} 처리 방법`,
       description,
       url: path,
     },
